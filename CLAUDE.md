@@ -1,0 +1,42 @@
+# Assistenza distributori (prototipo)
+
+Servizio per distributori automatici: il cliente scansiona un QR sulla macchina e segnala un problema.
+Il sistema riconosce macchina, zona e operatore dal codice nel QR, e avvisa l'operatore di zona.
+Lingua di lavoro con l'autore (Samuele): italiano.
+
+## Stato
+Prototipo funzionante in una sola pagina (`index.html`) + due script:
+- `i18n.js`: traduzioni del percorso cliente in 10 lingue (it, en, es, fr, de, ro, sq, ar [RTL], uk, zh). Traduzioni mie, da far rivedere a madrelingua (privacy e rimborso soprattutto).
+- `qr.js`: generatore QR autonomo (byte mode, correzione M, versioni 1-6). Verificato con un lettore indipendente (OpenCV).
+- Era pubblicato come artifact privato su claude.ai (slug bf925e02-5246-44fe-a778-11670afcc8fc). I dati vivono solo in memoria: si perdono ricaricando.
+
+Test: `./tests/run.sh` (solo Node, nessuna dipendenza). Il simulatore dell'orario è stato tolto dall'interfaccia; i test usano `globalThis.__clock(giorno, minuti, secondi)`.
+
+## Regole di prodotto già decise
+- Gestore = titolare dei dati; Samuele = fornitore. Dati raccolti: solo contatto per il rimborso, niente IBAN.
+- Assistenza aperta lun-ven 8:30:00-18:30:59 (fuso Europe/Rome, orario reale, controllo ogni secondo). Weekend = come la notte. Festivi NON gestiti.
+- Di notte il servizio aiuta comunque il cliente con domande standard e consigli (flusso guidato). Le segnalazioni notturne arrivano all'operatore come riepilogo al mattino, tranne quelle urgenti (pericolo: fumo, scintille, acqua).
+- Flusso cliente guidato: problema -> (pagamento, errore display, consigli "prova prima questi passaggi" con uscita "ha funzionato" per evitare falsi allarmi) -> importo -> prodotto -> foto -> rimborso -> contatto.
+- Rimborso: tre scelte. "Rimborso sull'app" è proposto e segnato "Consigliato" (previa verifica di una persona con telecamere o altri sistemi), "Monete dal distributore" (accordo con l'operatore di zona), "Solo segnalazione".
+- Contatto: telefono (prefisso a scelta, cifre massime per paese, spazi automatici) oppure email validata. Obbligatorio solo se si chiede il rimborso.
+- Zone/operatori: Nord (Marco), Centro (Giulia), Sud (Luca) di esempio. Ogni operatore vede solo la sua zona.
+- Macchina: il QR contiene solo l'indirizzo con il codice macchina (es. https://tuodominio.it/s/OSP-03), nessun dato personale. Il GPS non si usa.
+- Flusso "Aggiungi macchina" (operatore sul campo): numero macchina, matricola, luogo, punto preciso, zona, gestore, tipo, note -> "Genera QR code" -> adesivo pronto + prova scansione. Controlli: codice e matricola unici.
+
+## Convenzioni tecniche della pagina
+- Tutto in `index.html`; script inline dentro un blocco `{ ... }`; eventi per delega; nessun `alert/confirm`.
+- Colori con variabili CSS `light-dark()`; font Inter; pulsanti >=44px.
+- Testi del cliente passano da `tr(chiave)` e `ot(valoreItaliano)`. Le risposte si salvano con i valori italiani canonici (es. "Soldi trattenuti"), solo la visualizzazione è tradotta. Operatore e pannello restano in italiano.
+- Download del QR: nell'artifact serviva la capability `downloads`; fuori da claude.ai è un normale download di file.
+
+## Da fare (in ordine consigliato)
+1. Archivio dati vero (macchine, segnalazioni, operatori).
+2. Notifiche reali all'operatore (SMS/WhatsApp/push) con conferma "preso in carico" ed escalation dopo X minuti.
+3. Login e ruoli (operatore di zona, centro assistenza, gestore multi-cliente).
+4. Codici QR non indovinabili (parte casuale nell'indirizzo) + limiti anti-spam.
+5. Privacy: informativa, tempi di conservazione, cancellazione, accordo titolare/fornitore. Chiedere sempre a Samuele gli aspetti legali PRIMA di scrivere documenti, e preferire documenti minimali.
+6. Segnalazioni doppie raggruppate; stati del rimborso (da verificare, approvato, pagato) con tetto di importo; link di stato per il cliente; traduzione automatica del testo libero per l'operatore; festività e orari per zona; stampa adesivi in blocco; statistiche.
+7. Sostituire il dominio segnaposto `tuodominio.it` in `index.html` (costante `URLB`) prima di stampare adesivi veri.
+
+## Aperto
+- Esiste ancora una base Airtable "Assistenza Distributori – MVP" creata all'inizio e poi abbandonata. Non toccarla senza richiesta esplicita di Samuele.
