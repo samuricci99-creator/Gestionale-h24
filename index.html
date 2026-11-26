@@ -2,7 +2,7 @@
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Assistenza distributori</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* VOICE: strumento di lavoro, sobrio e leggibile, da provare mentre si modifica.
    IDEA: il cartellino stampato sul distributore, con QR e codice macchina.
@@ -72,10 +72,63 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .tabs a:hover{color:var(--ink)}.tabs a[aria-current=page]{color:var(--ink);font-weight:600;border-bottom-color:var(--acc)}
 .ctl{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.ctl label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut)}.ctl .grow{flex:1 1 220px}.ctl select{width:100%}
 .pg{max-width:420px;margin:0 auto}.pg.wide{max-width:900px}.pg[hidden]{display:none}
+/* SCHERMATA CLIENTE (QR): sistema visivo proprio, limitato a .cx. Manrope 400/500/600, sfondo neutro, card bianche piatte, pulsanti a pillola. */
+.cx{--cx-bg:light-dark(#F3F4F6,#101215);--cx-card:light-dark(#fff,#1B1E23);--cx-ink:light-dark(#191C1F,#F3F4F6);--cx-on:light-dark(#fff,#101215);--cx-mut:light-dark(#6B7078,#9AA0A8);--cx-line:light-dark(#E4E6EA,#2A2E34);
+ background:var(--cx-bg);color:var(--cx-ink);border:0;box-shadow:none;border-radius:28px;padding:20px 16px 24px;min-height:560px;font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.45;font-weight:400}
+.cx .ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cx[dir=rtl] .fl{transform:scaleX(-1)}
+.cx b{font-weight:600}
+.cx .cap{color:var(--cx-mut);font-size:13px;font-weight:500;margin:0}
+.cx .hd .pl{font-size:17px;font-weight:600;margin:2px 0 0;letter-spacing:-.01em}
+.cx .ban{display:flex;align-items:center;gap:10px;background:var(--cx-card);border-radius:16px;padding:12px 14px;margin:14px 0 0;font-size:14px;font-weight:500;color:var(--cx-ink)}
+.cx .ban .ic{width:20px;height:20px}.cx .ban .ok{color:var(--grn)}.cx .ban .wn{color:var(--amb)}
+.cx .prg{height:4px;background:var(--cx-line);border-radius:2px;margin:20px 0 0}.cx .prg i{background:var(--cx-ink)}
+.cx h3{font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.025em;margin:24px 0 16px;text-wrap:balance}
+.cx .lab{font-size:13px;font-weight:500;color:var(--cx-mut);margin:20px 0 8px}
+.cx button{font-family:inherit;font-weight:500;border:0;color:var(--cx-ink);transition:transform 150ms ease,background-color 150ms ease,color 150ms ease}
+.cx button:active{transform:scale(.97)}
+.cx .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cx .tile{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:20px;text-align:start;min-height:124px;padding:16px;border-radius:20px;background:var(--cx-card);font-size:15px;line-height:1.3}
+.cx .tile .ic{width:44px;height:44px;padding:10px;border-radius:50%;background:var(--cx-bg)}
+.cx .list{margin-top:12px;background:var(--cx-card);border-radius:20px;overflow:hidden}
+.cx .li{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:0 16px;background:transparent;text-align:start;font-size:15px;border-radius:0}
+.cx .li+.li{border-top:1px solid var(--cx-line)}.cx .li .ic:first-child{width:22px;height:22px}.cx .li span{flex:1}
+.cx .li .fl,.cx .opt .fl{color:var(--cx-mut);width:20px;height:20px}
+.cx .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;margin:0 0 8px;padding:12px 16px;border-radius:18px;background:var(--cx-card);border:2px solid transparent;text-align:start;font-size:16px}
+.cx .opt .ot{flex:1}.cx .opt small{display:block;font-size:13px;color:var(--cx-mut);margin-top:2px;font-weight:400}
+.cx .opt.rec{border-color:var(--cx-ink)}
+.cx .tg{font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;margin-inline-start:8px;background:var(--cx-bg);color:var(--cx-mut)}
+.cx .tg.rec{background:var(--cx-ink);color:var(--cx-on)}
+.cx .chips{gap:8px}.cx .chip{min-height:48px;padding:0 18px;border-radius:999px;background:var(--cx-card);font-size:15px}
+.cx .chip[aria-pressed=true]{background:var(--cx-ink);color:var(--cx-on)}
+.cx input:not([type=checkbox]):not([type=file]),.cx select,.cx textarea{width:100%;min-height:56px;padding:0 16px;border:2px solid transparent;border-radius:16px;background:var(--cx-card);color:var(--cx-ink);font:inherit;font-size:16px}
+.cx textarea{padding:14px 16px;resize:vertical}
+.cx input:focus,.cx select:focus,.cx textarea:focus{outline:0;border-color:var(--cx-ink)}
+.cx input[type=file]{width:100%;padding:12px 16px;border:0;border-radius:16px;background:var(--cx-card);font-size:14px;color:var(--cx-mut)}
+.cx input[type=file]::file-selector-button{margin-inline-end:12px;border:0;border-radius:999px;padding:8px 16px;background:var(--cx-bg);color:var(--cx-ink);font:inherit;font-size:14px;font-weight:500}
+.cx input[type=checkbox]{width:22px;height:22px;accent-color:var(--cx-ink);margin:0}
+.cx .adv{background:var(--cx-card);border-radius:18px;padding:16px 18px 16px 38px;margin:0 0 16px;font-size:15px}.cx .adv li{margin:8px 0}
+.cx[dir=rtl] .adv{padding:16px 38px 16px 18px}
+.cx .dng{background:var(--redbg);color:var(--red);border-radius:18px;padding:2px 16px 12px;margin-top:20px}.cx .dng h3{font-size:20px;margin:16px 0 8px}.cx .dng .adv{background:transparent;padding-inline:20px 0;margin:0}
+.cx .nav{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.cx .pri{width:100%;min-height:56px;border-radius:999px;background:var(--cx-ink);color:var(--cx-on);font-size:16px;font-weight:600}
+.cx .back{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;border-radius:999px;background:transparent;color:var(--cx-mut);font-size:15px}.cx .back .ic{width:18px;height:18px}
+.cx .err{font-size:14px;font-weight:500;color:var(--red);margin-top:12px}
+.cx .done{display:flex;align-items:center;gap:12px;margin:24px 0 8px}.cx .done .ic{width:36px;height:36px;color:var(--grn)}.cx .done h3{margin:0;font-size:24px}
+.cx .conf{background:var(--cx-card);border-radius:20px;padding:24px 20px;margin-top:20px}
+.cx .conf .cic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--grnbg);color:var(--grn)}.cx .conf .cic .ic{width:28px;height:28px}
+.cx .conf h3{font-size:26px;margin:16px 0 8px}.cx .conf p{margin:0;font-size:16px;color:var(--cx-mut)}
+.cx .conf .cn{display:inline-block;margin-top:16px;padding:6px 12px;border-radius:999px;background:var(--cx-bg);font-size:13px;font-weight:500}
+@media(prefers-reduced-motion:no-preference){.cx .conf{animation:cxin 300ms ease-out}@keyframes cxin{from{opacity:0;transform:translateY(8px)}}}
+.cx .sub{font-size:15px;font-weight:600;margin:20px 0 8px}
+@media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:light-dark(#fafafb,#21252b)}.cx .pri:hover{opacity:.9}}
+.cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.cx button{transition:none}.cx button:active{transform:none}}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
@@ -89,7 +142,7 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
   <div class="pg" id="v-cliente">
     <section>
       <div class="ctl" id="macbox"><label class="grow">QR scansionato su<select id="mac"></select></label><label>Lingua<select id="lg" aria-label="Lingua / Language"></select></label></div>
-      <div class="phone" id="cust"></div>
+      <div class="phone cx" id="cust"></div>
     </section>
   </div>
   <div class="pg" id="v-operatore" hidden>
@@ -188,14 +241,17 @@ const flow=()=>{const a=C.a,P=a.prob;if(!P)return["prob"];
   if(MONEY.includes(P))return["prob","pay","err","try","amt","prod","photo","refund","contact"];
   if(P===G){if(a.danger===undefined)return["prob","danger"];if(a.danger)return["prob","danger","safe","contact"];if(a.lost===undefined)return["prob","danger","lost"];return a.lost?["prob","danger","lost","amt","prod","photo","refund","contact"]:["prob","danger","lost","photo","contact"];}
   return["prob","other","photo","contact"];};
-const o=(k,v,sub,rec,lab)=>`<button type="button" class="opt${rec?" rec":""}" data-k="${k}" data-v="${esc(v)}"><b>${esc(lab||ot(v))}</b>${rec?`<span class="tg rec">${esc(tr("rec"))}</span>`:""}${sub?`<small>${esc(sub)}</small>`:""}</button>`;
-const nav=a=>`<div class="nav"><button type="button" data-act="back">${esc(tr("back"))}</button>${a?`<button type="button" class="pri" data-act="${a}">${esc(tr("next"))}</button>`:""}</div>`;
+const ic=(n,c)=>`<svg class="ic${c?" "+c:""}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const PIC={"Soldi trattenuti":"hand-coins","Prodotto non erogato":"package-x","Resto non dato":"coins","Pagamento con carta o app non riuscito":"credit-card","Macchina guasta o pericolosa":"triangle-alert","Altro":"message-circle"};
+const o=(k,v,sub,rec,lab)=>`<button type="button" class="opt${rec?" rec":""}" data-k="${k}" data-v="${esc(v)}"><span class="ot"><b>${esc(lab||ot(v))}</b>${rec?`<span class="tg rec">${esc(tr("rec"))}</span>`:""}${sub?`<small>${esc(sub)}</small>`:""}</span>${ic("chevron-right","fl")}</button>`;
+const back=()=>`<button type="button" class="back" data-act="back">${ic("arrow-left","fl")}${esc(tr("back"))}</button>`;
+const nav=a=>`<div class="nav">${a?`<button type="button" class="pri" data-act="${a}">${esc(tr("next"))}</button>`:""}${back()}</div>`;
 const val=k=>esc(C.a[k]||"");
 const ST={
- prob:()=>`<h3>${esc(tr("qprob"))}</h3>`+PR.map(p=>o("prob",p)).join(""),
+ prob:()=>`<h3>${esc(tr("qprob"))}</h3><div class="grid">`+MONEY.map(p=>`<button type="button" class="tile" data-k="prob" data-v="${esc(p)}">${ic(PIC[p])}<span>${esc(ot(p))}</span></button>`).join("")+`</div><div class="list">`+[G,"Altro"].map(p=>`<button type="button" class="li" data-k="prob" data-v="${esc(p)}">${ic(PIC[p])}<span>${esc(ot(p))}</span>${ic("chevron-right","fl")}</button>`).join("")+`</div>`,
  pay:()=>`<h3>${esc(tr("qpay"))}</h3>`+["Monete o banconote","Carta","App o chiavetta"].map(v=>o("pay",v)).join("")+nav(),
  err:()=>`<h3>${esc(tr("qerr"))}</h3>`+["Sì, c'è un messaggio","No, nessun messaggio","Il display è spento"].map(v=>o("err",v)).join("")+nav(),
- try:()=>{const m=C.a.pay==="Monete o banconote";return `<h3>${esc(tr("trytitle"))}</h3><ol class="adv"><li>${esc(tr(m?"t1a":"t1b"))}</li><li>${esc(tr("t2"))}</li><li>${esc(tr("t3"))}</li><li>${esc(tr(m?"t4a":"t4b"))}</li></ol><button type="button" class="opt" data-act="solved"><b>${esc(tr("worked"))}</b><small>${esc(tr("workedS"))}</small></button><button type="button" class="opt" data-act="next"><b>${esc(tr("nope"))}</b><small>${esc(tr("nopeS"))}</small></button>`+nav();},
+ try:()=>{const m=C.a.pay==="Monete o banconote";return `<h3>${esc(tr("trytitle"))}</h3><ol class="adv"><li>${esc(tr(m?"t1a":"t1b"))}</li><li>${esc(tr("t2"))}</li><li>${esc(tr("t3"))}</li><li>${esc(tr(m?"t4a":"t4b"))}</li></ol><button type="button" class="opt" data-act="solved"><span class="ot"><b>${esc(tr("worked"))}</b><small>${esc(tr("workedS"))}</small></span>${ic("chevron-right","fl")}</button><button type="button" class="opt" data-act="next"><span class="ot"><b>${esc(tr("nope"))}</b><small>${esc(tr("nopeS"))}</small></span>${ic("chevron-right","fl")}</button>`+nav();},
  amt:()=>`<h3>${esc(tr("qamt"))}</h3><div class="chips">${[0.5,1,1.5,2,5].map(v=>`<button type="button" class="chip" data-k="amt" data-v="${v}">${eur(v)}</button>`).join("")}</div><label class="lab" for="amtT">${esc(tr("amtO"))}</label><input id="amtT" data-k="amtT" inputmode="decimal" placeholder="3,50" value="${val("amtT")}">`+nav("amtgo"),
  prod:()=>`<h3>${esc(tr("qprod"))}</h3><input data-k="prod" placeholder="${esc(tr("prodPh"))}" aria-label="${esc(tr("qprod"))}" value="${val("prod")}">`+nav("next"),
  photo:()=>`<h3>${esc(tr("qphoto"))}</h3><p class="cap">${esc(tr("photoCap"))}</p><input type="file" accept="image/*" data-k="photo" aria-label="${esc(tr("qphoto"))}">`+(C.a.photo?`<p class="cap" style="margin-top:6px">${esc(tr("photoAtt"))} ${val("photo")}</p>`:"")+nav("next"),
@@ -205,9 +261,9 @@ const ST={
  lost:()=>`<h3>${esc(tr("qlost"))}</h3>`+o("lost","Sì",0,0,tr("yes"))+o("lost","No",0,0,tr("no"))+nav(),
  other:()=>`<h3>${esc(tr("qother"))}</h3><textarea data-k="other" rows="4" aria-label="${esc(tr("qother"))}">${val("other")}</textarea>`+nav("othergo"),
  contact:()=>{const a=C.a,cm=a.cm||"tel",cp=a.cp||"39",op=a.refund&&a.refund!==RF[2][0]?"":tr("opt");
-  const chip=(v,l)=>`<button type="button" class="chip" data-k="cm" data-v="${v}" aria-pressed="${cm===v}" style="${cm===v?"border:2px solid var(--acc);font-weight:600":""}">${esc(l)}</button>`;
+  const chip=(v,l)=>`<button type="button" class="chip" data-k="cm" data-v="${v}" aria-pressed="${cm===v}">${esc(l)}</button>`;
   const f=cm==="tel"?`<div style="display:flex;gap:8px"><select aria-label="${esc(tr("cpre"))}" data-k="cp" style="flex:0 0 118px;width:118px">${PX.map(p=>`<option value="${p[1]}"${p[1]===cp?" selected":""}>${p[0]} +${p[1]}</option>`).join("")}</select><input id="ct" data-k="cn" inputmode="tel" autocomplete="tel-national" placeholder="${cp==="39"?"333 123 4567":""}" style="flex:1;width:auto" value="${val("cn")}"></div>`:`<input id="ct" data-k="cmail" type="email" inputmode="email" autocomplete="email" placeholder="nome@mail.it" value="${val("cmail")}">`;
-  return `<h3>${esc(tr("qcontact"))}</h3><label class="lab" for="nm">${esc(tr("name"))}</label><input id="nm" data-k="nome" placeholder="Anna" value="${val("nome")}"><div class="chips" style="margin-top:12px">${chip("tel",tr("cph"))}${chip("mail",tr("cem"))}</div><label class="lab" for="ct">${esc(tr(cm==="tel"?"cph":"cem"))}${esc(op)}</label>${f}<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mut);margin-top:14px"><input type="checkbox" data-k="priv" ${a.priv?"checked":""}>${esc(tr("priv"))}</label><button type="button" class="pri" data-act="send" style="width:100%;margin-top:14px">${esc(tr("send"))}</button><div class="nav" style="margin-top:8px"><button type="button" data-act="back">${esc(tr("back"))}</button></div>`;}
+  return `<h3>${esc(tr("qcontact"))}</h3><label class="lab" for="nm">${esc(tr("name"))}</label><input id="nm" data-k="nome" placeholder="Anna" value="${val("nome")}"><div class="chips" style="margin-top:12px">${chip("tel",tr("cph"))}${chip("mail",tr("cem"))}</div><label class="lab" for="ct">${esc(tr(cm==="tel"?"cph":"cem"))}${esc(op)}</label>${f}<label style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--cx-mut);margin-top:20px"><input type="checkbox" data-k="priv" ${a.priv?"checked":""}>${esc(tr("priv"))}</label><button type="button" class="pri" data-act="send" style="width:100%;margin-top:14px">${esc(tr("send"))}</button><div class="nav" style="margin-top:8px">${back()}</div>`;}
 };
 function result(r){const m=M[r.m],tips=[];
   if(r.urgent)tips.push(tr("tipD"));
@@ -215,13 +271,13 @@ function result(r){const m=M[r.m],tips=[];
   tips.push(tr("tipC"));
   const st=[r.urgent?tr("stU",{o:m[3]}):!r.after?tr("stD",{o:m[3]}):tr("stN",{o:m[3],w:tr(nk())}),tr("stV")];
   if(r.r!==RF[2][0])st.push(tr("stR",{r:lc(ot(r.r))}));
-  return `<h3 style="color:var(--grn)">✓ ${esc(tr("rT",{n:r.n}))}</h3><p class="cap">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><b style="font-size:15px">${esc(tr("rNow"))}</b><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><b style="font-size:15px">${esc(tr("rAfter"))}</b><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" data-act="again" style="width:100%">${esc(tr("again"))}</button>`;}
+  return `<div class="conf" role="status"><span class="cic">${ic("circle-check")}</span><h3>${esc(tr("rOk"))}</h3><p>${esc(tr("rOkS"))}</p><span class="cn">${esc(tr("rT",{n:r.n}))}</span></div><p class="cap" style="margin-top:16px">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
 function rc(){const m=M[$("mac").value],op=isOpen();
   document.documentElement.lang=LG;$("cust").dir=LG==="ar"?"rtl":"ltr";
-  let h=`<p class="cap" style="margin:0">${esc(tr("mach"))} <b>${m[0]}</b></p><p style="font-size:18px;font-weight:600;margin:2px 0 0">${esc(m[1])}</p><div class="ban" style="background:${op?"var(--grnbg)":"var(--ambbg)"};color:${op?"var(--grn)":"var(--amb)"}">${esc(op?tr("open"):tr("closed",{w:tr(nk())}))}</div>`;
-  if(C.solved)h+=`<h3>${esc(tr("okT"))}</h3><p>${esc(tr("okB"))}</p><button type="button" class="pri" data-act="again" style="width:100%">${esc(tr("close"))}</button>`;
+  let h=`<div class="hd"><p class="cap">${esc(tr("mach"))} <b>${m[0]}</b></p><p class="pl">${esc(m[1])}</p></div><div class="ban">${ic("clock",op?"ok":"wn")}<span>${esc(op?tr("open"):tr("closed",{w:tr(nk())}))}</span></div>`;
+  if(C.solved)h+=`<div class="done">${ic("circle-check")}<h3>${esc(tr("okT"))}</h3></div><p>${esc(tr("okB"))}</p><button type="button" class="pri" data-act="again" style="margin-top:16px">${esc(tr("close"))}</button>`;
   else if(C.done)h+=result(C.done);
-  else{const f=flow();if(C.step>=f.length)C.step=f.length-1;h+=`<div class="prg"><i style="width:${Math.round((C.step+1)/f.length*100)}%"></i></div>`+ST[f[C.step]]()+(C.err?`<div class="err" role="alert">${esc(tr(C.err))}</div>`:"");}
+  else{const f=flow();if(C.step>=f.length)C.step=f.length-1;h+=(f.length>1?`<div class="prg"><i style="width:${Math.round((C.step+1)/f.length*100)}%"></i></div>`:"")+ST[f[C.step]]()+(C.err?`<div class="err" role="alert">${esc(tr(C.err))}</div>`:"");}
   $("cust").innerHTML=h;}
 function send(){const a=C.a,need=a.refund&&a.refund!==RF[2][0],cm=a.cm||"tel",cp=a.cp||"39";let err="";
   const dg=String(a.cn||"").replace(/\D/g,""),em=String(a.cmail||"").trim(),has=cm==="tel"?dg.length>0:em.length>0;
@@ -233,7 +289,7 @@ function send(){const a=C.a,need=a.refund&&a.refund!==RF[2][0],cm=a.cm||"tel",cp
   if(err){C.err=err;return rc();}
   const mi=+$("mac").value,n=rows.reduce((q,x)=>Math.max(q,x.n),0)+1;
   const r={n,t:now(),lang:LG,after:!isOpen(),m:mi,p:a.prob,a:a.amt||0,prod:(a.prod||"").trim(),nome:(a.nome||"").trim(),c:(a.c||"").trim(),r:a.refund||RF[2][0],pay:a.pay||"",err:a.err||"",photo:a.photo||"",txt:(a.other||"").trim(),urgent:a.danger===true,s:0,log:[]};
-  rows.push(r);C.done=r;$("op").value=M[mi][2];sel=n;rc();render();}
+  rows.push(r);C.done=r;$("op").value=M[mi][2];sel=n;rc();render();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"start"});}
 function resetCust(){C.step=0;C.a={};C.err="";C.done=null;C.solved=0;}
 $("cust").addEventListener("input",e=>{const t=e.target,k=t.dataset.k;if(!k||t.type==="checkbox"||t.type==="file")return;
   if(k==="cn"){const cp=C.a.cp||"39",old=t.value;let d=old.replace(/\D/g,"");d=d.slice(0,maxD(cp,d));const f=fmtNat(cp,d);
