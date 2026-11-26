@@ -115,6 +115,11 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .cx .back{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;border-radius:999px;background:transparent;color:var(--cx-mut);font-size:15px}.cx .back .ic{width:18px;height:18px}
 .cx .err{font-size:14px;font-weight:500;color:var(--red);margin-top:12px}
 .cx .done{display:flex;align-items:center;gap:12px;margin:24px 0 8px}.cx .done .ic{width:36px;height:36px;color:var(--grn)}.cx .done h3{margin:0;font-size:24px}
+.cx .conf{background:var(--cx-card);border-radius:20px;padding:24px 20px;margin-top:20px}
+.cx .conf .cic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--grnbg);color:var(--grn)}.cx .conf .cic .ic{width:28px;height:28px}
+.cx .conf h3{font-size:26px;margin:16px 0 8px}.cx .conf p{margin:0;font-size:16px;color:var(--cx-mut)}
+.cx .conf .cn{display:inline-block;margin-top:16px;padding:6px 12px;border-radius:999px;background:var(--cx-bg);font-size:13px;font-weight:500}
+@media(prefers-reduced-motion:no-preference){.cx .conf{animation:cxin 300ms ease-out}@keyframes cxin{from{opacity:0;transform:translateY(8px)}}}
 .cx .sub{font-size:15px;font-weight:600;margin:20px 0 8px}
 @media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:light-dark(#fafafb,#21252b)}.cx .pri:hover{opacity:.9}}
 .cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
@@ -291,7 +296,7 @@ function result(r){const m=M[r.m],tips=[];
   tips.push(tr("tipC"));
   const st=[r.urgent?tr("stU",{o:m[3]}):!r.after?tr("stD",{o:m[3]}):tr("stN",{o:m[3],w:tr(nk())}),tr("stV")];
   if(r.r!==RF[2][0])st.push(tr("stR",{r:lc(ot(r.r))}));
-  return `<div class="done">${ic("circle-check")}<h3>${esc(tr("rT",{n:r.n}))}</h3></div><p class="cap">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
+  return `<div class="conf" role="status"><span class="cic">${ic("circle-check")}</span><h3>${esc(tr("rOk"))}</h3><p>${esc(tr("rOkS"))}</p><span class="cn">${esc(tr("rT",{n:r.n}))}</span></div><p class="cap" style="margin-top:16px">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
 function rc(){const m=M[$("mac").value],op=isOpen();
   document.documentElement.lang=LG;$("cust").dir=LG==="ar"?"rtl":"ltr";
   let h=`<div class="hd"><p class="cap">${esc(tr("mach"))} <b>${m[0]}</b></p><p class="pl">${esc(m[1])}</p></div><div class="ban">${ic("clock",op?"ok":"wn")}<span>${esc(op?tr("open"):tr("closed",{w:tr(nk())}))}</span></div>`;
@@ -309,7 +314,7 @@ function send(){const a=C.a,need=a.refund&&a.refund!==RF[2][0],cm=a.cm||"tel",cp
   if(err){C.err=err;return rc();}
   const mi=+$("mac").value,n=rows.reduce((q,x)=>Math.max(q,x.n),0)+1;
   const r={n,t:now(),lang:LG,after:!isOpen(),m:mi,p:a.prob,a:a.amt||0,prod:(a.prod||"").trim(),nome:(a.nome||"").trim(),c:(a.c||"").trim(),r:a.refund||RF[2][0],pay:a.pay||"",err:a.err||"",photo:a.photo||"",txt:(a.other||"").trim(),urgent:a.danger===true,s:0,log:[]};
-  rows.push(r);C.done=r;$("op").value=M[mi][2];sel=n;rc();render();}
+  rows.push(r);C.done=r;$("op").value=M[mi][2];sel=n;rc();render();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"start"});}
 function resetCust(){C.step=0;C.a={};C.err="";C.done=null;C.solved=0;}
 $("cust").addEventListener("input",e=>{const t=e.target,k=t.dataset.k;if(!k||t.type==="checkbox"||t.type==="file")return;
   if(k==="cn"){const cp=C.a.cp||"39",old=t.value;let d=old.replace(/\D/g,"");d=d.slice(0,maxD(cp,d));const f=fmtNat(cp,d);
