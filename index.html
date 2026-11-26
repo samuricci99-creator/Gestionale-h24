@@ -13,10 +13,15 @@
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
-.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px max(4vw,16px);border-bottom:1px solid var(--line)}
-h1{font-size:20px;line-height:1.1;margin:0;font-weight:600;flex:1 1 220px}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px max(4vw,16px);border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:12px;align-items:center;flex:1 1 240px}
+.brand svg{flex:none;width:40px;height:40px;border-radius:10px;background:var(--acc);color:var(--onacc);padding:7px}
+h1{font-size:18px;line-height:1.15;margin:0;font-weight:600;letter-spacing:-0.01em}
+.brand small{display:block;font-size:13px;color:var(--mut);font-weight:400}
+.bar .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bar #reset{min-height:40px;font-size:14px}
 h2{font-size:16px;margin:0;font-weight:600}
-h3{font-size:17px;margin:14px 0 8px;font-weight:600}
+h3{font-size:19px;line-height:1.25;margin:16px 0 10px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance}
 .band{padding:20px max(4vw,16px)}
 select,input,button,textarea{font:inherit;font-size:16px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:0 12px}
 textarea{padding:10px 12px}
@@ -34,14 +39,14 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .seg.o{background:var(--grnbg);color:var(--grn);font-weight:600}
 .mark{position:absolute;top:0;bottom:0;width:3px;background:var(--acc);transform:translateX(-50%)}
 .axis{position:relative;height:20px;font-size:12px;color:var(--mut);margin-top:4px}.axis span{position:absolute}
-.pill{font-size:13px;font-weight:600;border-radius:999px;padding:5px 12px}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;border-radius:999px;padding:6px 12px}.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
-.phone{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:18px;min-height:460px}
+.phone{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px 18px;min-height:460px;box-shadow:0 1px 0 var(--line),0 18px 40px -28px light-dark(#1d2bd855,#0008)}
 .lab{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
 .phone input:not([type=checkbox]),.phone select,.phone textarea{width:100%}
 .ban{border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0 0}
 .prg{height:4px;background:var(--line);border-radius:2px;margin:14px 0 2px}.prg i{display:block;height:100%;background:var(--acc);border-radius:2px}
-.opt{display:block;width:100%;text-align:left;border-radius:12px;padding:12px 14px;min-height:48px;margin-bottom:8px;background:var(--bg)}
+.opt{display:block;width:100%;text-align:left;border-radius:12px;padding:12px 14px;min-height:52px;margin-bottom:8px;background:var(--bg);transition:border-color .15s,transform .1s}.opt:hover{border-color:var(--acc)}.opt:active{transform:scale(.99)}
 .opt small{display:block;font-size:13px;color:var(--mut);margin-top:2px}
 .opt.rec{border:2px solid var(--acc)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border-radius:999px;min-height:40px;font-size:14px;padding:0 14px}
@@ -55,29 +60,27 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .nt .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.nt .acts button{flex:1;font-size:14px;min-height:40px}
 .kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:14px 0}
 .k{background:var(--card);border-radius:12px;padding:14px}
-.k b{display:block;font-size:26px;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums}.k span{font-size:13px;color:var(--mut)}
-.row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 6px;border-top:1px solid var(--line);cursor:pointer}
+.k b{display:block;font-size:28px;letter-spacing:-0.02em;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums}.k span{font-size:13px;color:var(--mut)}
+.row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 8px;border-top:1px solid var(--line);cursor:pointer;border-radius:10px;font-variant-numeric:tabular-nums}.row:hover{background:var(--card)}
 .row.sel{background:var(--card)}.row small{color:var(--mut);display:block}
 .st{border:0;border-radius:8px;min-height:36px;font-size:13px;font-weight:600;white-space:nowrap}
 .s0{background:var(--redbg);color:var(--red)}.s1{background:var(--ambbg);color:var(--amb)}.s2{background:var(--grnbg);color:var(--grn)}
 .det{background:var(--card);border-radius:14px;padding:16px;margin-top:12px;font-size:15px}.det p{margin:4px 0}
 .rg{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 6px;border-top:1px solid var(--line)}.rg small{display:block;color:var(--mut);font-size:13px}.rg button{min-height:40px;font-size:14px}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:10px max(4vw,16px) 0;border-bottom:1px solid var(--line)}
-.tabs a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:10px 10px 0 0;color:var(--mut);text-decoration:none;font-weight:500;border-bottom:3px solid transparent}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 max(4vw,16px);border-bottom:1px solid var(--line)}.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;display:inline-flex;align-items:center;min-height:48px;padding:0 12px;white-space:nowrap;color:var(--mut);text-decoration:none;font-weight:500;font-size:15px;border-bottom:3px solid transparent;margin-bottom:-1px}
 .tabs a:hover{color:var(--ink)}.tabs a[aria-current=page]{color:var(--ink);font-weight:600;border-bottom-color:var(--acc)}
-#macbox{display:flex;gap:10px;align-items:center;flex:1 1 300px}#macbox[hidden]{display:none}
+.ctl{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.ctl label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut)}.ctl .grow{flex:1 1 220px}.ctl select{width:100%}
 .pg{max-width:420px;margin:0 auto}.pg.wide{max-width:900px}.pg[hidden]{display:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style></head><body>
-<div class="bar">
-  <h1>Assistenza distributori · prototipo</h1>
-  <span id="macbox"><label class="cap" style="margin:0" for="mac">QR scansionato su</label>
-  <select id="mac" style="min-width:200px;flex:1 1 220px"></select></span>
-  <button id="reset" type="button">Ricomincia</button>
-  <span id="status" class="pill" role="status"></span>
-</div>
+<header class="bar">
+  <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
+    <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
+  <div class="acts"><span id="status" class="pill" role="status"></span><button id="reset" type="button">Ricomincia</button></div>
+</header>
 <nav class="tabs" id="tabs" aria-label="Schermate">
   <a href="#cliente" data-v="cliente">Cliente</a><a href="#operatore" data-v="operatore">Operatore di zona</a><a href="#centro" data-v="centro">Centro assistenza</a><a href="#campo" data-v="campo">Operatore sul campo</a>
 </nav>
@@ -85,7 +88,7 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 <div class="band">
   <div class="pg" id="v-cliente">
     <section>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><p class="cap" style="margin:0">Telefono del cliente, dopo la scansione del QR</p><select id="lg" aria-label="Lingua / Language"></select></div>
+      <div class="ctl" id="macbox"><label class="grow">QR scansionato su<select id="mac"></select></label><label>Lingua<select id="lg" aria-label="Lingua / Language"></select></label></div>
       <div class="phone" id="cust"></div>
     </section>
   </div>
