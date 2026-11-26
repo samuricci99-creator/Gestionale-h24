@@ -62,26 +62,36 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .s0{background:var(--redbg);color:var(--red)}.s1{background:var(--ambbg);color:var(--amb)}.s2{background:var(--grnbg);color:var(--grn)}
 .det{background:var(--card);border-radius:14px;padding:16px;margin-top:12px;font-size:15px}.det p{margin:4px 0}
 .rg{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 6px;border-top:1px solid var(--line)}.rg small{display:block;color:var(--mut);font-size:13px}.rg button{min-height:40px;font-size:14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:10px max(4vw,16px) 0;border-bottom:1px solid var(--line)}
+.tabs a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:10px 10px 0 0;color:var(--mut);text-decoration:none;font-weight:500;border-bottom:3px solid transparent}
+.tabs a:hover{color:var(--ink)}.tabs a[aria-current=page]{color:var(--ink);font-weight:600;border-bottom-color:var(--acc)}
+#macbox{display:flex;gap:10px;align-items:center;flex:1 1 300px}#macbox[hidden]{display:none}
+.pg{max-width:420px;margin:0 auto}.pg.wide{max-width:900px}.pg[hidden]{display:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style></head><body>
 <div class="bar">
   <h1>Assistenza distributori · prototipo</h1>
-  <label class="cap" style="margin:0" for="mac">QR scansionato su</label>
-  <select id="mac" style="min-width:200px;flex:1 1 220px"></select>
+  <span id="macbox"><label class="cap" style="margin:0" for="mac">QR scansionato su</label>
+  <select id="mac" style="min-width:200px;flex:1 1 220px"></select></span>
   <button id="reset" type="button">Ricomincia</button>
   <span id="status" class="pill" role="status"></span>
 </div>
+<nav class="tabs" id="tabs" aria-label="Schermate">
+  <a href="#cliente" data-v="cliente">Cliente</a><a href="#operatore" data-v="operatore">Operatore di zona</a><a href="#centro" data-v="centro">Centro assistenza</a><a href="#campo" data-v="campo">Operatore sul campo</a>
+</nav>
 
 <div class="band">
-  <div class="phones">
+  <div class="pg" id="v-cliente">
     <section>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><p class="cap" style="margin:0">1 · Telefono del cliente, dopo la scansione</p><select id="lg" aria-label="Lingua / Language"></select></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><p class="cap" style="margin:0">Telefono del cliente, dopo la scansione del QR</p><select id="lg" aria-label="Lingua / Language"></select></div>
       <div class="phone" id="cust"></div>
     </section>
+  </div>
+  <div class="pg" id="v-operatore" hidden>
     <section>
-      <p class="cap">2 · Telefono dell'operatore di zona</p>
+      <p class="cap">Telefono dell'operatore di zona</p>
       <div class="phone">
         <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
           <select id="op" style="flex:1" aria-label="Operatore"></select>
@@ -92,8 +102,9 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
     </section>
   </div>
 
-  <div style="margin-top:28px;display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">3 · Pannello del centro assistenza</p><h2>Segnalazioni</h2></div>
+  <div class="pg wide" id="v-centro" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
+    <div><p class="cap" style="margin:0">Pannello del centro assistenza</p><h2>Segnalazioni</h2></div>
     <div class="tools">
       <select id="zf" aria-label="Zona"><option value="">Tutte le zone</option><option>Zona Nord</option><option>Zona Centro</option><option>Zona Sud</option></select>
       <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="0">Nuova</option><option value="1">Presa in carico</option><option value="2">Risolta</option></select>
@@ -108,13 +119,17 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
   </div>
   <div id="list"></div>
   <div id="det"></div>
-  <div style="margin-top:36px;display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">4 · Operatore sul campo</p><h2>Macchine e QR code</h2></div>
+  </div>
+
+  <div class="pg wide" id="v-campo" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
+    <div><p class="cap" style="margin:0">Operatore sul campo</p><h2>Macchine e QR code</h2></div>
     <button type="button" id="addm" class="pri">+ Aggiungi macchina</button>
   </div>
   <p class="cap" style="margin-top:6px">L'operatore arriva sul posto, aggiunge la macchina, compila i dati e genera il QR: la macchina risulta abbinata subito. Il QR contiene solo il codice della macchina.</p>
   <div id="act"></div><div id="reg"></div>
-  <p class="cap" style="margin-top:14px">Dati di esempio, nomi di fantasia. Tocca una riga per i dettagli, tocca lo stato per farlo avanzare.</p>
+  </div>
+  <p class="cap" style="margin-top:14px">Dati di esempio, nomi di fantasia. Nel centro assistenza tocca una riga per i dettagli, tocca lo stato per farlo avanzare.</p>
 </div>
 
 <script src="i18n.js"></script>
@@ -322,6 +337,12 @@ $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
     renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 renderReg();
 renderClock();
+const VIEWS=["cliente","operatore","centro","campo"];
+function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"cliente";
+  VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v;});
+  $("tabs").querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+  $("macbox").hidden=v!=="cliente";}
+if(typeof addEventListener==="function"){addEventListener("hashchange",route);route();}
 }
 </script>
 </body></html>
