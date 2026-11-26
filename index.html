@@ -75,7 +75,32 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+.splash{position:fixed;inset:0;z-index:100;overflow:auto;background:var(--acc);color:var(--onacc);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 24px) max(20px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(20px,env(safe-area-inset-left,0px))}
+.splash[hidden]{display:none}
+.sp-in{width:100%;max-width:960px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:center}
+.sp-k{font-size:14px;font-weight:600;opacity:.8;margin:0 0 18px;letter-spacing:.02em}
+.splash h1{font-size:clamp(40px,7.5vw,84px);line-height:1;font-weight:600;letter-spacing:-0.035em;margin:0;text-wrap:balance}
+.splash h1 em{font-style:normal;background:var(--onacc);color:var(--acc);padding:0 .12em;border-radius:.12em}
+.sp-sub{font-size:17px;line-height:1.5;opacity:.85;margin:20px 0 28px;max-width:36ch}
+.splash button{min-height:54px;padding:0 28px;font-size:17px;font-weight:600;border:0;border-radius:14px;background:var(--onacc);color:var(--acc)}
+.splash button:hover{transform:translateY(-1px)}
+.splash :focus-visible{outline-color:var(--onacc)}
+.sp-stk{justify-self:center;width:min(260px,100%);transform:rotate(3deg);border-radius:14px;line-height:0;box-shadow:0 30px 60px -20px #0007}
+.sp-stk svg{width:100%;height:auto}
+@media(max-width:700px){.sp-in{grid-template-columns:1fr;gap:28px}.sp-stk{width:180px;order:-1;justify-self:start;transform:rotate(-3deg)}}
+@media(prefers-reduced-motion:no-preference){.sp-in>*{animation:spin .5s ease-out both}.sp-stk{animation-delay:.12s}@keyframes spin{from{opacity:.0;translate:0 10px}}}
 </style></head><body>
+<div class="splash" id="splash" role="dialog" aria-modal="true" aria-labelledby="splashT">
+  <div class="sp-in">
+    <div>
+      <p class="sp-k">Assistenza distributori</p>
+      <h1 id="splashT">Samu, facciamo sti <em>soldi</em> o&nbsp;no?</h1>
+      <p class="sp-sub">Un QR su ogni macchina, l'operatore giusto avvisato subito, il cliente rimborsato.</p>
+      <button type="button" id="splashGo">Apri l'app</button>
+    </div>
+    <div class="sp-stk" id="splashStk" aria-hidden="true"></div>
+  </div>
+</div>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
@@ -348,4 +373,7 @@ function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.sl
 if(typeof addEventListener==="function"){addEventListener("hashchange",route);route();}
 }
 </script>
+<script>{const g=document.getElementById("splashGo"),sp=document.getElementById("splash");if(g&&sp){
+try{const u="https://tuodominio.it/s/D-001";document.getElementById("splashStk").innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 340" font-family="Inter,Arial,sans-serif"><rect width="260" height="340" rx="14" fill="#fff"/><text x="130" y="36" text-anchor="middle" font-size="19" font-weight="700" fill="#111">Segnala un problema</text><text x="130" y="55" text-anchor="middle" font-size="12" fill="#555">Report a problem · Signaler · Melden</text><g transform="translate(20,66)">${QR.svg(u,220)}</g><text x="130" y="312" text-anchor="middle" font-size="24" font-weight="700" fill="#111">D-001</text></svg>`;}catch(e){}
+g.addEventListener("click",()=>{sp.hidden=true;});}}</script>
 </body></html>

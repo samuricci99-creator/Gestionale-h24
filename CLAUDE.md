@@ -7,6 +7,7 @@ Lingua di lavoro con l'autore (Samuele): italiano.
 ## Stato
 Prototipo funzionante in una sola pagina (`index.html`) + due script:
 - `i18n.js`: traduzioni del percorso cliente in 10 lingue (it, en, es, fr, de, ro, sq, ar [RTL], uk, zh). Traduzioni mie, da far rivedere a madrelingua (privacy e rimborso soprattutto).
+- Schermata iniziale (`#splash`, sfondo blu con adesivo QR di esempio) prima dell'app: scritta "Samu, facciamo sti soldi o no?" voluta dall'autore; si chiude con "Apri l'app".
 - `qr.js`: generatore QR autonomo (byte mode, correzione M, versioni 1-6). Verificato con un lettore indipendente (OpenCV).
 - Era pubblicato come artifact privato su claude.ai (slug bf925e02-5246-44fe-a778-11670afcc8fc). I dati vivono solo in memoria: si perdono ricaricando.
 
