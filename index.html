@@ -2,184 +2,220 @@
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Assistenza distributori</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE: strumento di lavoro, sobrio e leggibile, da provare mentre si modifica.
-   IDEA: il cartellino stampato sul distributore, con QR e codice macchina.
-   PICTURE: la giornata divisa in due fasce, e i due telefoni (cliente e operatore) che reagiscono.
-   COLOUR and TYPE: bianco o notte, ultramarino come unico accento; Manrope.
-   LAYOUT: barra e simulatore in alto, due telefoni affiancati, pannello sotto; una colonna sotto 600px. */
-:root{color-scheme:light dark;--bg:light-dark(#fff,#0d0e18);--ink:light-dark(#14110f,#ecebf3);--mut:light-dark(#5b5b66,#a2a3b8);--line:light-dark(#e1e1ea,#2a2c40);--card:light-dark(#f5f5fa,#151729);--nbg:light-dark(#e9ebf7,#1c1f38);--acc:light-dark(#1d2bd8,#8d96ff);--onacc:light-dark(#fff,#0d0e18);--red:light-dark(#b42318,#ff9a90);--redbg:light-dark(#fdecea,#3a1a1f);--amb:light-dark(#8a5a00,#f5c26b);--ambbg:light-dark(#fff3dc,#3a2d12);--grn:light-dark(#0f6b3a,#7fdca6);--grnbg:light-dark(#e3f5ea,#15301f)}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+/* STILE: pulito, tra Apple e Revolut. Pagina bianca; gruppi di contenuto su grigio chiarissimo;
+   pulsanti a pillola blu; avvisi bianchi con contorno scuro sottile e icona in un cerchio colorato chiaro.
+   Un solo tema chiaro, scelto di proposito. LAYOUT: barra traslucida in alto con le schede; colonna centrale. */
+:root{color-scheme:light;
+ --bg:#fff;--card:#f5f5f7;--card2:#fff;--fill:#ebebf0;--glass:rgba(255,255,255,.86);
+ --ink:#111114;--mut:#6e6e73;--line:#e3e3e8;--edge:#1c1c1e;
+ --acc:#0071e3;--acct:#0062c4;--accbg:#e8f1fd;
+ --red:#d70015;--redbg:#fdecec;--amb:#a15c00;--ambbg:#fff4e2;--grn:#137a3d;--grnbg:#e6f6ec;
+ --font:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",Roboto,system-ui,sans-serif}
+html{background:#fff;min-height:100%}
 *{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;overflow-x:clip}
-.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px max(4vw,16px);border-bottom:1px solid var(--line)}
-.brand{display:flex;gap:12px;align-items:center;flex:1 1 240px}
-.brand svg{flex:none;width:40px;height:40px;border-radius:10px;background:var(--acc);color:var(--onacc);padding:7px}
-h1{font-size:18px;line-height:1.15;margin:0;font-weight:600;letter-spacing:-0.01em}
-.brand small{display:block;font-size:13px;color:var(--mut);font-weight:400}
-.bar .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.bar #reset{min-height:40px;font-size:14px}
-h2{font-size:16px;margin:0;font-weight:600}
-h3{font-size:19px;line-height:1.25;margin:16px 0 10px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance}
-.band{padding:20px max(4vw,16px)}
-select,input,button,textarea{font:inherit;font-size:16px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:0 12px}
-textarea{padding:10px 12px}
-input[type=checkbox]{min-height:0;width:20px;height:20px;padding:0;flex:none;accent-color:var(--acc)}
-input[type=file]{padding:9px 12px;font-size:14px}
-button{cursor:pointer}button:hover{border-color:var(--mut)}
-button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font-weight:600}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.cap{font-size:13px;color:var(--mut);margin:0 0 8px}
-.sim{background:var(--card);border-radius:16px;padding:14px 16px;margin-bottom:22px}
-.simr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
-.simr button{min-height:40px;font-size:14px}
-.strip{position:relative;display:flex;height:34px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-.seg{display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);overflow:hidden;white-space:nowrap;background:var(--nbg)}
-.seg.o{background:var(--grnbg);color:var(--grn);font-weight:600}
-.mark{position:absolute;top:0;bottom:0;width:3px;background:var(--acc);transform:translateX(-50%)}
-.axis{position:relative;height:20px;font-size:12px;color:var(--mut);margin-top:4px}.axis span{position:absolute}
-.pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;border-radius:999px;padding:6px 12px}.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
-.phone{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px 18px;min-height:460px;box-shadow:0 1px 0 var(--line),0 18px 40px -28px light-dark(#1d2bd855,#0008)}
-.lab{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
-.phone input:not([type=checkbox]),.phone select,.phone textarea{width:100%}
-.ban{border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0 0}
-.prg{height:4px;background:var(--line);border-radius:2px;margin:14px 0 2px}.prg i{display:block;height:100%;background:var(--acc);border-radius:2px}
-.opt{display:block;width:100%;text-align:left;border-radius:12px;padding:12px 14px;min-height:52px;margin-bottom:8px;background:var(--bg);transition:border-color .15s,transform .1s}.opt:hover{border-color:var(--acc)}.opt:active{transform:scale(.99)}
-.opt small{display:block;font-size:13px;color:var(--mut);margin-top:2px}
-.opt.rec{border:2px solid var(--acc)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border-radius:999px;min-height:40px;font-size:14px;padding:0 14px}
-.nav{display:flex;gap:8px;margin-top:14px}.nav button{flex:1}
-.adv{margin:8px 0 14px;padding-left:20px;font-size:15px}.adv li{margin:6px 0}
-.dng{background:var(--redbg);color:var(--red);border-radius:14px;padding:2px 16px 10px;margin-top:12px}
-.tg{font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px;background:var(--nbg);color:var(--mut);margin-left:6px;vertical-align:1px}
-.tg.u{background:var(--redbg);color:var(--red)}.tg.rec{background:var(--acc);color:var(--onacc)}
-.err{font-size:14px;color:var(--red);margin-top:6px}
-.nt{border-radius:14px;padding:12px;margin-bottom:10px}.nt p{margin:0}
-.nt .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.nt .acts button{flex:1;font-size:14px;min-height:40px}
-.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:14px 0}
-.k{background:var(--card);border-radius:12px;padding:14px}
-.k b{display:block;font-size:28px;letter-spacing:-0.02em;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums}.k span{font-size:13px;color:var(--mut)}
-.row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 8px;border-top:1px solid var(--line);cursor:pointer;border-radius:10px;font-variant-numeric:tabular-nums}.row:hover{background:var(--card)}
-.row.sel{background:var(--card)}.row small{color:var(--mut);display:block}
-.st{border:0;border-radius:8px;min-height:36px;font-size:13px;font-weight:600;white-space:nowrap}
-.s0{background:var(--redbg);color:var(--red)}.s1{background:var(--ambbg);color:var(--amb)}.s2{background:var(--grnbg);color:var(--grn)}
-.det{background:var(--card);border-radius:14px;padding:16px;margin-top:12px;font-size:15px}.det p{margin:4px 0}
-.rg{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 6px;border-top:1px solid var(--line)}.rg small{display:block;color:var(--mut);font-size:13px}.rg button{min-height:40px;font-size:14px}
-.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 max(4vw,16px);border-bottom:1px solid var(--line)}.tabs::-webkit-scrollbar{display:none}
-.tabs a{flex:none;display:inline-flex;align-items:center;min-height:48px;padding:0 12px;white-space:nowrap;color:var(--mut);text-decoration:none;font-weight:500;font-size:15px;border-bottom:3px solid transparent;margin-bottom:-1px}
-.tabs a:hover{color:var(--ink)}.tabs a[aria-current=page]{color:var(--ink);font-weight:600;border-bottom-color:var(--acc)}
-.ctl{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.ctl label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut)}.ctl .grow{flex:1 1 220px}.ctl select{width:100%}
-.pg{max-width:420px;margin:0 auto}.pg.wide{max-width:900px}.pg[hidden]{display:none}
-/* SCHERMATA CLIENTE (QR): sistema visivo proprio, limitato a .cx. Manrope 400/500/600, sfondo neutro, card bianche piatte, pulsanti a pillola. */
-.cx{--cx-bg:light-dark(#F3F4F6,#101215);--cx-card:light-dark(#fff,#1B1E23);--cx-ink:light-dark(#191C1F,#F3F4F6);--cx-on:light-dark(#fff,#101215);--cx-mut:light-dark(#6B7078,#9AA0A8);--cx-line:light-dark(#E4E6EA,#2A2E34);
- background:var(--cx-bg);color:var(--cx-ink);border:0;box-shadow:none;border-radius:28px;padding:20px 16px 24px;min-height:560px;font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.45;font-weight:400}
-.cx .ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.cx[dir=rtl] .fl{transform:scaleX(-1)}
-.cx b{font-weight:600}
-.cx .cap{color:var(--cx-mut);font-size:13px;font-weight:500;margin:0}
-.cx .hd .pl{font-size:17px;font-weight:600;margin:2px 0 0;letter-spacing:-.01em}
-.cx .ban{display:flex;align-items:center;gap:10px;background:var(--cx-card);border-radius:16px;padding:12px 14px;margin:14px 0 0;font-size:14px;font-weight:500;color:var(--cx-ink)}
-.cx .ban .ic{width:20px;height:20px}.cx .ban .ok{color:var(--grn)}.cx .ban .wn{color:var(--amb)}
-.cx .prg{height:4px;background:var(--cx-line);border-radius:2px;margin:20px 0 0}.cx .prg i{background:var(--cx-ink)}
-.cx h3{font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.025em;margin:24px 0 16px;text-wrap:balance}
-.cx .lab{font-size:13px;font-weight:500;color:var(--cx-mut);margin:20px 0 8px}
-.cx button{font-family:inherit;font-weight:500;border:0;color:var(--cx-ink);transition:transform 150ms ease,background-color 150ms ease,color 150ms ease}
-.cx button:active{transform:scale(.97)}
-.cx .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.cx .tile{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:20px;text-align:start;min-height:124px;padding:16px;border-radius:20px;background:var(--cx-card);font-size:15px;line-height:1.3}
-.cx .tile .ic{width:44px;height:44px;padding:10px;border-radius:50%;background:var(--cx-bg)}
-.cx .list{margin-top:12px;background:var(--cx-card);border-radius:20px;overflow:hidden}
-.cx .li{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:0 16px;background:transparent;text-align:start;font-size:15px;border-radius:0}
-.cx .li+.li{border-top:1px solid var(--cx-line)}.cx .li .ic:first-child{width:22px;height:22px}.cx .li span{flex:1}
-.cx .li .fl,.cx .opt .fl{color:var(--cx-mut);width:20px;height:20px}
-.cx .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;margin:0 0 8px;padding:12px 16px;border-radius:18px;background:var(--cx-card);border:2px solid transparent;text-align:start;font-size:16px}
-.cx .opt .ot{flex:1}.cx .opt small{display:block;font-size:13px;color:var(--cx-mut);margin-top:2px;font-weight:400}
-.cx .opt.rec{border-color:var(--cx-ink)}
-.cx .tg{font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;margin-inline-start:8px;background:var(--cx-bg);color:var(--cx-mut)}
-.cx .tg.rec{background:var(--cx-ink);color:var(--cx-on)}
-.cx .chips{gap:8px}.cx .chip{min-height:48px;padding:0 18px;border-radius:999px;background:var(--cx-card);font-size:15px}
-.cx .chip[aria-pressed=true]{background:var(--cx-ink);color:var(--cx-on)}
-.cx input:not([type=checkbox]):not([type=file]),.cx select,.cx textarea{width:100%;min-height:56px;padding:0 16px;border:2px solid transparent;border-radius:16px;background:var(--cx-card);color:var(--cx-ink);font:inherit;font-size:16px}
-.cx textarea{padding:14px 16px;resize:vertical}
-.cx input:focus,.cx select:focus,.cx textarea:focus{outline:0;border-color:var(--cx-ink)}
-.cx input[type=file]{width:100%;padding:12px 16px;border:0;border-radius:16px;background:var(--cx-card);font-size:14px;color:var(--cx-mut)}
-.cx input[type=file]::file-selector-button{margin-inline-end:12px;border:0;border-radius:999px;padding:8px 16px;background:var(--cx-bg);color:var(--cx-ink);font:inherit;font-size:14px;font-weight:500}
-.cx input[type=checkbox]{width:22px;height:22px;accent-color:var(--cx-ink);margin:0}
-.cx .adv{background:var(--cx-card);border-radius:18px;padding:16px 18px 16px 38px;margin:0 0 16px;font-size:15px}.cx .adv li{margin:8px 0}
-.cx[dir=rtl] .adv{padding:16px 38px 16px 18px}
-.cx .dng{background:var(--redbg);color:var(--red);border-radius:18px;padding:2px 16px 12px;margin-top:20px}.cx .dng h3{font-size:20px;margin:16px 0 8px}.cx .dng .adv{background:transparent;padding-inline:20px 0;margin:0}
-.cx .nav{display:flex;flex-direction:column;gap:8px;margin-top:20px}
-.cx .pri{width:100%;min-height:56px;border-radius:999px;background:var(--cx-ink);color:var(--cx-on);font-size:16px;font-weight:600}
-.cx .back{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;border-radius:999px;background:transparent;color:var(--cx-mut);font-size:15px}.cx .back .ic{width:18px;height:18px}
-.cx .err{font-size:14px;font-weight:500;color:var(--red);margin-top:12px}
-.cx .done{display:flex;align-items:center;gap:12px;margin:24px 0 8px}.cx .done .ic{width:36px;height:36px;color:var(--grn)}.cx .done h3{margin:0;font-size:24px}
-.cx .conf{background:var(--cx-card);border-radius:20px;padding:24px 20px;margin-top:20px}
-.cx .conf .cic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--grnbg);color:var(--grn)}.cx .conf .cic .ic{width:28px;height:28px}
-.cx .conf h3{font-size:26px;margin:16px 0 8px}.cx .conf p{margin:0;font-size:16px;color:var(--cx-mut)}
-.cx .conf .cn{display:inline-block;margin-top:16px;padding:6px 12px;border-radius:999px;background:var(--cx-bg);font-size:13px;font-weight:500}
-@media(prefers-reduced-motion:no-preference){.cx .conf{animation:cxin 300ms ease-out}@keyframes cxin{from{opacity:0;transform:translateY(8px)}}}
-.cx .sub{font-size:15px;font-weight:600;margin:20px 0 8px}
-@media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:light-dark(#fafafb,#21252b)}.cx .pri:hover{opacity:.9}}
-.cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){.cx button{transition:none}.cx button:active{transform:none}}
-.cx a.li{text-decoration:none;color:var(--cx-ink)}.lg{min-height:0;border-radius:24px}.lg .li small{display:block;font-size:13px;color:var(--cx-mut);font-weight:400;margin-top:2px}.pg .lg+.lg{margin-top:16px}
-.sess{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500}.sess span{color:var(--mut)}
-#sess[hidden],#gologin[hidden],#tabs[hidden],.flash[hidden]{display:none}
-.flash{margin:12px max(4vw,16px) 0;border-radius:12px;padding:10px 12px;font-size:14px;background:var(--ambbg);color:var(--amb)}
-#tabs{overflow-x:auto}
-.tools{display:flex;gap:8px;flex-wrap:wrap}
-.pg.mid{max-width:640px}
-.kv{display:grid;grid-template-columns:minmax(96px,30%) minmax(0,1fr);gap:6px 12px;margin:8px 0 0;font-size:14px}.kv div{display:contents}.kv dt{color:var(--mut)}.kv dd{margin:0;color:var(--ink)}
-.sc{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.sc summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink);min-height:32px;display:flex;align-items:center}.sc summary::marker{color:var(--mut)}
-.sh{font-weight:600;font-size:15px;margin:0;color:var(--ink)}
-.rp .acts{flex-direction:column}.rp .acts button{flex:none;width:100%}
-.rp{margin-top:14px;padding:14px;border-radius:12px;background:var(--card)}.rp select,.rp textarea,.rp input{width:100%}.rp .chips{margin-top:2px}
-.chip[aria-pressed=true]{background:var(--acc);color:var(--onacc);border-color:var(--acc);font-weight:600}
-.prev{margin-top:12px;padding:12px;border-radius:12px;background:var(--ambbg)}
-.okm{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:var(--grnbg);color:var(--grn);font-weight:600;font-size:14px}
-.nt button.sm{min-height:40px;font-size:14px;margin-top:8px}
-.dn .dl{font-size:14px;margin:8px 0 0}
-.steps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;padding:0;list-style:none;font-size:13px;color:var(--mut)}.steps li{background:var(--card);border-radius:999px;padding:4px 10px}.steps b{color:var(--acc)}
-.det .dh{font-weight:600;font-size:17px;margin:0 0 10px}
-.rb{border-radius:12px;padding:12px 14px;margin-bottom:12px;background:var(--bg);border:1px solid var(--line)}.rb p{margin:4px 0}.rb.warn{border:2px solid var(--amb);background:var(--ambbg)}.rb.ok{background:var(--grnbg);border-color:transparent}.rb.ok .sh{color:var(--grn)}.rb input{width:100%}.rb .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.rb .acts button{flex:1 1 160px}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
-.sts{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.st{display:inline-flex;align-items:center;padding:0 10px}
-.chp.sn{background:var(--nbg);color:var(--mut)}
-.hint{font-size:14px;color:var(--mut);margin:-6px 0 14px}
-.who{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);flex:1 1 220px;max-width:280px}.who select{width:100%}
-.sw{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:var(--card);margin-bottom:16px}
-.sw button{border:0;background:transparent;min-height:44px;font-weight:500;color:var(--mut);border-radius:9px}
-.sw button[aria-selected=true]{background:var(--bg);color:var(--ink);font-weight:600;box-shadow:0 1px 2px light-dark(#0002,#0006)}
-.cnt.n{background:var(--nbg);color:var(--mut)}
-.rg .oc{display:inline-block;margin-left:8px;font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px;background:var(--redbg);color:var(--red)}
-.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
-.cnt{display:inline-block;vertical-align:3px;margin-left:6px;font-size:13px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--redbg);color:var(--red)}.cnt:empty{display:none}
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.tools select{width:100%;font-size:15px;padding:0 8px}
-.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:900px;margin:28px auto 0;padding-top:16px;border-top:1px solid var(--line)}.foot button{min-height:40px;font-size:14px}
-.nt{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--line)}.nt.n0{border-left-color:var(--red)}.nt.n1{border-left-color:var(--amb)}
-.nt .h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--mut)}.nt .h .tg{margin-left:0}
-.nt .pl{font-size:16px;font-weight:600;margin-top:6px}.nt .ds{font-size:14px;margin-top:4px;color:var(--ink)}.nt .vf{font-size:13px;color:var(--mut);margin-top:4px}
-.chp{font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px}
-.nt .acts button.pri{flex:1.4}
-.nt .cc{font-size:14px;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--card);user-select:all}.nt .cc:empty{display:none}
-.row .rt{color:var(--mut);font-size:14px}
-.row+.det{margin:0 0 12px}
-.rg .bt{display:flex;gap:6px;flex-wrap:wrap}
-@media(max-width:600px){.phone{min-height:0}.lx{display:none}.tabs{justify-content:space-between}.tabs a{padding:0 6px}
- .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .st{grid-area:s}
- .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:17px/1.47 var(--font);letter-spacing:-.01em;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--glass)}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+h1{font-size:17px;line-height:1.2;margin:0;font-weight:600;letter-spacing:-.02em}
+h2{font-size:30px;line-height:1.1;margin:0;font-weight:700;letter-spacing:-.03em}
+h3{font-size:20px;line-height:1.25;margin:16px 0 10px;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+b{font-weight:600}
 
+/* barra */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:center;flex:1 1 200px}
+.brand svg{flex:none;width:36px;height:36px;border-radius:11px;background:var(--acc);color:#fff;padding:7px}
+.brand small{display:block;font-size:12px;color:var(--mut);letter-spacing:0}
+.bar .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sess{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:500}.sess span{color:var(--mut)}
+#logout,#gologin{min-height:34px;padding:0 14px;font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border-radius:999px;padding:5px 11px;letter-spacing:0}.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.tabs{order:9;flex:1 1 100%;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--card);max-width:520px;margin:0 auto}
+.tabs a{flex:1;display:flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border-radius:999px;white-space:nowrap;color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;transition:background-color .2s}
+.tabs a[aria-current=page]{background:#fff;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+
+/* struttura e testo */
+.band{padding:22px max(16px,env(safe-area-inset-right,0px)) 32px max(16px,env(safe-area-inset-left,0px))}
+.pg{max-width:440px;margin:0 auto}.pg.mid{max-width:640px}.pg.wide{max-width:920px}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.cap{font-size:14px;color:var(--mut);margin:0 0 8px}
+.hint{font-size:15px;color:var(--mut);margin:-6px 0 16px}
+.lab{display:block;font-size:14px;color:var(--mut);margin:14px 0 6px}
+.err{font-size:15px;color:var(--red);margin:8px 0 0}
+.sh{font-weight:600;font-size:16px;margin:0}
+
+/* controlli */
+select,input,textarea,button{font:inherit;font-size:17px;letter-spacing:-.01em;color:var(--ink);border:0;min-height:46px}
+select,input,textarea{width:auto;border-radius:14px;background:var(--card);padding:0 16px}
+textarea{padding:12px 16px;line-height:1.4;resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--mut)}
+input[type=checkbox]{min-height:0;width:22px;height:22px;padding:0;flex:none;accent-color:var(--acc)}
+input[type=file]{padding:11px 16px;font-size:15px}
+select:focus,input:focus,textarea:focus{outline:0;box-shadow:0 0 0 3px rgba(0,113,227,.3)}
+button{cursor:pointer;border-radius:999px;background:var(--card);padding:0 20px;font-weight:600;transition:transform .12s ease-out,background-color .2s}
+button:active{transform:scale(.97)}
+button.pri{background:var(--acc);color:#fff;min-height:52px}
+button:disabled{opacity:.4;cursor:default;transform:none}
+@media(hover:hover){button:hover{background-color:var(--fill)}button.pri:hover{background-color:#0077ed}}
+:focus-visible{outline:3px solid rgba(0,113,227,.45);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{min-height:40px;font-size:15px;padding:0 16px}
+.chip[aria-pressed=true]{background:var(--acc);color:#fff}
+.nav{display:flex;gap:8px;margin-top:16px}.nav button{flex:1}
+
+/* etichette */
+.tg,.chp,.st{display:inline-flex;align-items:center;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;letter-spacing:0;background:var(--fill);color:var(--mut);white-space:nowrap}
+.tg{margin-left:6px;vertical-align:1px}.tg.u{background:var(--redbg);color:var(--red)}.tg.rec{background:var(--acc);color:#fff}
+.st{min-height:28px;padding:0 11px;font-size:13px}
+.s0{background:var(--redbg);color:var(--red)}.s1{background:var(--ambbg);color:var(--amb)}.s2{background:var(--grnbg);color:var(--grn)}.sn{background:var(--fill);color:var(--mut)}
+.cnt{display:inline-block;vertical-align:1px;margin-left:6px;min-width:20px;text-align:center;font-size:12px;font-weight:600;border-radius:999px;padding:1px 7px;background:var(--red);color:#fff}.cnt:empty{display:none}.cnt.n{background:var(--fill);color:var(--mut)}
+
+/* avvisi: bianchi con contorno scuro */
+.bn,.rb,.toast,.flash,.prev{background:#fff;border:1px solid var(--edge);border-radius:20px}
+.bi{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--card);color:var(--ink)}.bi .ic{width:20px;height:20px}
+.bn{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:12px 16px 12px 12px;font-size:15px;line-height:1.35}.bn p{margin:0}
+.bn.ok .bi,.rb.ok .bi,.toast .bi{background:var(--grnbg);color:var(--grn)}
+.bn.ok p{font-weight:600}
+.toast{position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);z-index:5;display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:10px 10px 10px 12px;border-radius:22px;box-shadow:0 10px 28px -14px rgba(0,0,0,.3)}
+.toast .tx{flex:1;font-weight:600;font-size:15px;line-height:1.3}.toast small{display:block;font-weight:400;font-size:13px;color:var(--mut)}
+.toast button{min-height:38px;padding:0 16px;background:var(--accbg);color:var(--acct);font-size:15px}
+.flash{display:flex;align-items:center;gap:12px;margin:14px auto 0;max-width:640px;padding:12px 16px 12px 12px;font-size:15px}
+.flash::before{content:"!";flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--ambbg);color:var(--amb);font-weight:700}
+.prev{margin-top:12px;padding:14px 16px}.prev .sh{color:var(--amb)}
+.rb{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;padding:16px 18px 16px 16px;margin-bottom:14px}
+.rb>*{grid-column:2}.rb>.bi{grid-column:1;grid-row:1/span 4;width:44px;height:44px}
+.rb p{margin:3px 0}.rb .sh{font-size:17px;margin-top:10px}
+.rb.warn{border-width:1.5px}.rb.warn .bi{background:var(--ambbg);color:var(--amb)}.rb.warn .sh{color:var(--amb)}
+.rb input{width:100%}.rb .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.rb .acts button{flex:1 1 160px}
+.rb .sel{user-select:all}
+
+/* operatore */
+.who{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);flex:1 1 220px;max-width:280px}.who select{width:100%;font-size:15px;border-radius:999px}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;border-radius:999px;background:var(--card);margin-bottom:18px}
+.sw button{background:transparent;min-height:40px;font-size:15px;font-weight:500;padding:0 12px}
+.sw button[aria-selected=true]{background:#fff;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.steps{display:flex;margin:0 0 16px;padding:0;list-style:none;font-size:13px;color:var(--mut)}
+.steps li{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;line-height:1.25;padding:0 4px}
+.steps b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accbg);color:var(--acct);font-size:13px}
+.nt{background:var(--card);border-radius:24px;padding:18px;margin-bottom:12px}.nt p{margin:0}
+.nt .h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--mut)}.nt .h .tg{margin-left:0}
+.nt .pl{font-size:19px;font-weight:600;letter-spacing:-.02em;margin-top:8px;line-height:1.25}
+.nt .ds{font-size:15px;margin-top:2px;color:var(--mut)}
+.nt .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.nt .acts button{flex:1}
+.nt .cc{font-size:15px;margin-top:8px;padding:10px 14px;border-radius:14px;background:var(--card);user-select:all}.nt .cc:empty{display:none}
+.nt button.sm{min-height:38px;font-size:15px;margin-top:10px;padding:0 16px}
+.rel{display:block;width:100%;margin-top:6px;min-height:40px;background:transparent;color:var(--red);font-weight:500;font-size:15px}
+.sc{margin-top:12px;border-radius:18px;background:var(--card2);padding:4px 16px 14px}
+.sc summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:42px;font-size:15px;font-weight:600}
+.sc summary::-webkit-details-marker{display:none}.sc summary::after{content:"›";font-size:20px;color:var(--mut);transition:transform .2s}.sc[open] summary::after{transform:rotate(90deg)}
+.sc .cc,.sc button.sm{background:var(--card)}
+.kv{display:grid;grid-template-columns:minmax(100px,34%) minmax(0,1fr);gap:7px 12px;margin:2px 0 0;font-size:15px}.kv div{display:contents}.kv dt{color:var(--mut)}.kv dd{margin:0}
+.dn .dl{font-size:15px;margin:8px 0 0}
+
+/* schermata rapporto */
+.rs-nav{margin:-6px 0 6px}
+.bk{display:inline-flex;align-items:center;gap:4px;min-height:40px;background:transparent;color:var(--acc);padding:0 6px 0 0;font-weight:400;font-size:17px}.bk .ic{stroke-width:2.2}
+.lt{margin-bottom:4px}
+.gh{font-size:13px;color:var(--mut);margin:22px 0 6px 16px}.gh label{color:inherit}
+.gf{font-size:13px;color:var(--mut);margin:8px 16px 0}
+.grp{background:var(--card);border-radius:20px;overflow:hidden}.grp.kv{padding:12px 16px}
+.grp select,.grp input,.grp textarea{width:100%;background:transparent;border-radius:0;min-height:50px}
+.ck{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:58px;padding:8px 16px;border-radius:0;background:transparent;font-weight:400;text-align:left}
+.ck+.ck{box-shadow:inset 16px 1px 0 var(--card),inset 0 1px 0 var(--line)}
+.ck small{display:block;font-size:13px;color:var(--mut)}
+.ck .ic{color:var(--acc);opacity:0;stroke-width:2.6}.ck[aria-pressed=true] .ic{opacity:1}
+.ck:active{transform:none;background:var(--fill)}
+.rs-foot{position:sticky;bottom:0;margin:20px calc(-1*max(16px,env(safe-area-inset-left,0px))) 0;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--line)}
+.rs-foot .pri{width:100%}.rs-foot .err{margin:0 0 10px}
+
+/* macchine */
+#reg>div{background:var(--card);border-radius:24px;overflow:hidden}
+.rg{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px}.rg+.rg{box-shadow:inset 0 1px 0 var(--line)}
+.rg small{display:block;color:var(--mut);font-size:14px}.rg .bt{display:flex;gap:8px;flex-wrap:wrap}.rg button{min-height:38px;font-size:15px;padding:0 16px;background:#fff}
+.rg .oc{display:inline-block;margin-left:8px;font-size:12px;font-weight:600;border-radius:999px;padding:2px 8px;background:var(--redbg);color:var(--red)}
+.det{background:var(--card);border-radius:22px;padding:18px;margin-top:12px;font-size:15px}.det p{margin:4px 0}
+.det input,.det select{background:#fff}
+
+/* centro assistenza */
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.tools select{width:100%;font-size:15px;border-radius:999px}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.k{background:var(--card);border-radius:22px;padding:16px 18px}
+.k b{display:block;font-size:30px;letter-spacing:-.03em;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums}.k span{font-size:13px;color:var(--mut)}
+#list{background:var(--card);border-radius:24px;overflow:hidden}#list>p{padding:16px;margin:0}
+.row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 16px;cursor:pointer;font-variant-numeric:tabular-nums;transition:background-color .15s}
+.row+.row,.det+.row{box-shadow:inset 0 1px 0 var(--line)}
+@media(hover:hover){.row:hover{background:var(--fill)}}.row.sel{background:var(--fill)}
+.row small{color:var(--mut);display:block;font-size:14px}.row .rt{color:var(--mut);font-size:14px}
+.sts{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+#list .det{margin:0;border-radius:0;padding:6px 16px 16px}
+.det .dh{font-weight:600;font-size:19px;letter-spacing:-.02em;margin:0 0 12px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.cols section{background:#fff;border-radius:18px;padding:14px 16px}
+.det .sc{background:#fff}
+
+/* cliente */
+.ctl{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.ctl label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut)}.ctl .grow{flex:1 1 220px}.ctl select{width:100%;font-size:15px;border-radius:999px}
+.cx{background:#fff;color:var(--ink);border-radius:40px;padding:22px 16px 26px;min-height:560px;font-size:17px;line-height:1.45;box-shadow:0 0 0 1px var(--line),0 24px 60px -30px rgba(0,0,0,.3)}
+.cx[dir=rtl] .fl{transform:scaleX(-1)}
+.cx .cap{margin:0}
+.cx .hd .pl{font-size:17px;font-weight:600;margin:2px 0 0}
+.cx .ban{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--edge);border-radius:20px;padding:10px 16px 10px 10px;margin:14px 0 0;font-size:15px;font-weight:500}
+.cx .ban .ic{width:36px;height:36px;padding:8px;border-radius:50%}.cx .ban .ok{background:var(--grnbg);color:var(--grn)}.cx .ban .wn{background:var(--ambbg);color:var(--amb)}
+.cx .prg{height:6px;background:var(--card);border-radius:3px;margin:20px 0 0}.cx .prg i{display:block;height:100%;border-radius:3px;background:var(--acc);transition:width .3s}
+.cx h3{font-size:28px;line-height:1.12;font-weight:700;letter-spacing:-.03em;margin:24px 0 16px}
+.cx .lab{font-size:13px;margin:20px 0 8px 4px}
+.cx button{font-weight:500}
+.cx .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cx .tile{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:20px;text-align:start;min-height:128px;padding:16px;border-radius:24px;font-size:16px;line-height:1.25}
+.cx .tile .ic{width:44px;height:44px;padding:10px;border-radius:50%;background:#fff}
+.cx .list{margin-top:12px;background:var(--card);border-radius:24px;overflow:hidden}
+.cx .li{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;padding:0 16px;background:transparent;text-align:start;font-size:16px;border-radius:0}
+.cx .li+.li{box-shadow:inset 52px 1px 0 var(--card),inset 0 1px 0 var(--line)}.cx .li span{flex:1}
+.cx .li .fl,.cx .opt .fl{color:var(--mut);width:18px;height:18px}
+.cx a.li{text-decoration:none;color:var(--ink)}
+.cx .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;margin:0 0 8px;padding:12px 18px;border-radius:22px;text-align:start;font-size:17px}
+.cx .opt .ot{flex:1}.cx .opt small{display:block;font-size:14px;color:var(--mut);margin-top:2px;font-weight:400}
+.cx .opt.rec{box-shadow:inset 0 0 0 2px var(--acc)}
+.cx .tg{margin-left:0;margin-inline-start:8px}
+.cx .chip{min-height:46px;padding:0 18px;font-size:16px}
+.cx input:not([type=checkbox]):not([type=file]),.cx select,.cx textarea{width:100%;min-height:54px;padding:0 18px;border-radius:18px}
+.cx textarea{padding:14px 18px}
+.cx input[type=file]{width:100%;border-radius:18px;color:var(--mut)}
+.cx input[type=file]::file-selector-button{margin-inline-end:12px;border:0;border-radius:999px;padding:8px 16px;background:var(--accbg);color:var(--acct);font:inherit;font-size:15px;font-weight:600}
+.cx .adv{background:var(--card);border-radius:22px;padding:16px 18px 16px 38px;margin:0 0 16px;font-size:16px}.cx .adv li{margin:8px 0}
+.cx[dir=rtl] .adv{padding:16px 38px 16px 18px}
+.cx .dng{background:#fff;border:1.5px solid var(--red);color:var(--red);border-radius:22px;padding:2px 16px 12px;margin-top:20px}.cx .dng h3{font-size:21px;margin:16px 0 8px}.cx .dng .adv{background:transparent;padding-inline:20px 0;margin:0}
+.cx .nav{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.cx .pri{width:100%;min-height:56px;font-size:17px;font-weight:600}
+.cx .back{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px;background:transparent;color:var(--acc);font-size:16px}.cx .back .ic{width:20px;height:20px}
+.cx .done{display:flex;align-items:center;gap:12px;margin:24px 0 8px}.cx .done .ic{width:36px;height:36px;color:var(--grn)}.cx .done h3{margin:0;font-size:24px}
+.cx .conf{background:#fff;border:1px solid var(--edge);border-radius:28px;padding:26px 22px;margin-top:20px}
+.cx .conf .cic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--grnbg);color:var(--grn)}.cx .conf .cic .ic{width:28px;height:28px}
+.cx .conf h3{font-size:26px;margin:16px 0 8px}.cx .conf p{margin:0;font-size:16px;color:var(--mut)}
+.cx .conf .cn{display:inline-block;margin-top:16px;padding:6px 12px;border-radius:999px;background:var(--card);font-size:13px;font-weight:600}
+.cx .sub{font-size:16px;font-weight:600;margin:20px 0 8px}
+@media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:var(--fill)}}
+.lg{min-height:0;border-radius:0;box-shadow:none;background:transparent;padding:0}.lg h3{font-size:34px;margin:4px 0 8px}
+.lg .li small{display:block;font-size:14px;color:var(--mut);margin-top:2px}.pg .lg+.lg{margin-top:24px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:920px;margin:36px auto 0;padding-top:16px;border-top:1px solid var(--line)}.foot .cap{font-size:13px;margin:0}.foot button{min-height:38px;font-size:15px;padding:0 16px}
+
+@media(prefers-reduced-motion:no-preference){.cx .conf,.okm,.toast{animation:rise .35s cubic-bezier(.2,.9,.3,1)}@keyframes rise{from{opacity:0;transform:translateY(8px)}}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}button:active{transform:none}}
+@media(prefers-reduced-transparency:reduce){.bar,.rs-foot{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media(max-width:600px){
+ .brand small,.lx{display:none}.bar{padding-top:8px;padding-bottom:8px;gap:8px}.brand{flex:1 1 auto}.pill{font-size:12px;padding:4px 9px}
+ h2{font-size:28px}.cx{border-radius:0;box-shadow:none;margin:0 -16px;padding:18px 16px 24px;min-height:0}
+ .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .sts{grid-area:s}
+ .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
 </style></head><body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
   <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Accesso personale</button><span id="status" class="pill" role="status"></span></div>
+  <nav class="tabs" id="tabs" aria-label="Schermate" hidden></nav>
 </header>
-<nav class="tabs" id="tabs" aria-label="Schermate" hidden></nav>
+
 <p id="flash" class="flash" role="status" hidden></p>
 
 <div class="band">
@@ -213,13 +249,13 @@ h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
     </section>
   </div>
   <div class="pg mid" id="v-operatore" hidden>
-    <div class="ph"><div><h2 id="opname"></h2><p class="cap" id="opzone" style="margin:2px 0 0"></p></div>
+    <div class="ph" id="ophd"><div><h2 id="opname"></h2><p class="cap" id="opzone" style="margin:2px 0 0"></p></div>
       <label class="who" id="who">Cambia operatore (prova)<select id="op"></select></label></div>
-    <div class="sw" role="tablist" aria-label="Sezioni operatore">
+    <div class="sw" id="sw" role="tablist" aria-label="Sezioni operatore">
       <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Da fare <span id="badge" class="cnt"></span></button>
       <button type="button" role="tab" id="t-mac" data-sec="mac" aria-selected="false">Macchine <span id="mcount" class="cnt n"></span></button>
     </div>
-    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><ol class="steps" aria-label="Come funziona"><li><b>1</b> Prendi in carico</li><li><b>2</b> Vai alla macchina</li><li><b>3</b> Invia il rapporto al centro</li></ol><div id="notif"></div></section>
+    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><ol class="steps" id="steps" aria-label="Come funziona"><li><b>1</b> Prendi in carico</li><li><b>2</b> Vai alla macchina</li><li><b>3</b> Invia il rapporto al centro</li></ol><div id="notif"></div></section>
     <section id="sec-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
       <div class="ph" style="margin-bottom:6px"><p class="cap" style="margin:0;flex:1 1 220px">Sul posto: aggiungi la macchina e genera il QR da incollare. Il QR contiene solo il codice della macchina.</p><button type="button" id="addm" class="pri">Aggiungi macchina</button></div>
       <div id="act"></div><div id="reg"></div>
@@ -309,7 +345,7 @@ function fillMac(){const cur=$("mac").value;$("mac").innerHTML=M.map((m,i)=>`<op
 fillMac();
 $("op").innerHTML=Z.map(z=>`<option value="${z[0]}">${z[1]} · ${z[0]}</option>`).join("");
 let sec="seg";
-function showSec(v){sec=v;$("sec-seg").hidden=v!=="seg";$("sec-mac").hidden=v!=="mac";$("t-seg").setAttribute&&$("t-seg").setAttribute("aria-selected",v==="seg");$("t-mac").setAttribute&&$("t-mac").setAttribute("aria-selected",v==="mac");}
+function showSec(v){sec=v;if(v!=="seg"&&opForm!==null){opForm=null;renderOp();}$("sec-seg").hidden=v!=="seg";$("sec-mac").hidden=v!=="mac";$("t-seg").setAttribute&&$("t-seg").setAttribute("aria-selected",v==="seg");$("t-mac").setAttribute&&$("t-mac").setAttribute("aria-selected",v==="mac");}
 
 const flow=()=>{const a=C.a,P=a.prob;if(!P)return["prob"];
   if(MONEY.includes(P))return["prob","pay","err","try","amt","prod","photo","refund","contact"];
@@ -337,7 +373,7 @@ const ST={
  contact:()=>{const a=C.a,cm=a.cm||"tel",cp=a.cp||"39",op=a.refund&&a.refund!==RF[2][0]?"":tr("opt");
   const chip=(v,l)=>`<button type="button" class="chip" data-k="cm" data-v="${v}" aria-pressed="${cm===v}">${esc(l)}</button>`;
   const f=cm==="tel"?`<div style="display:flex;gap:8px"><select aria-label="${esc(tr("cpre"))}" data-k="cp" style="flex:0 0 118px;width:118px">${PX.map(p=>`<option value="${p[1]}"${p[1]===cp?" selected":""}>${p[0]} +${p[1]}</option>`).join("")}</select><input id="ct" data-k="cn" inputmode="tel" autocomplete="tel-national" placeholder="${cp==="39"?"333 123 4567":""}" style="flex:1;width:auto" value="${val("cn")}"></div>`:`<input id="ct" data-k="cmail" type="email" inputmode="email" autocomplete="email" placeholder="nome@mail.it" value="${val("cmail")}">`;
-  return `<h3>${esc(tr("qcontact"))}</h3><label class="lab" for="nm">${esc(tr("name"))}</label><input id="nm" data-k="nome" placeholder="Anna" value="${val("nome")}"><div class="chips" style="margin-top:12px">${chip("tel",tr("cph"))}${chip("mail",tr("cem"))}</div><label class="lab" for="ct">${esc(tr(cm==="tel"?"cph":"cem"))}${esc(op)}</label>${f}<label style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--cx-mut);margin-top:20px"><input type="checkbox" data-k="priv" ${a.priv?"checked":""}>${esc(tr("priv"))}</label><button type="button" class="pri" data-act="send" style="width:100%;margin-top:14px">${esc(tr("send"))}</button><div class="nav" style="margin-top:8px">${back()}</div>`;}
+  return `<h3>${esc(tr("qcontact"))}</h3><label class="lab" for="nm">${esc(tr("name"))}</label><input id="nm" data-k="nome" placeholder="Anna" value="${val("nome")}"><div class="chips" style="margin-top:12px">${chip("tel",tr("cph"))}${chip("mail",tr("cem"))}</div><label class="lab" for="ct">${esc(tr(cm==="tel"?"cph":"cem"))}${esc(op)}</label>${f}<label style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--mut);margin-top:20px"><input type="checkbox" data-k="priv" ${a.priv?"checked":""}>${esc(tr("priv"))}</label><button type="button" class="pri" data-act="send" style="width:100%;margin-top:14px">${esc(tr("send"))}</button><div class="nav" style="margin-top:8px">${back()}</div>`;}
 };
 function result(r){const m=M[r.m],tips=[];
   if(r.urgent)tips.push(tr("tipD"));
@@ -384,25 +420,30 @@ $("cust").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
   else if(d.act==="again")resetCust();
   rc();});
 
-function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":" ha riaperto"));}
+function setS(x,s){if(x.s===s)return;const was=x.s;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":was===1?" ha annullato la presa in carico":" ha riaperto"));}
+let undoN=null;
 let opForm=null;const RFm={};
 const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
 function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
 function said(x){return `<dl class="kv">${kv("Problema",`<b>${esc(x.p)}</b>${x.urgent?' <span class="tg u">Pericolo</span>':""}`)}${kv("Quando",esc(x.t)+(x.after?" (fuori orario)":""))}${kv("Pagamento",esc(x.pay||""))}${kv("Display",esc(x.err||""))}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Prodotto",esc(x.prod||""))}${kv("Descrizione",esc(x.txt||""))}${kv("Foto",esc(x.photo||""))}${kv("Lingua",x.lang&&x.lang!=="it"?esc(lgName(x.lang)):"")}</dl>`;}
 function custBox(x){return `<dl class="kv">${kv("Cliente",esc(x.nome||"non indicato"))}${kv("Rimborso chiesto",esc(x.r))}</dl>`;}
 function repView(r){return `<dl class="kv">${kv("Causa",`<b>${esc(r.causa)}</b>`)}${kv("Intervento",esc(r.fatto))}${kv("Esito",r.esito==="risolto"?'<span class="chp s2">Risolto</span>':'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Rimborso",esc(RV[r.rimb])+(r.imp&&r.rimb!=="no"&&r.rimb!=="nessuno"?" · "+eur(r.imp):""))}${kv("Motivo",esc(r.mot||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;}
-function repForm(x){const f=RFm[x.n]||(RFm[x.n]={causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""});
-  const ch=(k,v,l)=>`<button type="button" class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k]===v}">${esc(l)}</button>`;
-  return `<div class="rp"><p class="sh">Rapporto di intervento</p><p class="cap">Arriva al centro assistenza, che decide ed emette il rimborso.</p>
-<label class="lab" for="r_causa">Causa del problema</label><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select>
-<label class="lab" for="r_fatto">Cosa hai fatto sul posto</label><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea>
-<p class="lab">Esito</p><div class="chips">${ch("esito","risolto","Risolto")}${ch("esito","no","Non risolto: serve un altro intervento")}</div>
-${money(x)?`<p class="lab">Rimborso al cliente</p><div class="chips">${ch("rimb","dovuto","Dovuto: errore della macchina")}${x.pay==="Monete o banconote"||x.r===RF[1][0]?ch("rimb","posto","Già dato sul posto in monete"):""}${ch("rimb","no","Non dovuto")}</div>
-${f.rimb==="dovuto"||f.rimb==="posto"?`<label class="lab" for="r_imp">Importo confermato (€)</label><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}" style="max-width:160px">`:""}
-${f.rimb==="no"?`<label class="lab" for="r_mot">Perché non è dovuto</label><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}">`:""}`:""}
-<label class="lab" for="r_note">Note per il centro assistenza (facoltative)</label><input id="r_note" data-f="note" value="${esc(f.note)}">
-${f.err?`<p class="err" role="alert">${esc(f.err)}</p>`:""}
-<div class="acts"><button type="button" class="pri" data-a="send" data-n="${x.n}">Invia rapporto al centro</button><button type="button" data-a="cancel" data-n="${x.n}">Annulla</button></div></div>`;}
+function repForm(x){const f=RFm[x.n]||(RFm[x.n]={causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""}),m=M[x.m];
+  const row=(k,v,l,sub)=>`<button type="button" class="ck" data-f="${k}" data-v="${v}" aria-pressed="${f[k]===v}"><span>${esc(l)}${sub?`<small>${esc(sub)}</small>`:""}</span>${ic("check")}</button>`;
+  const coins=x.pay==="Monete o banconote"||x.r===RF[1][0];
+  return `<div class="rs">
+<div class="rs-nav"><button type="button" class="bk" data-a="cancel" data-n="${x.n}">${ic("arrow-left")}Da fare</button></div>
+<h2 class="lt">Rapporto di intervento</h2><p class="cap">${esc(m[0])} · ${esc(m[1])}</p>
+<p class="gh">Segnalazione n. ${x.n}</p><dl class="grp kv">${kv("Problema",`<b>${esc(x.p)}</b>`)}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Pagamento",esc(x.pay||""))}${kv("Rimborso chiesto",esc(x.r))}</dl>
+<p class="gh"><label for="r_causa">Causa del problema</label></p><div class="grp"><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select></div>
+<p class="gh"><label for="r_fatto">Cosa hai fatto sul posto</label></p><div class="grp"><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea></div>
+<p class="gh">Esito</p><div class="grp" role="group" aria-label="Esito">${row("esito","risolto","Risolto","La macchina funziona di nuovo")}${row("esito","no","Non risolto","Serve un altro intervento")}</div>
+${money(x)?`<p class="gh">Rimborso al cliente</p><div class="grp" role="group" aria-label="Rimborso al cliente">${row("rimb","dovuto","Dovuto","Errore della macchina: il centro rimborsa")}${coins?row("rimb","posto","Già dato sul posto","Hai restituito le monete al cliente"):""}${row("rimb","no","Non dovuto","Spiega il motivo al centro")}</div>
+${f.rimb==="dovuto"||f.rimb==="posto"?`<p class="gh"><label for="r_imp">Importo confermato (€)</label></p><div class="grp"><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}"></div>`:""}
+${f.rimb==="no"?`<p class="gh"><label for="r_mot">Perché non è dovuto</label></p><div class="grp"><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}"></div>`:""}`:""}
+<p class="gh"><label for="r_note">Note per il centro assistenza</label></p><div class="grp"><input id="r_note" data-f="note" placeholder="Facoltative" value="${esc(f.note)}"></div>
+<p class="gf">Il rapporto arriva al centro assistenza, che decide ed emette il rimborso.</p>
+<div class="rs-foot">${f.err?`<p class="err" role="alert">${esc(f.err)}</p>`:""}<button type="button" class="pri" data-a="send" data-n="${x.n}">Invia al centro assistenza</button></div></div>`;}
 function sendRep(x){const f=RFm[x.n],imp=parseFloat(String(f.imp||"").replace(",","."));let e="";
   if(!f.causa)e="Scegli la causa del problema.";
   else if(f.fatto.trim().length<5)e="Scrivi cosa hai fatto sul posto.";
@@ -423,16 +464,23 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   if(open)mine.forEach(x=>{if(x.after)x.seen=1;});
   {const k=show.filter(x=>x.s===0).length;$("badge").textContent=k?String(k):"";if($("badge").setAttribute)$("badge").setAttribute("aria-label",k+" nuove");}
   $("opname").textContent=zi[1];$("opzone").textContent=zi[0]+" · vede solo le macchine della sua zona";let h="";
-  if(flashOp){h+=`<p class="okm" role="status">✓ ${esc(flashOp)}</p>`;flashOp="";}
-  if(q.length)h+=`<div class="nt" style="color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
+  const fx=opForm!==null&&rows.find(x=>x.n===opForm&&x.s===1&&M[x.m][2]===z);
+  $("ophd").hidden=$("sw").hidden=$("steps").hidden=!!fx;
+  if(fx){$("notif").innerHTML=repForm(fx);return;}
+  if(opForm!==null)opForm=null;
+  if(flashOp){h+=`<div class="bn ok okm" role="status"><span class="bi">${ic("check")}</span><p>${esc(flashOp)}</p></div>`;flashOp="";}
+  const ux=undoN!==null&&rows.find(x=>x.n===undoN&&x.s===1&&!x.rep);
+  if(ux)h+=`<div class="toast undo" role="status"><span class="bi">${ic("check")}</span><span class="tx">Presa in carico<small>n. ${ux.n} · ${esc(M[ux.m][0])} · ${esc(M[ux.m][1])}</small></span><button type="button" data-a="0" data-n="${ux.n}">Annulla</button></div>`;
+  if(q.length)h+=`<div class="bn"><span class="bi">${ic("clock")}</span><p><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
   const card=x=>{const m=M[x.m],n=x.s===0;
     let c=`<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>`;
     if(n)return c+`<div class="acts"><button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button></div></div>`;
     c+=`<details class="sc" open><summary>Dove si trova</summary>${where(m)}</details><details class="sc" open><summary>Cosa ha segnalato il cliente</summary>${said(x)}</details><details class="sc"><summary>Cliente e rimborso chiesto</summary>${custBox(x)}${x.c?`<button type="button" class="sm" data-a="c" data-n="${x.n}">Mostra recapito</button><p class="cc" id="cc${x.n}"></p>`:""}</details>`;
-    if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente</p>${repView(x.rep)}</div>`;
-    c+=opForm===x.n?repForm(x):`<div class="acts"><button type="button" class="pri" data-a="rep" data-n="${x.n}">${x.rep?"Nuovo rapporto di intervento":"Sono sul posto: compila il rapporto"}</button></div>`;
+    if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente: serve un altro intervento</p>${repView(x.rep)}</div>`;
+    c+=`<div class="acts"><button type="button" class="pri" data-a="rep" data-n="${x.n}">${x.rep?"Nuovo rapporto di intervento":"Sono sul posto: compila il rapporto"}</button></div>`;
+    if(!x.rep)c+=`<button type="button" class="rel" data-a="0" data-n="${x.n}">Annulla presa in carico</button>`;
     return c+`</div>`;};
   h+=show.length?show.map(card).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
   const done=rows.filter(x=>M[x.m][2]===z&&x.s===2&&x.rep).reverse();
@@ -440,11 +488,11 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   $("notif").innerHTML=h;}
 let rfMot="";
 function refundBox(d){const pref=`<p>Metodo scelto dal cliente: <b>${esc(d.r)}</b>${d.c?` · Contatto: <span class="sel">${esc((d.nome?d.nome+", ":"")+d.c)}</span>`:""}</p>`;
-  if(d.rf==="da emettere")return `<div class="rb warn"><p class="sh">Da fare: emettere il rimborso di ${eur(d.rep.imp)}</p><p>Il tecnico ${esc(d.rep.by)} conferma un errore della macchina (${esc(d.rep.causa.toLowerCase())}).</p>${pref}<div class="acts"><button type="button" class="pri" data-rf="emesso" data-n="${d.n}">Rimborso emesso</button><button type="button" data-rf="nega" data-n="${d.n}">Non rimborsare</button></div>${rfMot===String(d.n)?`<label class="lab" for="rf_mot">Motivo da comunicare al cliente</label><input id="rf_mot"><div class="acts"><button type="button" class="pri" data-rf="rifiutato" data-n="${d.n}">Conferma: non rimborsare</button></div><p class="err" id="rf_err" role="alert"></p>`:""}</div>`;
-  if(d.rf==="emesso")return `<div class="rb ok"><p class="sh">Rimborso emesso: ${eur(d.rep.imp)}</p>${pref}</div>`;
-  if(d.rf==="sul posto")return `<div class="rb ok"><p class="sh">Rimborsato sul posto dal tecnico: ${eur(d.rep.imp)}</p><p>Niente da emettere.</p></div>`;
-  if(d.rf==="non dovuto"||d.rf==="rifiutato")return `<div class="rb"><p class="sh">Nessun rimborso</p><p>Motivo: ${esc(d.rf==="rifiutato"?d.rfm:d.rep.mot)}</p>${pref}${d.avv?`<p class="cap">Cliente avvisato.</p>`:`<div class="acts"><button type="button" data-rf="avvisato" data-n="${d.n}">Ho avvisato il cliente</button></div>`}</div>`;
-  if(money(d))return `<div class="rb"><p class="sh">Rimborso: in attesa del tecnico</p><p>Si decide quando arriva il rapporto di intervento. Non rimborsare prima.</p>${pref}</div>`;
+  if(d.rf==="da emettere")return `<div class="rb warn"><span class="bi">${ic("hand-coins")}</span><p class="sh">Da fare: emettere il rimborso di ${eur(d.rep.imp)}</p><p>Il tecnico ${esc(d.rep.by)} conferma un errore della macchina (${esc(d.rep.causa.toLowerCase())}).</p>${pref}<div class="acts"><button type="button" class="pri" data-rf="emesso" data-n="${d.n}">Rimborso emesso</button><button type="button" data-rf="nega" data-n="${d.n}">Non rimborsare</button></div>${rfMot===String(d.n)?`<label class="lab" for="rf_mot">Motivo da comunicare al cliente</label><input id="rf_mot"><div class="acts"><button type="button" class="pri" data-rf="rifiutato" data-n="${d.n}">Conferma: non rimborsare</button></div><p class="err" id="rf_err" role="alert"></p>`:""}</div>`;
+  if(d.rf==="emesso")return `<div class="rb ok"><span class="bi">${ic("check")}</span><p class="sh">Rimborso emesso: ${eur(d.rep.imp)}</p>${pref}</div>`;
+  if(d.rf==="sul posto")return `<div class="rb ok"><span class="bi">${ic("check")}</span><p class="sh">Rimborsato sul posto dal tecnico: ${eur(d.rep.imp)}</p><p>Niente da emettere.</p></div>`;
+  if(d.rf==="non dovuto"||d.rf==="rifiutato")return `<div class="rb"><span class="bi">${ic("message-circle")}</span><p class="sh">Nessun rimborso</p><p>Motivo: ${esc(d.rf==="rifiutato"?d.rfm:d.rep.mot)}</p>${pref}${d.avv?`<p class="cap">Cliente avvisato.</p>`:`<div class="acts"><button type="button" data-rf="avvisato" data-n="${d.n}">Ho avvisato il cliente</button></div>`}</div>`;
+  if(money(d))return `<div class="rb wait"><span class="bi">${ic("clock")}</span><p class="sh">Rimborso: in attesa del tecnico</p><p>Si decide quando arriva il rapporto di intervento. Non rimborsare prima.</p>${pref}</div>`;
   return "";}
 function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
   const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||(sf==="r"?x.rf==="da emettere":x.s===+sf))&&(ff===""||(ff==="n")===!!x.after));
@@ -471,10 +519,11 @@ $("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
   if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
   const x=rows.find(q=>q.n===+d.n);if(!x)return;
   if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
-  if(d.a==="rep"){opForm=x.n;renderOp();return;}
-  if(d.a==="cancel"){opForm=null;delete RFm[x.n];renderOp();return;}
+  if(d.a==="rep"){opForm=x.n;undoN=null;renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
+  if(d.a==="cancel"){opForm=null;renderOp();return;}
   if(d.a==="send"){sendRep(x);return;}
-  setS(x,+d.a);render();});
+  const to=+d.a;undoN=to===1?x.n:null;if(to===0){opForm=null;flashOp="Presa in carico annullata: la n. "+x.n+" torna tra le nuove.";}
+  setS(x,to);render();});
 const opIn=e=>{const t=e.target,k=t.dataset&&t.dataset.f;if(!k||opForm===null||!RFm[opForm])return;RFm[opForm][k]=t.value;};
 $("notif").addEventListener("input",opIn);$("notif").addEventListener("change",opIn);
 $("list").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.rf){const x=rows.find(q=>q.n===+b.dataset.n),v=b.dataset.rf;
