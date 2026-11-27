@@ -173,6 +173,9 @@ button:disabled{opacity:.4;cursor:default;transform:none}
 .cx .li+.li{box-shadow:inset 52px 1px 0 var(--card),inset 0 1px 0 var(--line)}.cx .li span{flex:1}
 .cx .li .fl,.cx .opt .fl{color:var(--mut);width:18px;height:18px}
 .tl{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.tl:first-of-type{border-top:0}.tlt{width:64px;flex:none;color:var(--mut);font-size:14px}.tx{flex:1;min-width:0}.tx small{display:block;color:var(--mut);font-size:13px}
+#tit .rg{padding-inline:0}
+.th{font-size:16px;font-weight:600;margin:28px 0 2px}.th+.cap{margin:0 0 6px}.rkn{width:28px;flex:none;font-weight:600;color:var(--mut)}
+.mb{display:block;height:6px;background:var(--line);border-radius:3px;margin-top:8px}.mb i{display:block;height:100%;background:var(--acc);border-radius:3px}
 .kb{border:0;text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit;transition:transform 150ms ease,box-shadow 150ms ease}.kb:active{transform:scale(.98)}.kb[aria-pressed=true]{box-shadow:0 0 0 2px var(--acc)}
 .cx a.li{text-decoration:none;color:var(--ink)}
 .cx .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;margin:0 0 8px;padding:12px 18px;border-radius:22px;text-align:start;font-size:17px}
@@ -576,11 +579,20 @@ function renderClock(soft){const op=isOpen(),st=$("status");
    Tempo di risposta = da l'arrivo (t) alla presa in carico (ts[1]), in minuti, media per operatore. */
 const hmin=s=>{const q=/(\d{1,2}):(\d{2})/.exec(String(s||""));return q?+q[1]*60+ +q[2]:null;};
 const respMin=x=>{const a=hmin(x.t),b=x.ts&&hmin(x.ts[1]);return a==null||b==null?null:(b-a+1440)%1440;};
+const oggi=x=>!/^ieri/.test(String(x.t||""));
 function kpiTit(list=rows){
   const tot=list.length,ok=list.filter(x=>x.s===2).length,wait=list.filter(x=>x.s===0).length;
-  const ops=Z.map(z=>{const rs=list.filter(x=>M[x.m][3]===z[1]).map(respMin).filter(v=>v!=null);
-    return {nome:z[1],zona:z[0],n:rs.length,avg:rs.length?Math.round(rs.reduce((a,b)=>a+b,0)/rs.length):null};});
-  return {tot,ok,wait,pct:tot?Math.round(ok/tot*100):0,ops};}
+  const ops=Z.map(z=>{const mine=list.filter(x=>M[x.m][3]===z[1]),rs=mine.map(respMin).filter(v=>v!=null),td=mine.filter(oggi);
+    return {nome:z[1],zona:z[0],n:rs.length,avg:rs.length?Math.round(rs.reduce((a,b)=>a+b,0)/rs.length):null,
+      oggi:td.filter(x=>x.s>=1).length,risOggi:td.filter(x=>x.s===2).length};});
+  /* Classifica: segnalazioni prese in carico oggi (a parità, più risolte; poi ordine delle zone). */
+  const rank=ops.map((o,i)=>[o,i]).sort((a,b)=>b[0].oggi-a[0].oggi||b[0].risOggi-a[0].risOggi||a[1]-b[1]).map(q=>q[0]);
+  /* Distributori: dove arrivano più segnalazioni; problema più frequente (a parità, il primo arrivato). */
+  const macs=M.map((m,i)=>{const mine=list.filter(x=>x.m===i),cnt={};mine.forEach(x=>{cnt[x.p]=(cnt[x.p]||0)+1;});
+    let top=null,tc=0;for(const p in cnt)if(cnt[p]>tc){top=p;tc=cnt[p];}
+    return {code:m[0],luogo:m[1],n:mine.length,open:mine.filter(x=>x.s<2).length,euro:Math.round(mine.reduce((a,x)=>a+(x.a||0),0)*100)/100,top,topN:tc};})
+    .map((m,i)=>[m,i]).sort((a,b)=>b[0].n-a[0].n||a[1]-b[1]).map(q=>q[0]);
+  return {tot,ok,wait,pct:tot?Math.round(ok/tot*100):0,ops,rank,macs};}
 globalThis.__kpi=kpiTit;
 let titF=null;
 const TITF={tot:["Tutte le chiamate",()=>true],ok:["Chiamate riuscite",x=>x.s===2],wait:["Chiamate in attesa",x=>x.s===0]};
@@ -591,9 +603,14 @@ function renderTit(){if(!$("tit"))return;const k=kpiTit();
   if(titF){const [lab,fn]=TITF[titF],sel=rows.filter(fn).slice().reverse();
     list=`<div class="det" style="margin-top:14px"><p style="font-weight:600;font-size:16px;margin:0 0 4px">${esc(lab)} · ${sel.length}</p>`+
       (sel.length?sel.map(x=>{const m=M[x.m];return `<div class="tl"><span class="tlt">${esc(x.t)}</span><span class="tx"><b style="font-weight:600">${esc(x.p)}</b><small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="st s${x.s}" style="pointer-events:none">${esc(S[x.s])}</span></div>`;}).join(""):`<p class="cap">Nessuna segnalazione in questa voce.</p>`)+`</div>`;}
+  const pl=(n,u,us)=>n+" "+(n===1?u:us),maxN=Math.max(1,...k.macs.map(m=>m.n));
+  const rankH=k.rank.map((o,i)=>`<div class="tl"><span class="rkn">${i+1}</span><span class="tx"><b>${esc(o.nome)}</b><small>${esc(o.zona)} · ${pl(o.risOggi,"risolta","risolte")} oggi</small></span><b>${o.oggi}</b></div>`).join("");
+  const macH=k.macs.map(m=>`<div class="tl"><span class="tx"><b>${esc(m.code)} · ${esc(m.luogo)}</b><small>${m.n?pl(m.n,"segnalazione","segnalazioni")+" · "+pl(m.open,"aperta","aperte")+(m.euro?" · "+eur(m.euro)+" coinvolti":""):"Nessuna segnalazione"}</small>${m.top?`<small>Più frequente: ${esc(m.top)} (${m.topN})</small>`:""}<span class="mb"><i style="width:${Math.round(m.n/maxN*100)}%"></i></span></span><b>${m.n}</b></div>`).join("");
   $("tit").innerHTML=`<div class="kp">${cards.map(c=>btn(c[0],c[1],c[2])).join("")}</div>`+list+
-    `<p class="cap" style="margin:18px 0 4px">Tempo di risposta per operatore (dall'arrivo alla presa in carico)</p>`+
-    k.ops.map(o=>`<div class="rg"><span><b>${esc(o.nome)}</b><small>${esc(o.zona)} · ${o.n} prese in carico</small></span><b>${o.avg==null?"—":o.avg+" min"}</b></div>`).join("");}
+    `<h3 class="th">Classifica operatori di oggi</h3><p class="cap">Segnalazioni prese in carico durante la giornata</p>`+rankH+
+    `<h3 class="th">Tempo di risposta per operatore</h3><p class="cap">Dall'arrivo della segnalazione alla presa in carico</p>`+
+    k.ops.map(o=>`<div class="rg"><span><b>${esc(o.nome)}</b><small>${esc(o.zona)} · ${o.n} prese in carico</small></span><b>${o.avg==null?"—":o.avg+" min"}</b></div>`).join("")+
+    `<h3 class="th">Statistiche dei distributori</h3><p class="cap">Dal più problematico: dove arrivano più segnalazioni</p>`+macH;}
 $("tit").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;const f=b.dataset.f;titF=titF===f?null:f;renderTit();});
 function render(){renderOp();renderList();renderTit();if(C.done||(C.track&&C.tq&&C.tq.n!==null))rc();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const key=()=>isOpen()+nk()+closeMin()+nextAt().m,was=key();clk=realClk();renderClock(was===key());},1000);
