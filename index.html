@@ -125,17 +125,40 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.cx button{transition:none}.cx button:active{transform:none}}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
+.pg.mid{max-width:640px}
+.who{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);flex:1 1 220px;max-width:280px}.who select{width:100%}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:var(--card);margin-bottom:16px}
+.sw button{border:0;background:transparent;min-height:44px;font-weight:500;color:var(--mut);border-radius:9px}
+.sw button[aria-selected=true]{background:var(--bg);color:var(--ink);font-weight:600;box-shadow:0 1px 2px light-dark(#0002,#0006)}
+.cnt.n{background:var(--nbg);color:var(--mut)}
+.rg .oc{display:inline-block;margin-left:8px;font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px;background:var(--redbg);color:var(--red)}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
+.cnt{display:inline-block;vertical-align:3px;margin-left:6px;font-size:13px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--redbg);color:var(--red)}.cnt:empty{display:none}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.tools select{width:100%;font-size:15px;padding:0 8px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:900px;margin:28px auto 0;padding-top:16px;border-top:1px solid var(--line)}.foot button{min-height:40px;font-size:14px}
+.nt{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--line)}.nt.n0{border-left-color:var(--red)}.nt.n1{border-left-color:var(--amb)}
+.nt .h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--mut)}.nt .h .tg{margin-left:0}
+.nt .pl{font-size:16px;font-weight:600;margin-top:6px}.nt .ds{font-size:14px;margin-top:4px;color:var(--ink)}.nt .vf{font-size:13px;color:var(--mut);margin-top:4px}
+.chp{font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px}
+.nt .acts button.pri{flex:1.4}
+.nt .cc{font-size:14px;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--card);user-select:all}.nt .cc:empty{display:none}
+.row .rt{color:var(--mut);font-size:14px}
+.row+.det{margin:0 0 12px}
+.rg .bt{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:600px){.phone{min-height:0}.lx{display:none}.tabs{justify-content:space-between}.tabs a{padding:0 6px}
+ .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .st{grid-area:s}
+ .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
-  <div class="acts"><span id="status" class="pill" role="status"></span><button id="reset" type="button">Ricomincia</button></div>
+  <span id="status" class="pill" role="status"></span>
 </header>
 <nav class="tabs" id="tabs" aria-label="Schermate">
-  <a href="#cliente" data-v="cliente">Cliente</a><a href="#operatore" data-v="operatore">Operatore di zona</a><a href="#centro" data-v="centro">Centro assistenza</a><a href="#campo" data-v="campo">Operatore sul campo</a>
+  <a href="#cliente" data-v="cliente">Cliente</a><a href="#operatore" data-v="operatore">Operatore</a><a href="#centro" data-v="centro">Centro<span class="lx">&nbsp;assistenza</span></a>
 </nav>
 
 <div class="band">
@@ -145,28 +168,27 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
       <div class="phone cx" id="cust"></div>
     </section>
   </div>
-  <div class="pg" id="v-operatore" hidden>
-    <section>
-      <p class="cap">Telefono dell'operatore di zona</p>
-      <div class="phone">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-          <select id="op" style="flex:1" aria-label="Operatore"></select>
-          <span id="badge" class="st s0" style="padding:0 10px;display:inline-flex;align-items:center"></span>
-        </div>
-        <div id="notif"></div>
-      </div>
+  <div class="pg mid" id="v-operatore" hidden>
+    <div class="ph"><div><h2 id="opname"></h2><p class="cap" id="opzone" style="margin:2px 0 0"></p></div>
+      <label class="who">Cambia operatore (prova)<select id="op"></select></label></div>
+    <div class="sw" role="tablist" aria-label="Sezioni operatore">
+      <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Segnalazioni <span id="badge" class="cnt"></span></button>
+      <button type="button" role="tab" id="t-mac" data-sec="mac" aria-selected="false">Macchine <span id="mcount" class="cnt n"></span></button>
+    </div>
+    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><div id="notif"></div></section>
+    <section id="sec-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
+      <div class="ph" style="margin-bottom:6px"><p class="cap" style="margin:0;flex:1 1 220px">Sul posto: aggiungi la macchina e genera il QR da incollare. Il QR contiene solo il codice della macchina.</p><button type="button" id="addm" class="pri">Aggiungi macchina</button></div>
+      <div id="act"></div><div id="reg"></div>
     </section>
   </div>
 
   <div class="pg wide" id="v-centro" hidden>
-  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">Pannello del centro assistenza</p><h2>Segnalazioni</h2></div>
+  <div class="ph"><h2>Segnalazioni</h2></div>
     <div class="tools">
       <select id="zf" aria-label="Zona"><option value="">Tutte le zone</option><option>Zona Nord</option><option>Zona Centro</option><option>Zona Sud</option></select>
       <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="0">Nuova</option><option value="1">Presa in carico</option><option value="2">Risolta</option></select>
       <select id="ff" aria-label="Fascia"><option value="">Giorno e notte</option><option value="d">Solo orario di servizio</option><option value="n">Solo fuori orario</option></select>
     </div>
-  </div>
   <div class="kp">
     <div class="k"><b id="mt"></b><span>Segnalazioni</span></div>
     <div class="k"><b id="mn"></b><span>Ancora nuove</span></div>
@@ -177,15 +199,7 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
   <div id="det"></div>
   </div>
 
-  <div class="pg wide" id="v-campo" hidden>
-  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">Operatore sul campo</p><h2>Macchine e QR code</h2></div>
-    <button type="button" id="addm" class="pri">+ Aggiungi macchina</button>
-  </div>
-  <p class="cap" style="margin-top:6px">L'operatore arriva sul posto, aggiunge la macchina, compila i dati e genera il QR: la macchina risulta abbinata subito. Il QR contiene solo il codice della macchina.</p>
-  <div id="act"></div><div id="reg"></div>
-  </div>
-  <p class="cap" style="margin-top:14px">Dati di esempio, nomi di fantasia. Nel centro assistenza tocca una riga per i dettagli, tocca lo stato per farlo avanzare.</p>
+  <footer class="foot"><p class="cap" style="margin:0">Dati di esempio, nomi di fantasia. Restano solo finché la pagina è aperta.</p><button id="reset" type="button">Ripristina dati di esempio</button></footer>
 </div>
 
 <script src="i18n.js"></script>
@@ -235,7 +249,9 @@ $("lg").innerHTML=LANGS.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join(
 const N0=M.length,URLB="https://tuodominio.it/s/";let view=null,adding=false;
 function fillMac(){const cur=$("mac").value;$("mac").innerHTML=M.map((m,i)=>`<option value="${i}">${esc(m[0])} · ${esc(m[1])}</option>`).join("");$("mac").value=cur&&+cur<M.length?cur:"0";}
 fillMac();
-$("op").innerHTML=Z.map(z=>`<option>${z[0]}</option>`).join("");
+$("op").innerHTML=Z.map(z=>`<option value="${z[0]}">${z[1]} · ${z[0]}</option>`).join("");
+let sec="seg";
+function showSec(v){sec=v;$("sec-seg").hidden=v!=="seg";$("sec-mac").hidden=v!=="mac";$("t-seg").setAttribute&&$("t-seg").setAttribute("aria-selected",v==="seg");$("t-mac").setAttribute&&$("t-mac").setAttribute("aria-selected",v==="mac");}
 
 const flow=()=>{const a=C.a,P=a.prob;if(!P)return["prob"];
   if(MONEY.includes(P))return["prob","pay","err","try","amt","prod","photo","refund","contact"];
@@ -315,32 +331,34 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   const vis=x=>x.seen||!x.after||x.urgent||open;
   const mine=rows.filter(x=>M[x.m][2]===z&&x.s<2),q=mine.filter(x=>!vis(x)),show=mine.filter(vis).reverse();
   if(open)mine.forEach(x=>{if(x.after)x.seen=1;});
-  $("badge").textContent=show.filter(x=>x.s===0).length+" nuove";
-  let h=`<p class="cap">${esc(zi[1])} vede solo le macchine della sua zona</p>`;
-  if(q.length)h+=`<div class="nt" style="background:var(--nbg);color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
+  {const k=show.filter(x=>x.s===0).length;$("badge").textContent=k?String(k):"";if($("badge").setAttribute)$("badge").setAttribute("aria-label",k+" nuove");}
+  $("opname").textContent=zi[1];$("opzone").textContent=zi[0]+" · vede solo le macchine della sua zona";let h="";
+  if(q.length)h+=`<div class="nt" style="color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
-  h+=show.length?show.map(x=>{const m=M[x.m],n=x.s===0,c=n?"var(--red)":"var(--amb)";return `<div class="nt" style="background:${n?"var(--redbg)":"var(--ambbg)"};color:${c}"><p style="font-size:13px">${n?"Nuova":"In carico"} · ${esc(x.t)} · n. ${x.n}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}</p><p style="font-size:16px;font-weight:600;margin-top:4px">${m[0]} ${esc(m[1])}</p><p style="font-size:14px;margin-top:4px">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}. ${x.r!==RF[2][0]?"Rimborso richiesto: "+esc(x.r.toLowerCase())+". Verifica prima di rimborsare.":""}</p><div class="acts">${n?`<button type="button" data-a="1" data-n="${x.n}">Prendo in carico</button>`:`<button type="button" data-a="2" data-n="${x.n}">Segna risolta</button>`}${x.c?`<button type="button" data-a="c" data-n="${x.n}">Contatta cliente</button>`:""}</div><p id="cc${x.n}" style="font-size:13px;margin-top:6px"></p></div>`}).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
+  h+=show.length?show.map(x=>{const m=M[x.m],n=x.s===0;return `<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>${x.r!==RF[2][0]?`<p class="vf">Rimborso richiesto: ${esc(x.r.toLowerCase())}. Verifica prima di rimborsare.</p>`:""}<div class="acts">${n?`<button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button>`:`<button type="button" class="pri" data-a="2" data-n="${x.n}">Segna risolta</button>`}${x.c?`<button type="button" data-a="c" data-n="${x.n}">Contatta cliente</button>`:""}</div><p class="cc" id="cc${x.n}"></p></div>`}).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
   $("notif").innerHTML=h;}
 function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
   const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||x.s===+sf)&&(ff===""||(ff==="n")===!!x.after));
   $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=all.filter(x=>x.after).length;
   $("me").textContent=eur(all.filter(x=>x.s<2&&x.r!==RF[2][0]).reduce((s,x)=>s+x.a,0));
-  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}"><span style="color:var(--mut);font-size:14px">${esc(x.t)}</span><span><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><button type="button" class="st s${x.s}" data-i="${x.n}">${S[x.s]}</button></div>`}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
-  const d=rows.find(x=>x.n===sel);
-  $("det").innerHTML=d?`<div class="det"><p style="font-weight:600;font-size:17px">Segnalazione n. ${d.n} · ${M[d.m][0]}</p><p style="color:var(--mut)">${esc(d.p)}${d.a?", "+eur(d.a):""}${d.prod?", prodotto "+esc(d.prod):""}</p>${d.pay?`<p>Pagamento: ${esc(d.pay)}${d.err?" · Display: "+esc(d.err.toLowerCase()):""}</p>`:""}${d.txt?`<p>Descrizione: ${esc(d.txt)}</p>`:""}${d.photo?`<p>Foto allegata: ${esc(d.photo)}</p>`:""}<p>Cliente: ${d.nome?esc(d.nome):"non indicato"}${d.c?" · "+esc(d.c):""}</p>${d.lang?`<p>Lingua del cliente: ${esc(lgName(d.lang))}${d.lang!=="it"&&d.txt?" · testo scritto dal cliente, non tradotto":""}</p>`:""}<p>Rimborso preferito: ${esc(d.r)}</p><p>Prima di rimborsare: verifica con telecamere o altri sistemi.</p><p style="color:var(--mut);margin-top:10px">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></div>`:"";}
+  const det=d=>`<div class="det"><p style="font-weight:600;font-size:17px">Segnalazione n. ${d.n} · ${M[d.m][0]}</p><p style="color:var(--mut)">${esc(d.p)}${d.a?", "+eur(d.a):""}${d.prod?", prodotto "+esc(d.prod):""}</p>${d.pay?`<p>Pagamento: ${esc(d.pay)}${d.err?" · Display: "+esc(d.err.toLowerCase()):""}</p>`:""}${d.txt?`<p>Descrizione: ${esc(d.txt)}</p>`:""}${d.photo?`<p>Foto allegata: ${esc(d.photo)}</p>`:""}<p>Cliente: ${d.nome?esc(d.nome):"non indicato"}${d.c?" · "+esc(d.c):""}</p>${d.lang?`<p>Lingua del cliente: ${esc(lgName(d.lang))}${d.lang!=="it"&&d.txt?" · testo scritto dal cliente, non tradotto":""}</p>`:""}<p>Rimborso preferito: ${esc(d.r)}</p><p>Prima di rimborsare: verifica con telecamere o altri sistemi.</p><p style="color:var(--mut);margin-top:10px">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></div>`;
+  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><button type="button" class="st s${x.s}" data-i="${x.n}" title="Tocca per cambiare stato">${S[x.s]}</button></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
+  $("det").innerHTML="";}
 function renderClock(soft){const op=isOpen(),st=$("status");
   st.textContent=op?"Assistenza aperta fino alle 18:30":"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
   if(!soft){rc();render();}}
-function render(){renderOp();renderList();}
+function render(){renderOp();renderList();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const was=isOpen()+nk();clk=realClk();renderClock(was===isOpen()+nk());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
 $("mac").addEventListener("change",rc);
 $("lg").addEventListener("change",()=>{LG=$("lg").value;rc();});
-$("op").addEventListener("change",renderOp);
+$("op").addEventListener("change",()=>{renderOp();renderReg();if(adding)renderAct();});
+if($("t-seg").addEventListener){$("t-seg").addEventListener("click",()=>showSec("seg"));$("t-mac").addEventListener("click",()=>showSec("mac"));}
 $("zf").addEventListener("change",renderList);$("sf").addEventListener("change",renderList);$("ff").addEventListener("change",renderList);
-$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const x=rows.find(q=>q.n===+b.dataset.n);if(b.dataset.a==="c"){$("cc"+x.n).textContent="Contatto cliente: "+x.c;return;}setS(x,+b.dataset.a);render();});
+$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const x=rows.find(q=>q.n===+b.dataset.n);if(b.dataset.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}setS(x,+b.dataset.a);render();});
 $("list").addEventListener("click",e=>{const b=e.target.closest(".st");if(b){const x=rows.find(q=>q.n===+b.dataset.i);setS(x,(x.s+1)%3);render();return;}const r=e.target.closest(".row");if(r){sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();}});
+if($("list").addEventListener)$("list").addEventListener("keydown",e=>{const r=e.target.closest&&e.target.closest(".row");if(r&&e.target===r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();const f=document.querySelector&&document.querySelector('.row[data-r="'+r.dataset.r+'"]');if(f&&f.focus)f.focus();}});
 $("reset").addEventListener("click",()=>{M.length=N0;view=null;adding=false;$("act").innerHTML="";fillMac();renderReg();rows=seed();sel=null;resetCust();$("zf").value="";$("sf").value="";$("ff").value="";renderClock();});
 
 const TIPI=["Bevande calde","Snack","Bevande fredde","Misto"];
@@ -348,14 +366,16 @@ const trunc=(t,n)=>t.length>n?t.slice(0,n-1)+"…":t;
 function sticker(m){const url=URLB+m[0];
   return `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="340" viewBox="0 0 260 340" font-family="Arial,Helvetica,sans-serif"><rect x="1" y="1" width="258" height="338" rx="14" fill="#fff" stroke="#111" stroke-width="2"/><text x="130" y="34" text-anchor="middle" font-size="19" font-weight="700" fill="#111">Segnala un problema</text><text x="130" y="53" text-anchor="middle" font-size="12" fill="#444">Report a problem · Signaler · Melden</text><g transform="translate(20,66)">${QR.svg(url,220)}</g><text x="130" y="308" text-anchor="middle" font-size="24" font-weight="700" fill="#111">${esc(m[0])}</text><text x="130" y="327" text-anchor="middle" font-size="11" fill="#444">${esc(trunc(m[1],42))}</text></svg>`;}
 function renderReg(){
-  $("reg").innerHTML=`<div style="margin-top:14px">`+M.map((m,i)=>`<div class="rg"><span><b>${esc(m[0])}</b><span class="tg" style="background:var(--grnbg);color:var(--grn)">Abbinata</span><small>${esc(m[1])} · ${m[2]}, ${m[3]}${m[4]?" · matricola "+esc(m[4]):""}</small></span><span style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" data-qr="${i}">Mostra QR</button><button type="button" data-t="${i}">Prova scansione</button></span></div>`).join("")+`</div>`;}
+  const z=$("op").value,mine=M.map((m,i)=>[m,i]).filter(([m])=>m[2]===z);
+  $("mcount").textContent=mine.length;
+  $("reg").innerHTML=mine.length?`<div style="margin-top:14px">`+mine.map(([m,i])=>{const k=rows.filter(x=>x.m===i&&x.s<2).length;return `<div class="rg"><span><b>${esc(m[0])}</b>${k?`<span class="oc">${k} ${k>1?"aperte":"aperta"}</span>`:""}<small>${esc(m[1])}${m[4]?" · matricola "+esc(m[4]):""}</small></span><span class="bt"><button type="button" data-qr="${i}">Mostra QR</button><button type="button" data-t="${i}">Prova scansione</button></span></div>`}).join("")+`</div>`:`<p style="color:var(--mut);margin-top:14px">Nessuna macchina in questa zona. Aggiungi la prima con "Aggiungi macchina".</p>`;}
 function renderAct(){
   if(adding){$("act").innerHTML=`<div class="det" style="max-width:560px"><p style="font-weight:600;font-size:17px;margin-bottom:6px">Nuova macchina</p>
 <label class="lab" for="f_code">Numero macchina (diventa il codice del QR)</label><input id="f_code" placeholder="OSP-03" style="width:100%" autocomplete="off">
 <label class="lab" for="f_ser">Matricola o numero di serie</label><input id="f_ser" placeholder="SN-48213" style="width:100%" autocomplete="off">
 <label class="lab" for="f_luogo">Luogo (struttura)</label><input id="f_luogo" placeholder="Ospedale San Marco" style="width:100%" autocomplete="off">
 <label class="lab" for="f_punto">Punto preciso (piano, reparto, vicino a cosa)</label><input id="f_punto" placeholder="Piano terra, corridoio radiologia" style="width:100%" autocomplete="off">
-<label class="lab" for="f_zona">Zona</label><select id="f_zona" style="width:100%">${Z.map(z=>`<option>${z[0]}</option>`).join("")}</select>
+<label class="lab" for="f_zona">Zona</label><select id="f_zona" style="width:100%">${Z.map(z=>`<option${z[0]===$("op").value?" selected":""}>${z[0]}</option>`).join("")}</select>
 <p class="cap" style="margin:6px 0 0" id="f_op"></p>
 <label class="lab" for="f_gest">Gestore (titolare dei dati)</label><input id="f_gest" placeholder="Nome dell'azienda che gestisce le macchine" style="width:100%" autocomplete="off">
 <label class="lab" for="f_tipo">Tipo di macchina</label><select id="f_tipo" style="width:100%">${TIPI.map(t=>`<option>${t}</option>`).join("")}</select>
@@ -371,17 +391,18 @@ function renderAct(){
 <p class="cap" id="dlmsg" style="margin:8px 0 0" role="status"></p><div class="nav"><button type="button" data-add="1">Aggiungi un'altra macchina</button><button type="button" data-no="1">Chiudi</button></div></div>`;return;}
   $("act").innerHTML="";}
 function fop(){const z=Z.find(q=>q[0]===$("f_zona").value)||Z[0];$("f_op").textContent="Operatore di zona: "+z[1]+" (riceverà le segnalazioni di questa macchina)";}
-function openAdd(){adding=true;view=null;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}
+function scanTest(i){$("mac").value=String(i);resetCust();rc();if(typeof location!=="undefined")location.hash="cliente";if(typeof scrollTo==="function")scrollTo(0,0);}
+function openAdd(){showSec("mac");adding=true;view=null;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}
 $("addm").addEventListener("click",openAdd);
 $("reg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
-  if(d.t!==undefined){$("mac").value=d.t;rc();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"center"});}
+  if(d.t!==undefined)scanTest(d.t);
   else if(d.qr!==undefined){adding=false;view=+d.qr;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 $("act").addEventListener("change",e=>{if(adding&&e.target.id==="f_zona")fop();});
 $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
   if(d.no){adding=false;view=null;renderAct();return;}
   if(d.add){openAdd();return;}
-  if(d.dl){const m=M[view];(async()=>{try{const dl=typeof claude!=="undefined"?await claude.use("downloads"):null;if(!dl){$("dlmsg").textContent="Il salvataggio non è disponibile qui: fai uno screenshot del QR.";return;}await dl.save({filename:"QR-"+m[0]+".svg",data:new Blob([sticker(m)],{type:"image/svg+xml"})});$("dlmsg").textContent="QR salvato.";}catch(e){$("dlmsg").textContent="Salvataggio annullato o non riuscito.";}})();return;}
-  if(d.t!==undefined){$("mac").value=d.t;rc();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"center"});return;}
+  if(d.dl){const m=M[view],fn="QR-"+m[0]+".svg",blob=new Blob([sticker(m)],{type:"image/svg+xml"});(async()=>{try{if(typeof claude!=="undefined"&&claude.use){const dl=await claude.use("downloads");if(!dl){$("dlmsg").textContent="Il download non è disponibile qui: fai uno screenshot del QR.";return;}await dl.save({filename:fn,data:blob});$("dlmsg").textContent="QR salvato: "+fn;return;}const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("dlmsg").textContent="QR scaricato: "+fn;}catch(e){$("dlmsg").textContent="Download non riuscito. Riprova, oppure fai uno screenshot del QR.";}})();return;}
+  if(d.t!==undefined){scanTest(d.t);return;}
   if(d.gen){const v=id=>($(id).value||"").trim(),code=v("f_code").toUpperCase(),ser=v("f_ser"),lu=v("f_luogo"),pu=v("f_punto"),zn=$("f_zona").value,ge=v("f_gest"),z=Z.find(q=>q[0]===zn);let er="";
     if(!/^[A-Z0-9-]{3,20}$/.test(code))er="Il numero macchina deve avere da 3 a 20 tra lettere, numeri e trattino, senza spazi (es. OSP-03).";
     else if(M.some(m=>m[0]===code))er="Il numero "+code+" esiste già: scegline un altro.";
@@ -393,11 +414,11 @@ $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
     if(er){$("f_err").textContent=er;return;}
     M.push([code,lu+", "+pu,zn,z[1],ser,ge,$("f_tipo").value,v("f_note")]);
     fillMac();$("mac").value=String(M.length-1);adding=false;view=M.length-1;
-    renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
+    $("op").value=zn;renderOp();renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 renderReg();
 renderClock();
-const VIEWS=["cliente","operatore","centro","campo"];
-function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"cliente";
+const VIEWS=["cliente","operatore","centro"];
+function route(){let h=location.hash.slice(1);if(h==="campo"){h="operatore";showSec("mac");}const v=VIEWS.includes(h)?h:"cliente";
   VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v;});
   $("tabs").querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   $("macbox").hidden=v!=="cliente";}

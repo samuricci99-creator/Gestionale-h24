@@ -20,6 +20,7 @@ Test: `./tests/run.sh` (solo Node, nessuna dipendenza). Il simulatore dell'orari
 - Rimborso: tre scelte. "Rimborso sull'app" è proposto e segnato "Consigliato" (previa verifica di una persona con telecamere o altri sistemi), "Monete dal distributore" (accordo con l'operatore di zona), "Solo segnalazione".
 - Contatto: telefono (prefisso a scelta, cifre massime per paese, spazi automatici) oppure email validata. Obbligatorio solo se si chiede il rimborso.
 - Zone/operatori: Nord (Marco), Centro (Giulia), Sud (Luca) di esempio. Ogni operatore vede solo la sua zona.
+- Operatore di zona e operatore sul campo sono la stessa persona: una sola schermata "Operatore" con due sezioni, Segnalazioni (notifiche della sua zona) e Macchine (solo le macchine della sua zona, con segnalazioni aperte, QR, prova scansione e "Aggiungi macchina" con la sua zona già scelta). Schede in alto: Cliente, Operatore, Centro assistenza (il vecchio link `#campo` apre Operatore > Macchine).
 - Macchina: il QR contiene solo l'indirizzo con il codice macchina (es. https://tuodominio.it/s/OSP-03), nessun dato personale. Il GPS non si usa.
 - Flusso "Aggiungi macchina" (operatore sul campo): numero macchina, matricola, luogo, punto preciso, zona, gestore, tipo, note -> "Genera QR code" -> adesivo pronto + prova scansione. Controlli: codice e matricola unici.
 
