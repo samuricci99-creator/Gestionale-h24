@@ -2,17 +2,17 @@
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Assistenza distributori</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* VOICE: strumento di lavoro, sobrio e leggibile, da provare mentre si modifica.
    IDEA: il cartellino stampato sul distributore, con QR e codice macchina.
    PICTURE: la giornata divisa in due fasce, e i due telefoni (cliente e operatore) che reagiscono.
-   COLOUR and TYPE: bianco o notte, ultramarino come unico accento; Inter.
+   COLOUR and TYPE: bianco o notte, ultramarino come unico accento; Manrope.
    LAYOUT: barra e simulatore in alto, due telefoni affiancati, pannello sotto; una colonna sotto 600px. */
 :root{color-scheme:light dark;--bg:light-dark(#fff,#0d0e18);--ink:light-dark(#14110f,#ecebf3);--mut:light-dark(#5b5b66,#a2a3b8);--line:light-dark(#e1e1ea,#2a2c40);--card:light-dark(#f5f5fa,#151729);--nbg:light-dark(#e9ebf7,#1c1f38);--acc:light-dark(#1d2bd8,#8d96ff);--onacc:light-dark(#fff,#0d0e18);--red:light-dark(#b42318,#ff9a90);--redbg:light-dark(#fdecea,#3a1a1f);--amb:light-dark(#8a5a00,#f5c26b);--ambbg:light-dark(#fff3dc,#3a2d12);--grn:light-dark(#0f6b3a,#7fdca6);--grnbg:light-dark(#e3f5ea,#15301f)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;overflow-x:clip}
 .bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px max(4vw,16px);border-bottom:1px solid var(--line)}
 .brand{display:flex;gap:12px;align-items:center;flex:1 1 240px}
 .brand svg{flex:none;width:40px;height:40px;border-radius:10px;background:var(--acc);color:var(--onacc);padding:7px}
@@ -124,21 +124,45 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 @media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:light-dark(#fafafb,#21252b)}.cx .pri:hover{opacity:.9}}
 .cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.cx button{transition:none}.cx button:active{transform:none}}
+.lg{min-height:0;border-radius:24px}.lg .li small{display:block;font-size:13px;color:var(--cx-mut);font-weight:400;margin-top:2px}.pg .lg+.lg{margin-top:16px}
+.sess{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500}.sess span{color:var(--mut)}
+#sess[hidden],#gologin[hidden],#tabs[hidden],.flash[hidden]{display:none}
+.flash{margin:12px max(4vw,16px) 0;border-radius:12px;padding:10px 12px;font-size:14px;background:var(--ambbg);color:var(--amb)}
+#tabs{overflow-x:auto}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
 @media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style></head><body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
-  <div class="acts"><span id="status" class="pill" role="status"></span><button id="reset" type="button">Ricomincia</button></div>
+  <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Area riservata</button><span id="status" class="pill" role="status"></span><button id="reset" type="button">Ricomincia</button></div>
 </header>
-<nav class="tabs" id="tabs" aria-label="Schermate">
-  <a href="#cliente" data-v="cliente">Cliente</a><a href="#operatore" data-v="operatore">Operatore di zona</a><a href="#centro" data-v="centro">Centro assistenza</a><a href="#campo" data-v="campo">Operatore sul campo</a>
-</nav>
+<nav class="tabs" id="tabs" aria-label="Schermate" hidden></nav>
+<p id="flash" class="flash" role="status" hidden></p>
 
 <div class="band">
+  <div class="pg" id="v-accedi" hidden>
+    <section class="cx lg">
+      <p class="cap">Area riservata</p>
+      <h3>Accedi</h3>
+      <p class="cap">Entra con il tuo account: vedrai solo le schermate del tuo ruolo.</p>
+      <form id="lf" novalidate>
+        <label class="lab" for="lu">Utente</label>
+        <input id="lu" autocomplete="username" autocapitalize="none" spellcheck="false">
+        <label class="lab" for="lp">Password</label>
+        <input id="lp" type="password" autocomplete="current-password">
+        <div id="lerr" class="err" role="alert"></div>
+        <button type="submit" class="pri" id="lgo" style="margin-top:20px">Accedi</button>
+      </form>
+    </section>
+    <section class="cx lg">
+      <p class="cap">Account dimostrativi</p>
+      <p class="cap">Credenziali fittizie, scritte nel codice per la prova. Non sono reali e non vengono salvate.</p>
+      <div class="list" id="demo"></div>
+    </section>
+  </div>
   <div class="pg" id="v-cliente">
     <section>
       <div class="ctl" id="macbox"><label class="grow">QR scansionato su<select id="mac"></select></label><label>Lingua<select id="lg" aria-label="Lingua / Language"></select></label></div>
@@ -396,12 +420,58 @@ $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
     renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 renderReg();
 renderClock();
-const VIEWS=["cliente","operatore","centro","campo"];
-function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"cliente";
+/* ACCESSO: simulazione solo frontend, nessun backend. Per un servizio vero basta sostituire Auth
+   (signIn, signOut, current): le schermate leggono solo il ruolo da SESS. Le credenziali sono fittizie. */
+const ROLES={titolare:{nome:"Titolare",home:"centro",viste:["operatore","centro","campo"]},operatore:{nome:"Operatore di zona",home:"operatore",viste:["operatore","campo"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
+const VL={operatore:"Operatore di zona",centro:"Centro assistenza",campo:"Operatore sul campo"};
+const ICR={titolare:"building-2",operatore:"wrench",centro:"headset"};
+const ACCOUNTS=[
+ {id:"titolare",user:"titolare",pass:"demo-titolare",ruolo:"titolare",nome:"Titolare"},
+ {id:"operatore",user:"marco.nord",pass:"demo-nord",ruolo:"operatore",nome:"Marco",zona:"Zona Nord"},
+ {id:"centro",user:"centro",pass:"demo-centro",ruolo:"centro",nome:"Centro assistenza"}];
+const AUTH_KEY="assistenza.sessione";
+const Auth={
+ signIn(user,pass){return new Promise((res,rej)=>{const u=String(user||"").trim().toLowerCase(),a=ACCOUNTS.find(x=>x.user===u&&x.pass===String(pass||""));
+   if(!a){rej(new Error("credenziali"));return;}
+   try{localStorage.setItem(AUTH_KEY,JSON.stringify({id:a.id}));}catch(e){}
+   res(a);});},
+ signOut(){try{localStorage.removeItem(AUTH_KEY);}catch(e){}},
+ current(){try{const s=JSON.parse(localStorage.getItem(AUTH_KEY)||"null");return (s&&ACCOUNTS.find(x=>x.id===s.id))||null;}catch(e){return null;}}
+};
+const canSee=(ruolo,v)=>!!ROLES[ruolo]&&ROLES[ruolo].viste.includes(v);
+const homeOf=a=>ROLES[a.ruolo].home;
+globalThis.__auth={Auth,canSee,ROLES,ACCOUNTS};
+let SESS=Auth.current(),pend=null,flash="";
+const VIEWS=["cliente","operatore","centro","campo","accedi"];
+function go(v){location.hash="#"+v;}
+function applyRole(){const op=$("op");if(SESS&&SESS.ruolo==="operatore"){op.value=SESS.zona;op.disabled=true;}else op.disabled=false;renderOp();}
+function renderChrome(v){const nav=$("tabs");
+  if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=false;}
+  else{nav.innerHTML="";nav.hidden=true;}
+  nav.querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+  $("macbox").hidden=v!=="cliente";
+  $("sess").hidden=!SESS;if(SESS)$("sname").textContent=SESS.nome+" · "+ROLES[SESS.ruolo].nome;
+  $("gologin").hidden=!!SESS||v==="accedi";
+  const f=$("flash");f.hidden=!flash;f.textContent=flash;flash="";}
+function route(){let h=location.hash.slice(1),v;
+  if(h==="accedi"){if(SESS){go(homeOf(SESS));return;}v="accedi";}
+  else if(["operatore","centro","campo"].includes(h)){
+    if(!SESS){pend=h;go("accedi");return;}
+    if(!canSee(SESS.ruolo,h)){flash="Non hai accesso a quest'area: ti abbiamo riportato alla tua schermata.";go(homeOf(SESS));return;}
+    v=h;}
+  else v="cliente";
   VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v;});
-  $("tabs").querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
-  $("macbox").hidden=v!=="cliente";}
-if(typeof addEventListener==="function"){addEventListener("hashchange",route);route();}
+  renderChrome(v);}
+function demoList(){$("demo").innerHTML=ACCOUNTS.map(a=>`<button type="button" class="li" data-demo="${a.id}">${ic(ICR[a.ruolo])}<span>${esc(ROLES[a.ruolo].nome)}<small>${esc(a.user)} · password ${esc(a.pass)}</small></span>${ic("chevron-right","fl")}</button>`).join("");}
+demoList();
+$("demo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const a=ACCOUNTS.find(x=>x.id===b.dataset.demo);if(!a)return;$("lu").value=a.user;$("lp").value=a.pass;$("lerr").textContent="";});
+$("lf").addEventListener("submit",e=>{e.preventDefault();const b=$("lgo");b.disabled=true;$("lerr").textContent="";
+  Auth.signIn($("lu").value,$("lp").value).then(a=>{SESS=a;applyRole();const dest=pend&&canSee(a.ruolo,pend)?pend:homeOf(a);pend=null;$("lp").value="";go(dest);})
+  .catch(()=>{$("lerr").textContent="Utente o password non corretti. Controlla i dati o prova un account dimostrativo.";})
+  .finally(()=>{b.disabled=false;});});
+$("logout").addEventListener("click",()=>{Auth.signOut();SESS=null;pend=null;applyRole();go("accedi");});
+$("gologin").addEventListener("click",()=>go("accedi"));
+if(typeof addEventListener==="function"){addEventListener("hashchange",route);applyRole();route();}
 }
 </script>
 </body></html>
