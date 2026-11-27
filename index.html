@@ -283,13 +283,14 @@ const telOk=(cp,d)=>cp==="39"?(d[0]==="3"?d.length===10:d[0]==="0"&&d.length>=6&
 const eur=n=>n.toLocaleString("it-IT",{style:"currency",currency:"EUR"});
 const hhmm=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
 const secs=()=>clk.m*60+(clk.s||0);
-/* ORARIO ASSISTENZA (fuso Europe/Rome). Fasce per giorno, 0=lunedì: [inizio, fine] in minuti; la fine include i secondi :59.
-   Lun-ven 9:00:00-12:59:59 e 14:00:00-18:59:59; sabato 9:00:00-14:59:59; domenica chiuso. Festivi NON gestiti. */
-const SLOTS=d=>d<5?[[540,779],[840,1139]]:d===5?[[540,899]]:[];
-const slotNow=()=>SLOTS(clk.d).find(s=>secs()>=s[0]*60&&secs()<=s[1]*60+59);
+/* ORARIO ASSISTENZA (fuso Europe/Rome). Fasce per giorno, 0=lunedì: [inizio, fine] in secondi dalla mezzanotte, estremi inclusi.
+   Lun-ven 8:59:59-12:00:59 e 13:59:59-18:00:59; sabato 8:59:59-14:00:59; domenica chiuso. Festivi NON gestiti.
+   Nei testi l'apertura si mostra arrotondata ai minuti (9:00, 14:00) e la chiusura è il minuto di fine (12:00, 18:00, 14:00). */
+const SLOTS=d=>d<5?[[32399,43259],[50399,64859]]:d===5?[[32399,50459]]:[];
+const slotNow=()=>SLOTS(clk.d).find(s=>secs()>=s[0]&&secs()<=s[1]);
 const isOpen=()=>!!slotNow();
-const closeMin=()=>{const s=slotNow();return s?s[1]+1:0;};
-const nextAt=()=>{for(let off=0;off<8;off++)for(const s of SLOTS((clk.d+off)%7))if(off>0||s[0]*60>secs())return{off,m:s[0]};};
+const closeMin=()=>{const s=slotNow();return s?Math.floor(s[1]/60):0;};
+const nextAt=()=>{for(let off=0;off<8;off++)for(const s of SLOTS((clk.d+off)%7))if(off>0||s[0]>secs())return{off,m:Math.ceil(s[0]/60)};};
 const fmtT=(m,lg)=>{const h=Math.floor(m/60),mm=String(m%60).padStart(2,"0");return lg==="en"?(h%12||12)+":"+mm+(h<12?" am":" pm"):lg==="fr"?h+" h "+mm:lg==="de"?h+":"+mm+" Uhr":h+":"+mm;};
 const nextOpen=()=>T.it[nk()].split("{t}").join(fmtT(nextAt().m,"it"));
 const now=()=>hhmm(clk.m);
