@@ -20,3 +20,13 @@ ko(g.avg===15&&g.n===2,"Giulia 15 min su 2 prese");
 ko(mar.avg===null&&mar.n===0,"Marco senza dati");
 ko(lu.avg===null,"Luca senza dati");
 console.log("TITOLARE OK");
+// Clic sulle caselle: la lista mostra le segnalazioni giuste.
+const TT=el("tit");
+const tap=f=>{const b={dataset:{f},closest:()=>b};(TT.handlers.click||[]).forEach(fn=>fn({target:b}));};
+const rowsIn=()=>(TT.innerHTML.match(/class="tl"/g)||[]).length;
+tap("tot");ko(rowsIn()===6,"clic chiamate totali: 6 righe");
+tap("tot");ko(rowsIn()===0,"secondo clic chiude la lista");
+tap("ok");ko(rowsIn()===1,"clic riuscite: 1 riga");
+tap("wait");ko(rowsIn()===4,"clic in attesa: 4 righe");
+tap("wait");
+console.log("TITOLARE CLIC OK");

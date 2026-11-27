@@ -172,6 +172,8 @@ button:disabled{opacity:.4;cursor:default;transform:none}
 .cx .li{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;padding:0 16px;background:transparent;text-align:start;font-size:16px;border-radius:0}
 .cx .li+.li{box-shadow:inset 52px 1px 0 var(--card),inset 0 1px 0 var(--line)}.cx .li span{flex:1}
 .cx .li .fl,.cx .opt .fl{color:var(--mut);width:18px;height:18px}
+.tl{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.tl:first-of-type{border-top:0}.tlt{width:64px;flex:none;color:var(--mut);font-size:14px}.tx{flex:1;min-width:0}.tx small{display:block;color:var(--mut);font-size:13px}
+.kb{border:0;text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit;transition:transform 150ms ease,box-shadow 150ms ease}.kb:active{transform:scale(.98)}.kb[aria-pressed=true]{box-shadow:0 0 0 2px var(--acc)}
 .cx a.li{text-decoration:none;color:var(--ink)}
 .cx .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;margin:0 0 8px;padding:12px 18px;border-radius:22px;text-align:start;font-size:17px}
 .cx .opt .ot{flex:1}.cx .opt small{display:block;font-size:14px;color:var(--mut);margin-top:2px;font-weight:400}
@@ -580,11 +582,19 @@ function kpiTit(list=rows){
     return {nome:z[1],zona:z[0],n:rs.length,avg:rs.length?Math.round(rs.reduce((a,b)=>a+b,0)/rs.length):null};});
   return {tot,ok,wait,pct:tot?Math.round(ok/tot*100):0,ops};}
 globalThis.__kpi=kpiTit;
+let titF=null;
+const TITF={tot:["Tutte le chiamate",()=>true],ok:["Chiamate riuscite",x=>x.s===2],wait:["Chiamate in attesa",x=>x.s===0]};
 function renderTit(){if(!$("tit"))return;const k=kpiTit();
-  const cards=[[k.tot,"Chiamate totali"],[k.ok,"Riuscite"],[k.wait,"In attesa"],[k.pct+"%","Percentuale riuscite"]];
-  $("tit").innerHTML=`<div class="kp">${cards.map(c=>`<div class="k"><b>${c[0]}</b><span>${c[1]}</span></div>`).join("")}</div>`+
+  const cards=[["tot",k.tot,"Chiamate totali"],["ok",k.ok,"Riuscite"],["wait",k.wait,"In attesa"],["pct",k.pct+"%","Percentuale riuscite"]];
+  const btn=(f,n,l)=>f==="pct"?`<div class="k"><b>${n}</b><span>${l}</span></div>`:`<button type="button" class="k kb" data-f="${f}" aria-pressed="${titF===f}"><b>${n}</b><span>${l}</span></button>`;
+  let list="";
+  if(titF){const [lab,fn]=TITF[titF],sel=rows.filter(fn).slice().reverse();
+    list=`<div class="det" style="margin-top:14px"><p style="font-weight:600;font-size:16px;margin:0 0 4px">${esc(lab)} · ${sel.length}</p>`+
+      (sel.length?sel.map(x=>{const m=M[x.m];return `<div class="tl"><span class="tlt">${esc(x.t)}</span><span class="tx"><b style="font-weight:600">${esc(x.p)}</b><small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="st s${x.s}" style="pointer-events:none">${esc(S[x.s])}</span></div>`;}).join(""):`<p class="cap">Nessuna segnalazione in questa voce.</p>`)+`</div>`;}
+  $("tit").innerHTML=`<div class="kp">${cards.map(c=>btn(c[0],c[1],c[2])).join("")}</div>`+list+
     `<p class="cap" style="margin:18px 0 4px">Tempo di risposta per operatore (dall'arrivo alla presa in carico)</p>`+
     k.ops.map(o=>`<div class="rg"><span><b>${esc(o.nome)}</b><small>${esc(o.zona)} · ${o.n} prese in carico</small></span><b>${o.avg==null?"—":o.avg+" min"}</b></div>`).join("");}
+$("tit").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;const f=b.dataset.f;titF=titF===f?null:f;renderTit();});
 function render(){renderOp();renderList();renderTit();if(C.done||(C.track&&C.tq&&C.tq.n!==null))rc();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const key=()=>isOpen()+nk()+closeMin()+nextAt().m,was=key();clk=realClk();renderClock(was===key());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
