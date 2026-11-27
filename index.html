@@ -207,6 +207,22 @@ button:disabled{opacity:.4;cursor:default;transform:none}
  h2{font-size:28px}.cx{border-radius:0;box-shadow:none;margin:0 -16px;padding:18px 16px 24px;min-height:0}
  .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .sts{grid-area:s}
  .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
+
+/* stato del lavoro, a passaggi come il tracciamento di un pacco */
+.trk{position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin:0 0 14px;padding:0;list-style:none;--p:0}
+.trk::before,.trk::after{content:"";position:absolute;top:9px;left:12.5%;height:3px;border-radius:2px}
+.trk::before{right:12.5%;background:var(--fill)}
+.trk::after{width:calc(75% * var(--p) / 3);background:var(--acc);transition:width .4s cubic-bezier(.2,.9,.3,1)}
+.trk li{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;font-size:12px;line-height:1.2;color:var(--mut);padding:0 2px}
+.trk i{width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px var(--fill)}
+.trk li.dn i{background:var(--acc);box-shadow:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:13px;background-position:center;background-repeat:no-repeat}
+.trk li.cu i{background:#fff;box-shadow:inset 0 0 0 6px var(--acc),0 0 0 4px var(--accbg)}
+.trk li.dn,.trk li.cu{color:var(--ink)}.trk li.now span{font-weight:600}
+.trk small{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}
+.nt .trk{margin:2px 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.det .trk{background:#fff;border-radius:18px;padding:14px 4px 12px;margin-bottom:14px}.det .trk::before,.det .trk::after{top:23px}
+.trkw{background:var(--card);border-radius:22px;padding:16px 4px 12px}.trkw .trk{margin:0}
+.cx[dir=rtl] .trk::after{left:auto;right:12.5%}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
@@ -255,7 +271,7 @@ button:disabled{opacity:.4;cursor:default;transform:none}
       <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Da fare <span id="badge" class="cnt"></span></button>
       <button type="button" role="tab" id="t-mac" data-sec="mac" aria-selected="false">Macchine <span id="mcount" class="cnt n"></span></button>
     </div>
-    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><ol class="steps" id="steps" aria-label="Come funziona"><li><b>1</b> Prendi in carico</li><li><b>2</b> Vai alla macchina</li><li><b>3</b> Invia il rapporto al centro</li></ol><div id="notif"></div></section>
+    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><div id="notif"></div></section>
     <section id="sec-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
       <div class="ph" style="margin-bottom:6px"><p class="cap" style="margin:0;flex:1 1 220px">Sul posto: aggiungi la macchina e genera il QR da incollare. Il QR contiene solo il codice della macchina.</p><button type="button" id="addm" class="pri">Aggiungi macchina</button></div>
       <div id="act"></div><div id="reg"></div>
@@ -301,9 +317,9 @@ const seed=()=>[
 {n:1,t:"ieri 20:05",lang:"ro",after:1,seen:1,m:3,p:"Prodotto non erogato",a:1.5,prod:"Snack",nome:"Elena",c:"elena@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:0,log:[]},
 {n:2,t:"ieri 23:12",lang:"en",after:1,seen:1,m:1,p:"Soldi trattenuti",a:1,prod:"Acqua",nome:"Luigi",c:"338 222 0099",r:RF[1][0],pay:"Monete o banconote",err:"Sì, c'è un messaggio",s:0,log:[]},
 {n:3,t:"07:42",m:0,p:"Soldi trattenuti",a:2,prod:"Acqua",nome:"Paolo",c:"347 555 1020",r:RF[1][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:0,log:[]},
-{n:4,t:"08:15",lang:"fr",m:2,p:"Prodotto non erogato",a:1.2,prod:"Caffè",nome:"Sara",c:"sara@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:1,log:["08:31 Giulia ha preso in carico"]},
+{n:4,ts:{1:"08:31"},t:"08:15",lang:"fr",m:2,p:"Prodotto non erogato",a:1.2,prod:"Caffè",nome:"Sara",c:"sara@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:1,log:["08:31 Giulia ha preso in carico"]},
 {n:5,t:"09:03",m:4,p:"Macchina guasta o pericolosa",a:0,prod:"",nome:"",c:"",r:RF[2][0],pay:"",err:"",s:0,log:[]},
-{n:6,t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[0][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,rf:"da emettere",rep:{causa:"Resto esaurito",fatto:"Ricaricato il tubo del resto da 0,50 € e fatte tre erogazioni di prova: resto corretto.",esito:"risolto",rimb:"dovuto",imp:0.5,mot:"",note:"",at:"11:05",by:"Giulia"},log:["10:40 Giulia ha preso in carico","11:05 Giulia ha inviato il rapporto: risolto, rimborso dovuto 0,50 €"]}];
+{n:6,onsite:1,ts:{1:"10:40",2:"10:52",3:"11:05"},t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[0][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,rf:"da emettere",rep:{causa:"Resto esaurito",fatto:"Ricaricato il tubo del resto da 0,50 € e fatte tre erogazioni di prova: resto corretto.",esito:"risolto",rimb:"dovuto",imp:0.5,mot:"",note:"",at:"11:05",by:"Giulia"},log:["10:40 Giulia ha preso in carico","11:05 Giulia ha inviato il rapporto: risolto, rimborso dovuto 0,50 €"]}];
 const realClk=()=>{try{const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date()),g=t=>p.find(x=>x.type===t).value;return{d:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday")),m:+g("hour")*60+ +g("minute"),s:+g("second")};}catch(e){const n=new Date();return{d:(n.getDay()+6)%7,m:n.getHours()*60+n.getMinutes(),s:n.getSeconds()};}};
 let rows=seed(),sel=null,live=true,clk=realClk();
 const C={step:0,a:{},err:"",done:null,solved:0};
@@ -380,7 +396,7 @@ function result(r){const m=M[r.m],tips=[];
   tips.push(tr("tipC"));
   const st=[r.urgent?tr("stU",{o:m[3]}):!r.after?tr("stD",{o:m[3]}):tr("stN",{o:m[3],w:nw()}),tr("stV")];
   if(r.r!==RF[2][0])st.push(tr("stR",{r:lc(ot(r.r))}));
-  return `<div class="conf" role="status"><span class="cic">${ic("circle-check")}</span><h3>${esc(tr("rOk"))}</h3><p>${esc(tr("rOkS"))}</p><span class="cn">${esc(tr("rT",{n:r.n}))}</span></div><p class="cap" style="margin-top:16px">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
+  return `<div class="conf" role="status"><span class="cic">${ic("circle-check")}</span><h3>${esc(tr("rOk"))}</h3><p>${esc(tr("rOkS"))}</p><span class="cn">${esc(tr("rT",{n:r.n}))}</span></div><p class="sub">${esc(tr("trkT"))}</p><div class="trkw">${track(rows.find(q=>q.n===r.n)||r,[tr("tk0"),tr("tk1"),tr("tk2"),tr("tk3")])}</div><p class="cap" style="margin-top:16px">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
 function rc(){const m=M[$("mac").value],op=isOpen();
   document.documentElement.lang=LG;$("cust").dir=LG==="ar"?"rtl":"ltr";
   let h=`<div class="hd"><p class="cap">${esc(tr("mach"))} <b>${m[0]}</b></p><p class="pl">${esc(m[1])}</p></div><div class="ban">${ic("clock",op?"ok":"wn")}<span>${esc(op?tr("open",{t:fmtT(closeMin(),LG)}):tr("closed",{w:nw()}))}</span></div>`;
@@ -419,8 +435,12 @@ $("cust").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
   else if(d.act==="again")resetCust();
   rc();});
 
-function setS(x,s){if(x.s===s)return;const was=x.s;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":was===1?" ha annullato la presa in carico":" ha riaperto"));}
+function setS(x,s){if(x.s===s)return;const was=x.s;x.s=s;x.ts=x.ts||{};if(s===1)x.ts[1]=now();if(s===0){delete x.ts[1];delete x.ts[2];x.onsite=0;}x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":was===1?" ha annullato la presa in carico":" ha riaperto"));}
 let undoN=null;
+const stage=x=>x.s===2?3:(x.onsite||x.rep)?2:x.s===1?1:0;
+const TKI=["Richiesta","Presa in carico","In lavorazione","Lavoro eseguito"];
+function track(x,lab){const g=stage(x),ts=x.ts||{};
+  return `<ol class="trk" aria-label="Stato del lavoro: ${esc(lab[g])}" style="--p:${g}">${lab.map((l,i)=>`<li class="${i<g||g===3?"dn":i===g?"cu":""}${i===g?" now":""}"${i===g?' aria-current="step"':""}><i></i><span>${esc(l)}</span>${i<=g&&(i?ts[i]:x.t)?`<small>${esc(i?ts[i]:x.t)}</small>`:""}</li>`).join("")}</ol>`;}
 let opForm=null;const RFm={};
 const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
 function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
@@ -454,7 +474,7 @@ function sendRep(x){const f=RFm[x.n],imp=parseFloat(String(f.imp||"").replace(",
   const by=M[x.m][3];x.rep={causa:f.causa,fatto:f.fatto.trim(),esito:f.esito==="risolto"?"risolto":"no",rimb:f.rimb,imp:f.rimb==="dovuto"||f.rimb==="posto"?imp:0,mot:f.mot.trim(),note:f.note.trim(),at:now(),by};
   x.rf=f.rimb==="dovuto"?"da emettere":f.rimb==="posto"?"sul posto":f.rimb==="no"?"non dovuto":null;
   x.log.push(now()+" "+by+" ha inviato il rapporto: "+(x.rep.esito==="risolto"?"risolto":"non risolto")+", "+RV[f.rimb].toLowerCase()+(x.rep.imp?" "+eur(x.rep.imp):""));
-  if(x.rep.esito==="risolto")x.s=2;
+  x.ts=x.ts||{};if(x.rep.esito==="risolto"){x.s=2;x.ts[3]=now();}
   delete RFm[x.n];opForm=null;flashOp="Rapporto n. "+x.n+" inviato al centro assistenza.";render();}
 let flashOp="";
 function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
@@ -464,7 +484,7 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   {const k=show.filter(x=>x.s===0).length;$("badge").textContent=k?String(k):"";if($("badge").setAttribute)$("badge").setAttribute("aria-label",k+" nuove");}
   $("opname").textContent=zi[1];$("opzone").textContent=zi[0]+" · vede solo le macchine della sua zona";let h="";
   const fx=opForm!==null&&rows.find(x=>x.n===opForm&&x.s===1&&M[x.m][2]===z);
-  $("ophd").hidden=$("sw").hidden=$("steps").hidden=!!fx;
+  $("ophd").hidden=$("sw").hidden=!!fx;
   if(fx){$("notif").innerHTML=repForm(fx);return;}
   if(opForm!==null)opForm=null;
   if(flashOp){h+=`<div class="bn ok okm" role="status"><span class="bi">${ic("check")}</span><p>${esc(flashOp)}</p></div>`;flashOp="";}
@@ -474,7 +494,7 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
   const card=x=>{const m=M[x.m],n=x.s===0;
-    let c=`<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>`;
+    let c=`<div class="nt n${x.s}">${track(x,TKI)}<p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>`;
     if(n)return c+`<div class="acts"><button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button></div></div>`;
     c+=`<details class="sc" open><summary>Dove si trova</summary>${where(m)}</details><details class="sc" open><summary>Cosa ha segnalato il cliente</summary>${said(x)}</details><details class="sc"><summary>Cliente e rimborso chiesto</summary>${custBox(x)}${x.c?`<button type="button" class="sm" data-a="c" data-n="${x.n}">Mostra recapito</button><p class="cc" id="cc${x.n}"></p>`:""}</details>`;
     if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente: serve un altro intervento</p>${repView(x.rep)}</div>`;
@@ -499,14 +519,14 @@ function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
   $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=due.length;
   $("me").textContent=eur(due.reduce((s,x)=>s+x.rep.imp,0));
   const stage=d=>d.s===0?`<p class="cap">Nessun operatore l'ha ancora presa in carico. ${esc(M[d.m][3])} è stato avvisato.</p>`:d.rep?repView(d.rep):`<p class="cap">${esc(M[d.m][3])} l'ha presa in carico e sta andando sul posto. Aspetta il suo rapporto.</p>`;
-  const det=d=>`<div class="det"><p class="dh">Segnalazione n. ${d.n} · ${M[d.m][0]} · ${esc(M[d.m][1])}</p>${refundBox(d)}<div class="cols"><section><p class="sh">Cosa ha segnalato il cliente</p>${said(d)}${custBox(d)}</section><section><p class="sh">Intervento del tecnico</p>${stage(d)}</section></div><details class="sc"><summary>Cronologia</summary><p class="cap" style="margin:6px 0 0">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></details></div>`;
+  const det=d=>`<div class="det"><p class="dh">Segnalazione n. ${d.n} · ${M[d.m][0]} · ${esc(M[d.m][1])}</p>${track(d,TKI)}${refundBox(d)}<div class="cols"><section><p class="sh">Cosa ha segnalato il cliente</p>${said(d)}${custBox(d)}</section><section><p class="sh">Intervento del tecnico</p>${stage(d)}</section></div><details class="sc"><summary>Cronologia</summary><p class="cap" style="margin:6px 0 0">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></details></div>`;
   const chip=x=>x.rf?`<span class="chp ${RFS[x.rf][1]}">${RFS[x.rf][0]}</span>`:"";
   $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="sts"><span class="st s${x.s}">${S[x.s]}</span>${chip(x)}</span></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
   $("det").innerHTML="";}
 function renderClock(soft){const op=isOpen(),st=$("status");
   st.textContent=op?"Assistenza aperta fino alle "+fmtT(closeMin(),"it"):"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
   if(!soft){rc();render();}}
-function render(){renderOp();renderList();if(typeof renderReg==="function")renderReg();}
+function render(){renderOp();renderList();if(C.done)rc();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const key=()=>isOpen()+nk()+closeMin()+nextAt().m,was=key();clk=realClk();renderClock(was===key());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
 $("mac").addEventListener("change",rc);
@@ -518,7 +538,7 @@ $("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
   if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
   const x=rows.find(q=>q.n===+d.n);if(!x)return;
   if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
-  if(d.a==="rep"){opForm=x.n;undoN=null;renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
+  if(d.a==="rep"){if(!x.onsite){x.onsite=1;x.ts=x.ts||{};x.ts[2]=now();x.log.push(now()+" "+M[x.m][3]+" è sul posto");}opForm=x.n;undoN=null;render();renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
   if(d.a==="cancel"){opForm=null;renderOp();return;}
   if(d.a==="send"){sendRep(x);return;}
   const to=+d.a;undoN=to===1?x.n:null;if(to===0){opForm=null;flashOp="Presa in carico annullata: la n. "+x.n+" torna tra le nuove.";}
@@ -616,7 +636,7 @@ const VIEWS=["cliente","operatore","centro","accedi"];
 function go(v){location.hash="#"+v;}
 function applyRole(){const op=$("op"),lock=!!(SESS&&SESS.ruolo==="operatore");if(lock)op.value=SESS.zona;op.disabled=lock;$("who").hidden=lock;renderOp();renderReg();}
 function renderChrome(v){const nav=$("tabs");
-  if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.concat("cliente").map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=false;}
+  if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.concat(SESS.ruolo==="operatore"?[]:["cliente"]).map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=ROLES[SESS.ruolo].viste.length+(SESS.ruolo==="operatore"?0:1)<2;}
   else{nav.innerHTML="";nav.hidden=true;}
   nav.querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   $("macbox").hidden=v!=="cliente";
