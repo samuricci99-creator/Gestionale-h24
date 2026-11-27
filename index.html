@@ -11,7 +11,7 @@
    LAYOUT: barra e simulatore in alto, due telefoni affiancati, pannello sotto; una colonna sotto 600px. */
 :root{color-scheme:light dark;--bg:light-dark(#fff,#0d0e18);--ink:light-dark(#14110f,#ecebf3);--mut:light-dark(#5b5b66,#a2a3b8);--line:light-dark(#e1e1ea,#2a2c40);--card:light-dark(#f5f5fa,#151729);--nbg:light-dark(#e9ebf7,#1c1f38);--acc:light-dark(#1d2bd8,#8d96ff);--onacc:light-dark(#fff,#0d0e18);--red:light-dark(#b42318,#ff9a90);--redbg:light-dark(#fdecea,#3a1a1f);--amb:light-dark(#8a5a00,#f5c26b);--ambbg:light-dark(#fff3dc,#3a2d12);--grn:light-dark(#0f6b3a,#7fdca6);--grnbg:light-dark(#e3f5ea,#15301f)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0}
+*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;overflow-x:clip}
 .bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px max(4vw,16px);border-bottom:1px solid var(--line)}
 .brand{display:flex;gap:12px;align-items:center;flex:1 1 240px}
@@ -130,14 +130,54 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 .flash{margin:12px max(4vw,16px) 0;border-radius:12px;padding:10px 12px;font-size:14px;background:var(--ambbg);color:var(--amb)}
 #tabs{overflow-x:auto}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:600px){.phone{min-height:0}.row{grid-template-columns:56px minmax(0,1fr) auto}}
-@media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+.pg.mid{max-width:640px}
+.kv{display:grid;grid-template-columns:minmax(96px,30%) minmax(0,1fr);gap:6px 12px;margin:8px 0 0;font-size:14px}.kv div{display:contents}.kv dt{color:var(--mut)}.kv dd{margin:0;color:var(--ink)}
+.sc{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.sc summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink);min-height:32px;display:flex;align-items:center}.sc summary::marker{color:var(--mut)}
+.sh{font-weight:600;font-size:15px;margin:0;color:var(--ink)}
+.rp .acts{flex-direction:column}.rp .acts button{flex:none;width:100%}
+.rp{margin-top:14px;padding:14px;border-radius:12px;background:var(--card)}.rp select,.rp textarea,.rp input{width:100%}.rp .chips{margin-top:2px}
+.chip[aria-pressed=true]{background:var(--acc);color:var(--onacc);border-color:var(--acc);font-weight:600}
+.prev{margin-top:12px;padding:12px;border-radius:12px;background:var(--ambbg)}
+.okm{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:var(--grnbg);color:var(--grn);font-weight:600;font-size:14px}
+.nt button.sm{min-height:40px;font-size:14px;margin-top:8px}
+.dn .dl{font-size:14px;margin:8px 0 0}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;padding:0;list-style:none;font-size:13px;color:var(--mut)}.steps li{background:var(--card);border-radius:999px;padding:4px 10px}.steps b{color:var(--acc)}
+.det .dh{font-weight:600;font-size:17px;margin:0 0 10px}
+.rb{border-radius:12px;padding:12px 14px;margin-bottom:12px;background:var(--bg);border:1px solid var(--line)}.rb p{margin:4px 0}.rb.warn{border:2px solid var(--amb);background:var(--ambbg)}.rb.ok{background:var(--grnbg);border-color:transparent}.rb.ok .sh{color:var(--grn)}.rb input{width:100%}.rb .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.rb .acts button{flex:1 1 160px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.sts{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.st{display:inline-flex;align-items:center;padding:0 10px}
+.chp.sn{background:var(--nbg);color:var(--mut)}
+.hint{font-size:14px;color:var(--mut);margin:-6px 0 14px}
+.who{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);flex:1 1 220px;max-width:280px}.who select{width:100%}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:var(--card);margin-bottom:16px}
+.sw button{border:0;background:transparent;min-height:44px;font-weight:500;color:var(--mut);border-radius:9px}
+.sw button[aria-selected=true]{background:var(--bg);color:var(--ink);font-weight:600;box-shadow:0 1px 2px light-dark(#0002,#0006)}
+.cnt.n{background:var(--nbg);color:var(--mut)}
+.rg .oc{display:inline-block;margin-left:8px;font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px;background:var(--redbg);color:var(--red)}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
+.cnt{display:inline-block;vertical-align:3px;margin-left:6px;font-size:13px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--redbg);color:var(--red)}.cnt:empty{display:none}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.tools select{width:100%;font-size:15px;padding:0 8px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:900px;margin:28px auto 0;padding-top:16px;border-top:1px solid var(--line)}.foot button{min-height:40px;font-size:14px}
+.nt{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--line)}.nt.n0{border-left-color:var(--red)}.nt.n1{border-left-color:var(--amb)}
+.nt .h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--mut)}.nt .h .tg{margin-left:0}
+.nt .pl{font-size:16px;font-weight:600;margin-top:6px}.nt .ds{font-size:14px;margin-top:4px;color:var(--ink)}.nt .vf{font-size:13px;color:var(--mut);margin-top:4px}
+.chp{font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px}
+.nt .acts button.pri{flex:1.4}
+.nt .cc{font-size:14px;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--card);user-select:all}.nt .cc:empty{display:none}
+.row .rt{color:var(--mut);font-size:14px}
+.row+.det{margin:0 0 12px}
+.rg .bt{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:600px){.phone{min-height:0}.lx{display:none}.tabs{justify-content:space-between}.tabs a{padding:0 6px}
+ .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .st{grid-area:s}
+ .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
+
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
-  <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Area riservata</button><span id="status" class="pill" role="status"></span><button id="reset" type="button">Ricomincia</button></div>
+  <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Accesso personale</button><span id="status" class="pill" role="status"></span></div>
 </header>
 <nav class="tabs" id="tabs" aria-label="Schermate" hidden></nav>
 <p id="flash" class="flash" role="status" hidden></p>
@@ -172,47 +212,39 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
       <div class="phone cx" id="cust"></div>
     </section>
   </div>
-  <div class="pg" id="v-operatore" hidden>
-    <section>
-      <p class="cap">Telefono dell'operatore di zona</p>
-      <div class="phone">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-          <select id="op" style="flex:1" aria-label="Operatore"></select>
-          <span id="badge" class="st s0" style="padding:0 10px;display:inline-flex;align-items:center"></span>
-        </div>
-        <div id="notif"></div>
-      </div>
+  <div class="pg mid" id="v-operatore" hidden>
+    <div class="ph"><div><h2 id="opname"></h2><p class="cap" id="opzone" style="margin:2px 0 0"></p></div>
+      <label class="who" id="who">Cambia operatore (prova)<select id="op"></select></label></div>
+    <div class="sw" role="tablist" aria-label="Sezioni operatore">
+      <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Da fare <span id="badge" class="cnt"></span></button>
+      <button type="button" role="tab" id="t-mac" data-sec="mac" aria-selected="false">Macchine <span id="mcount" class="cnt n"></span></button>
+    </div>
+    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><ol class="steps" aria-label="Come funziona"><li><b>1</b> Prendi in carico</li><li><b>2</b> Vai alla macchina</li><li><b>3</b> Invia il rapporto al centro</li></ol><div id="notif"></div></section>
+    <section id="sec-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
+      <div class="ph" style="margin-bottom:6px"><p class="cap" style="margin:0;flex:1 1 220px">Sul posto: aggiungi la macchina e genera il QR da incollare. Il QR contiene solo il codice della macchina.</p><button type="button" id="addm" class="pri">Aggiungi macchina</button></div>
+      <div id="act"></div><div id="reg"></div>
     </section>
   </div>
 
   <div class="pg wide" id="v-centro" hidden>
-  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">Pannello del centro assistenza</p><h2>Segnalazioni</h2></div>
+  <div class="ph"><h2>Segnalazioni</h2></div>
+  <p class="hint">Tocca una segnalazione per leggere il rapporto del tecnico. I rimborsi da emettere sono evidenziati in giallo.</p>
     <div class="tools">
       <select id="zf" aria-label="Zona"><option value="">Tutte le zone</option><option>Zona Nord</option><option>Zona Centro</option><option>Zona Sud</option></select>
-      <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="0">Nuova</option><option value="1">Presa in carico</option><option value="2">Risolta</option></select>
+      <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="r">Rimborsi da emettere</option><option value="0">Nuove</option><option value="1">In lavorazione</option><option value="2">Chiuse</option></select>
       <select id="ff" aria-label="Fascia"><option value="">Giorno e notte</option><option value="d">Solo orario di servizio</option><option value="n">Solo fuori orario</option></select>
     </div>
-  </div>
   <div class="kp">
     <div class="k"><b id="mt"></b><span>Segnalazioni</span></div>
-    <div class="k"><b id="mn"></b><span>Ancora nuove</span></div>
-    <div class="k"><b id="mf"></b><span>Arrivate fuori orario</span></div>
-    <div class="k"><b id="me"></b><span>Da rimborsare</span></div>
+    <div class="k"><b id="mn"></b><span>Nuove, nessuno le ha prese</span></div>
+    <div class="k"><b id="mf"></b><span>Rimborsi da emettere</span></div>
+    <div class="k"><b id="me"></b><span>Totale da rimborsare</span></div>
   </div>
   <div id="list"></div>
   <div id="det"></div>
   </div>
 
-  <div class="pg wide" id="v-campo" hidden>
-  <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap">
-    <div><p class="cap" style="margin:0">Operatore sul campo</p><h2>Macchine e QR code</h2></div>
-    <button type="button" id="addm" class="pri">+ Aggiungi macchina</button>
-  </div>
-  <p class="cap" style="margin-top:6px">L'operatore arriva sul posto, aggiunge la macchina, compila i dati e genera il QR: la macchina risulta abbinata subito. Il QR contiene solo il codice della macchina.</p>
-  <div id="act"></div><div id="reg"></div>
-  </div>
-  <p class="cap" style="margin-top:14px">Dati di esempio, nomi di fantasia. Nel centro assistenza tocca una riga per i dettagli, tocca lo stato per farlo avanzare.</p>
+  <footer class="foot"><p class="cap" style="margin:0">Dati di esempio, nomi di fantasia. Restano solo finché la pagina è aperta.</p><button id="reset" type="button">Ripristina dati di esempio</button></footer>
 </div>
 
 <script src="i18n.js"></script>
@@ -220,10 +252,14 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 <script>
 {
 const OPEN=510,CLOSE=1110,CLOSE_S=CLOSE*60+59,DAYS=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
-const M=[["D-001","Ospedale, pronto soccorso","Zona Nord","Marco"],["D-002","Stazione, binario 1","Zona Nord","Marco"],["D-003","Università, atrio aula magna","Zona Centro","Giulia"],["D-004","Palestra, spogliatoi","Zona Centro","Giulia"],["D-005","Azienda logistica, area relax","Zona Sud","Luca"]];
+const M=[["D-001","Ospedale, pronto soccorso","Zona Nord","Marco","SN-10231","Vending Nord srl","Bevande calde","Piano terra, nella sala d'attesa del pronto soccorso, a destra dell'accettazione."],["D-002","Stazione, binario 1","Zona Nord","Marco","SN-10544","Vending Nord srl","Bevande fredde","Sotto la pensilina del binario 1, accanto alla biglietteria automatica."],["D-003","Università, atrio aula magna","Zona Centro","Giulia","SN-20817","Ristoro Centro snc","Misto","Atrio principale, di fronte all'ingresso dell'aula magna."],["D-004","Palestra, spogliatoi","Zona Centro","Giulia","SN-20990","Ristoro Centro snc","Snack","Corridoio degli spogliatoi, tra lo spogliatoio uomini e la reception."],["D-005","Azienda logistica, area relax","Zona Sud","Luca","SN-30112","Vending Sud srl","Misto","Capannone B, area relax al primo piano. Chiedere il badge in portineria."]];
 const Z=[["Zona Nord","Marco"],["Zona Centro","Giulia"],["Zona Sud","Luca"]];
 const MONEY=["Soldi trattenuti","Prodotto non erogato","Resto non dato","Pagamento con carta o app non riuscito"],G="Macchina guasta o pericolosa",PR=[...MONEY,G,"Altro"];
-const S=["Nuova","Presa in carico","Risolta"];
+const S=["Nuova","Presa in carico","Chiusa"];
+const CAUSE=["Gettoniera inceppata o piena","Resto esaurito","Lettore carte o chiavetta guasto","Prodotto incastrato nella spirale","Motore della spirale guasto","Errore del display o della scheda","Macchina senza corrente","Perdita d'acqua","Nessun guasto trovato","Altro"];
+const RV={dovuto:"Rimborso dovuto: errore della macchina",posto:"Già rimborsato sul posto in monete",no:"Rimborso non dovuto",nessuno:"Nessun importo da rimborsare"};
+const RFS={"da emettere":["Rimborso da emettere","s1"],emesso:["Rimborso emesso","s2"],"sul posto":["Rimborsato sul posto","s2"],"non dovuto":["Rimborso non dovuto","sn"],rifiutato:["Rimborso rifiutato","sn"]};
+const money=x=>x.a>0||x.r!==RF[2][0];
 const RF=[["Rimborso sull'app","Scarichi l'app: dopo la verifica del servizio assistenza il rimborso arriva lì.",1],["Monete dal distributore","Ti accordi con l'operatore di zona per ritirarle direttamente alla macchina.",0],["Solo segnalazione","Non chiedo il rimborso, avviso solo del problema.",0]];
 const seed=()=>[
 {n:1,t:"ieri 20:05",lang:"ro",after:1,seen:1,m:3,p:"Prodotto non erogato",a:1.5,prod:"Snack",nome:"Elena",c:"elena@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:0,log:[]},
@@ -231,7 +267,7 @@ const seed=()=>[
 {n:3,t:"07:42",m:0,p:"Soldi trattenuti",a:2,prod:"Acqua",nome:"Paolo",c:"347 555 1020",r:RF[1][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:0,log:[]},
 {n:4,t:"08:15",lang:"fr",m:2,p:"Prodotto non erogato",a:1.2,prod:"Caffè",nome:"Sara",c:"sara@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:1,log:["08:31 Giulia ha preso in carico"]},
 {n:5,t:"09:03",m:4,p:"Macchina guasta o pericolosa",a:0,prod:"",nome:"",c:"",r:RF[2][0],pay:"",err:"",s:0,log:[]},
-{n:6,t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[1][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,log:["10:40 Giulia ha preso in carico","11:05 Giulia ha segnato risolta"]}];
+{n:6,t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[0][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,rf:"da emettere",rep:{causa:"Resto esaurito",fatto:"Ricaricato il tubo del resto da 0,50 € e fatte tre erogazioni di prova: resto corretto.",esito:"risolto",rimb:"dovuto",imp:0.5,mot:"",note:"",at:"11:05",by:"Giulia"},log:["10:40 Giulia ha preso in carico","11:05 Giulia ha inviato il rapporto: risolto, rimborso dovuto 0,50 €"]}];
 const realClk=()=>{try{const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date()),g=t=>p.find(x=>x.type===t).value;return{d:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday")),m:+g("hour")*60+ +g("minute"),s:+g("second")};}catch(e){const n=new Date();return{d:(n.getDay()+6)%7,m:n.getHours()*60+n.getMinutes(),s:n.getSeconds()};}};
 let rows=seed(),sel=null,live=true,clk=realClk();
 const C={step:0,a:{},err:"",done:null,solved:0};
@@ -262,7 +298,9 @@ $("lg").innerHTML=LANGS.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join(
 const N0=M.length,URLB="https://tuodominio.it/s/";let view=null,adding=false;
 function fillMac(){const cur=$("mac").value;$("mac").innerHTML=M.map((m,i)=>`<option value="${i}">${esc(m[0])} · ${esc(m[1])}</option>`).join("");$("mac").value=cur&&+cur<M.length?cur:"0";}
 fillMac();
-$("op").innerHTML=Z.map(z=>`<option>${z[0]}</option>`).join("");
+$("op").innerHTML=Z.map(z=>`<option value="${z[0]}">${z[1]} · ${z[0]}</option>`).join("");
+let sec="seg";
+function showSec(v){sec=v;$("sec-seg").hidden=v!=="seg";$("sec-mac").hidden=v!=="mac";$("t-seg").setAttribute&&$("t-seg").setAttribute("aria-selected",v==="seg");$("t-mac").setAttribute&&$("t-mac").setAttribute("aria-selected",v==="mac");}
 
 const flow=()=>{const a=C.a,P=a.prob;if(!P)return["prob"];
   if(MONEY.includes(P))return["prob","pay","err","try","amt","prod","photo","refund","contact"];
@@ -337,37 +375,106 @@ $("cust").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
   else if(d.act==="again")resetCust();
   rc();});
 
-function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha segnato risolta":" ha riaperto"));}
+function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":" ha riaperto"));}
+let opForm=null;const RFm={};
+const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
+function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
+function said(x){return `<dl class="kv">${kv("Problema",`<b>${esc(x.p)}</b>${x.urgent?' <span class="tg u">Pericolo</span>':""}`)}${kv("Quando",esc(x.t)+(x.after?" (fuori orario)":""))}${kv("Pagamento",esc(x.pay||""))}${kv("Display",esc(x.err||""))}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Prodotto",esc(x.prod||""))}${kv("Descrizione",esc(x.txt||""))}${kv("Foto",esc(x.photo||""))}${kv("Lingua",x.lang&&x.lang!=="it"?esc(lgName(x.lang)):"")}</dl>`;}
+function custBox(x){return `<dl class="kv">${kv("Cliente",esc(x.nome||"non indicato"))}${kv("Rimborso chiesto",esc(x.r))}</dl>`;}
+function repView(r){return `<dl class="kv">${kv("Causa",`<b>${esc(r.causa)}</b>`)}${kv("Intervento",esc(r.fatto))}${kv("Esito",r.esito==="risolto"?'<span class="chp s2">Risolto</span>':'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Rimborso",esc(RV[r.rimb])+(r.imp&&r.rimb!=="no"&&r.rimb!=="nessuno"?" · "+eur(r.imp):""))}${kv("Motivo",esc(r.mot||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;}
+function repForm(x){const f=RFm[x.n]||(RFm[x.n]={causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""});
+  const ch=(k,v,l)=>`<button type="button" class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k]===v}">${esc(l)}</button>`;
+  return `<div class="rp"><p class="sh">Rapporto di intervento</p><p class="cap">Arriva al centro assistenza, che decide ed emette il rimborso.</p>
+<label class="lab" for="r_causa">Causa del problema</label><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select>
+<label class="lab" for="r_fatto">Cosa hai fatto sul posto</label><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea>
+<p class="lab">Esito</p><div class="chips">${ch("esito","risolto","Risolto")}${ch("esito","no","Non risolto: serve un altro intervento")}</div>
+${money(x)?`<p class="lab">Rimborso al cliente</p><div class="chips">${ch("rimb","dovuto","Dovuto: errore della macchina")}${x.pay==="Monete o banconote"||x.r===RF[1][0]?ch("rimb","posto","Già dato sul posto in monete"):""}${ch("rimb","no","Non dovuto")}</div>
+${f.rimb==="dovuto"||f.rimb==="posto"?`<label class="lab" for="r_imp">Importo confermato (€)</label><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}" style="max-width:160px">`:""}
+${f.rimb==="no"?`<label class="lab" for="r_mot">Perché non è dovuto</label><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}">`:""}`:""}
+<label class="lab" for="r_note">Note per il centro assistenza (facoltative)</label><input id="r_note" data-f="note" value="${esc(f.note)}">
+${f.err?`<p class="err" role="alert">${esc(f.err)}</p>`:""}
+<div class="acts"><button type="button" class="pri" data-a="send" data-n="${x.n}">Invia rapporto al centro</button><button type="button" data-a="cancel" data-n="${x.n}">Annulla</button></div></div>`;}
+function sendRep(x){const f=RFm[x.n],imp=parseFloat(String(f.imp||"").replace(",","."));let e="";
+  if(!f.causa)e="Scegli la causa del problema.";
+  else if(f.fatto.trim().length<5)e="Scrivi cosa hai fatto sul posto.";
+  else if(!f.esito)e="Indica se il problema è risolto.";
+  else if(!f.rimb)e="Indica se il rimborso al cliente è dovuto.";
+  else if((f.rimb==="dovuto"||f.rimb==="posto")&&!(imp>0))e="Scrivi l'importo confermato, ad esempio 1,50.";
+  else if(f.rimb==="no"&&f.mot.trim().length<3)e="Spiega perché il rimborso non è dovuto: il centro lo comunica al cliente.";
+  if(e){f.err=e;renderOp();return;}
+  const by=M[x.m][3];x.rep={causa:f.causa,fatto:f.fatto.trim(),esito:f.esito==="risolto"?"risolto":"no",rimb:f.rimb,imp:f.rimb==="dovuto"||f.rimb==="posto"?imp:0,mot:f.mot.trim(),note:f.note.trim(),at:now(),by};
+  x.rf=f.rimb==="dovuto"?"da emettere":f.rimb==="posto"?"sul posto":f.rimb==="no"?"non dovuto":null;
+  x.log.push(now()+" "+by+" ha inviato il rapporto: "+(x.rep.esito==="risolto"?"risolto":"non risolto")+", "+RV[f.rimb].toLowerCase()+(x.rep.imp?" "+eur(x.rep.imp):""));
+  if(x.rep.esito==="risolto")x.s=2;
+  delete RFm[x.n];opForm=null;flashOp="Rapporto n. "+x.n+" inviato al centro assistenza.";render();}
+let flashOp="";
 function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   const vis=x=>x.seen||!x.after||x.urgent||open;
   const mine=rows.filter(x=>M[x.m][2]===z&&x.s<2),q=mine.filter(x=>!vis(x)),show=mine.filter(vis).reverse();
   if(open)mine.forEach(x=>{if(x.after)x.seen=1;});
-  $("badge").textContent=show.filter(x=>x.s===0).length+" nuove";
-  let h=`<p class="cap">${esc(zi[1])} vede solo le macchine della sua zona</p>`;
-  if(q.length)h+=`<div class="nt" style="background:var(--nbg);color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
+  {const k=show.filter(x=>x.s===0).length;$("badge").textContent=k?String(k):"";if($("badge").setAttribute)$("badge").setAttribute("aria-label",k+" nuove");}
+  $("opname").textContent=zi[1];$("opzone").textContent=zi[0]+" · vede solo le macchine della sua zona";let h="";
+  if(flashOp){h+=`<p class="okm" role="status">✓ ${esc(flashOp)}</p>`;flashOp="";}
+  if(q.length)h+=`<div class="nt" style="color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
-  h+=show.length?show.map(x=>{const m=M[x.m],n=x.s===0,c=n?"var(--red)":"var(--amb)";return `<div class="nt" style="background:${n?"var(--redbg)":"var(--ambbg)"};color:${c}"><p style="font-size:13px">${n?"Nuova":"In carico"} · ${esc(x.t)} · n. ${x.n}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}</p><p style="font-size:16px;font-weight:600;margin-top:4px">${m[0]} ${esc(m[1])}</p><p style="font-size:14px;margin-top:4px">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}. ${x.r!==RF[2][0]?"Rimborso richiesto: "+esc(x.r.toLowerCase())+". Verifica prima di rimborsare.":""}</p><div class="acts">${n?`<button type="button" data-a="1" data-n="${x.n}">Prendo in carico</button>`:`<button type="button" data-a="2" data-n="${x.n}">Segna risolta</button>`}${x.c?`<button type="button" data-a="c" data-n="${x.n}">Contatta cliente</button>`:""}</div><p id="cc${x.n}" style="font-size:13px;margin-top:6px"></p></div>`}).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
+  const card=x=>{const m=M[x.m],n=x.s===0;
+    let c=`<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>`;
+    if(n)return c+`<div class="acts"><button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button></div></div>`;
+    c+=`<details class="sc" open><summary>Dove si trova</summary>${where(m)}</details><details class="sc" open><summary>Cosa ha segnalato il cliente</summary>${said(x)}</details><details class="sc"><summary>Cliente e rimborso chiesto</summary>${custBox(x)}${x.c?`<button type="button" class="sm" data-a="c" data-n="${x.n}">Mostra recapito</button><p class="cc" id="cc${x.n}"></p>`:""}</details>`;
+    if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente</p>${repView(x.rep)}</div>`;
+    c+=opForm===x.n?repForm(x):`<div class="acts"><button type="button" class="pri" data-a="rep" data-n="${x.n}">${x.rep?"Nuovo rapporto di intervento":"Sono sul posto: compila il rapporto"}</button></div>`;
+    return c+`</div>`;};
+  h+=show.length?show.map(card).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
+  const done=rows.filter(x=>M[x.m][2]===z&&x.s===2&&x.rep).reverse();
+  if(done.length)h+=`<details class="sc dn"><summary>Rapporti inviati (${done.length})</summary>`+done.map(x=>`<p class="dl"><b>n. ${x.n} · ${M[x.m][0]}</b> ${esc(x.rep.causa)} · ${esc(RV[x.rep.rimb].toLowerCase())}${x.rf?` <span class="chp ${RFS[x.rf][1]}">${RFS[x.rf][0]}</span>`:""}</p>`).join("")+`</details>`;
   $("notif").innerHTML=h;}
+let rfMot="";
+function refundBox(d){const pref=`<p>Metodo scelto dal cliente: <b>${esc(d.r)}</b>${d.c?` · Contatto: <span class="sel">${esc((d.nome?d.nome+", ":"")+d.c)}</span>`:""}</p>`;
+  if(d.rf==="da emettere")return `<div class="rb warn"><p class="sh">Da fare: emettere il rimborso di ${eur(d.rep.imp)}</p><p>Il tecnico ${esc(d.rep.by)} conferma un errore della macchina (${esc(d.rep.causa.toLowerCase())}).</p>${pref}<div class="acts"><button type="button" class="pri" data-rf="emesso" data-n="${d.n}">Rimborso emesso</button><button type="button" data-rf="nega" data-n="${d.n}">Non rimborsare</button></div>${rfMot===String(d.n)?`<label class="lab" for="rf_mot">Motivo da comunicare al cliente</label><input id="rf_mot"><div class="acts"><button type="button" class="pri" data-rf="rifiutato" data-n="${d.n}">Conferma: non rimborsare</button></div><p class="err" id="rf_err" role="alert"></p>`:""}</div>`;
+  if(d.rf==="emesso")return `<div class="rb ok"><p class="sh">Rimborso emesso: ${eur(d.rep.imp)}</p>${pref}</div>`;
+  if(d.rf==="sul posto")return `<div class="rb ok"><p class="sh">Rimborsato sul posto dal tecnico: ${eur(d.rep.imp)}</p><p>Niente da emettere.</p></div>`;
+  if(d.rf==="non dovuto"||d.rf==="rifiutato")return `<div class="rb"><p class="sh">Nessun rimborso</p><p>Motivo: ${esc(d.rf==="rifiutato"?d.rfm:d.rep.mot)}</p>${pref}${d.avv?`<p class="cap">Cliente avvisato.</p>`:`<div class="acts"><button type="button" data-rf="avvisato" data-n="${d.n}">Ho avvisato il cliente</button></div>`}</div>`;
+  if(money(d))return `<div class="rb"><p class="sh">Rimborso: in attesa del tecnico</p><p>Si decide quando arriva il rapporto di intervento. Non rimborsare prima.</p>${pref}</div>`;
+  return "";}
 function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
-  const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||x.s===+sf)&&(ff===""||(ff==="n")===!!x.after));
-  $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=all.filter(x=>x.after).length;
-  $("me").textContent=eur(all.filter(x=>x.s<2&&x.r!==RF[2][0]).reduce((s,x)=>s+x.a,0));
-  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}"><span style="color:var(--mut);font-size:14px">${esc(x.t)}</span><span><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><button type="button" class="st s${x.s}" data-i="${x.n}">${S[x.s]}</button></div>`}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
-  const d=rows.find(x=>x.n===sel);
-  $("det").innerHTML=d?`<div class="det"><p style="font-weight:600;font-size:17px">Segnalazione n. ${d.n} · ${M[d.m][0]}</p><p style="color:var(--mut)">${esc(d.p)}${d.a?", "+eur(d.a):""}${d.prod?", prodotto "+esc(d.prod):""}</p>${d.pay?`<p>Pagamento: ${esc(d.pay)}${d.err?" · Display: "+esc(d.err.toLowerCase()):""}</p>`:""}${d.txt?`<p>Descrizione: ${esc(d.txt)}</p>`:""}${d.photo?`<p>Foto allegata: ${esc(d.photo)}</p>`:""}<p>Cliente: ${d.nome?esc(d.nome):"non indicato"}${d.c?" · "+esc(d.c):""}</p>${d.lang?`<p>Lingua del cliente: ${esc(lgName(d.lang))}${d.lang!=="it"&&d.txt?" · testo scritto dal cliente, non tradotto":""}</p>`:""}<p>Rimborso preferito: ${esc(d.r)}</p><p>Prima di rimborsare: verifica con telecamere o altri sistemi.</p><p style="color:var(--mut);margin-top:10px">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></div>`:"";}
+  const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||(sf==="r"?x.rf==="da emettere":x.s===+sf))&&(ff===""||(ff==="n")===!!x.after));
+  const due=all.filter(x=>x.rf==="da emettere");
+  $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=due.length;
+  $("me").textContent=eur(due.reduce((s,x)=>s+x.rep.imp,0));
+  const stage=d=>d.s===0?`<p class="cap">Nessun operatore l'ha ancora presa in carico. ${esc(M[d.m][3])} è stato avvisato.</p>`:d.rep?repView(d.rep):`<p class="cap">${esc(M[d.m][3])} l'ha presa in carico e sta andando sul posto. Aspetta il suo rapporto.</p>`;
+  const det=d=>`<div class="det"><p class="dh">Segnalazione n. ${d.n} · ${M[d.m][0]} · ${esc(M[d.m][1])}</p>${refundBox(d)}<div class="cols"><section><p class="sh">Cosa ha segnalato il cliente</p>${said(d)}${custBox(d)}</section><section><p class="sh">Intervento del tecnico</p>${stage(d)}</section></div><details class="sc"><summary>Cronologia</summary><p class="cap" style="margin:6px 0 0">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></details></div>`;
+  const chip=x=>x.rf?`<span class="chp ${RFS[x.rf][1]}">${RFS[x.rf][0]}</span>`:"";
+  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="sts"><span class="st s${x.s}">${S[x.s]}</span>${chip(x)}</span></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
+  $("det").innerHTML="";}
 function renderClock(soft){const op=isOpen(),st=$("status");
   st.textContent=op?"Assistenza aperta fino alle 18:30":"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
   if(!soft){rc();render();}}
-function render(){renderOp();renderList();}
+function render(){renderOp();renderList();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const was=isOpen()+nk();clk=realClk();renderClock(was===isOpen()+nk());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
 $("mac").addEventListener("change",rc);
 $("lg").addEventListener("change",()=>{LG=$("lg").value;rc();});
-$("op").addEventListener("change",renderOp);
+$("op").addEventListener("change",()=>{renderOp();renderReg();if(adding)renderAct();});
+if($("t-seg").addEventListener){$("t-seg").addEventListener("click",()=>showSec("seg"));$("t-mac").addEventListener("click",()=>showSec("mac"));}
 $("zf").addEventListener("change",renderList);$("sf").addEventListener("change",renderList);$("ff").addEventListener("change",renderList);
-$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const x=rows.find(q=>q.n===+b.dataset.n);if(b.dataset.a==="c"){$("cc"+x.n).textContent="Contatto cliente: "+x.c;return;}setS(x,+b.dataset.a);render();});
-$("list").addEventListener("click",e=>{const b=e.target.closest(".st");if(b){const x=rows.find(q=>q.n===+b.dataset.i);setS(x,(x.s+1)%3);render();return;}const r=e.target.closest(".row");if(r){sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();}});
+$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+  if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
+  const x=rows.find(q=>q.n===+d.n);if(!x)return;
+  if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
+  if(d.a==="rep"){opForm=x.n;renderOp();return;}
+  if(d.a==="cancel"){opForm=null;delete RFm[x.n];renderOp();return;}
+  if(d.a==="send"){sendRep(x);return;}
+  setS(x,+d.a);render();});
+const opIn=e=>{const t=e.target,k=t.dataset&&t.dataset.f;if(!k||opForm===null||!RFm[opForm])return;RFm[opForm][k]=t.value;};
+$("notif").addEventListener("input",opIn);$("notif").addEventListener("change",opIn);
+$("list").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.rf){const x=rows.find(q=>q.n===+b.dataset.n),v=b.dataset.rf;
+    if(v==="nega"){rfMot=rfMot===String(x.n)?"":String(x.n);renderList();return;}
+    if(v==="rifiutato"){const m=($("rf_mot").value||"").trim();if(m.length<3){$("rf_err").textContent="Scrivi il motivo: va comunicato al cliente.";return;}x.rf="rifiutato";x.rfm=m;rfMot="";x.log.push(now()+" Centro assistenza: rimborso non emesso ("+m+")");render();return;}
+    if(v==="emesso"){x.rf="emesso";x.log.push(now()+" Centro assistenza: rimborso emesso "+eur(x.rep.imp)+" ("+x.r.toLowerCase()+")");render();return;}
+    if(v==="avvisato"){x.avv=1;x.log.push(now()+" Centro assistenza: cliente avvisato");render();return;}}
+  if(b)return;const r=e.target.closest(".row");if(r){sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();}});
+if($("list").addEventListener)$("list").addEventListener("keydown",e=>{const r=e.target.closest&&e.target.closest(".row");if(r&&e.target===r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();const f=document.querySelector&&document.querySelector('.row[data-r="'+r.dataset.r+'"]');if(f&&f.focus)f.focus();}});
 $("reset").addEventListener("click",()=>{M.length=N0;view=null;adding=false;$("act").innerHTML="";fillMac();renderReg();rows=seed();sel=null;resetCust();$("zf").value="";$("sf").value="";$("ff").value="";renderClock();});
 
 const TIPI=["Bevande calde","Snack","Bevande fredde","Misto"];
@@ -375,14 +482,16 @@ const trunc=(t,n)=>t.length>n?t.slice(0,n-1)+"…":t;
 function sticker(m){const url=URLB+m[0];
   return `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="340" viewBox="0 0 260 340" font-family="Arial,Helvetica,sans-serif"><rect x="1" y="1" width="258" height="338" rx="14" fill="#fff" stroke="#111" stroke-width="2"/><text x="130" y="34" text-anchor="middle" font-size="19" font-weight="700" fill="#111">Segnala un problema</text><text x="130" y="53" text-anchor="middle" font-size="12" fill="#444">Report a problem · Signaler · Melden</text><g transform="translate(20,66)">${QR.svg(url,220)}</g><text x="130" y="308" text-anchor="middle" font-size="24" font-weight="700" fill="#111">${esc(m[0])}</text><text x="130" y="327" text-anchor="middle" font-size="11" fill="#444">${esc(trunc(m[1],42))}</text></svg>`;}
 function renderReg(){
-  $("reg").innerHTML=`<div style="margin-top:14px">`+M.map((m,i)=>`<div class="rg"><span><b>${esc(m[0])}</b><span class="tg" style="background:var(--grnbg);color:var(--grn)">Abbinata</span><small>${esc(m[1])} · ${m[2]}, ${m[3]}${m[4]?" · matricola "+esc(m[4]):""}</small></span><span style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" data-qr="${i}">Mostra QR</button><button type="button" data-t="${i}">Prova scansione</button></span></div>`).join("")+`</div>`;}
+  const z=$("op").value,mine=M.map((m,i)=>[m,i]).filter(([m])=>m[2]===z);
+  $("mcount").textContent=mine.length;
+  $("reg").innerHTML=mine.length?`<div style="margin-top:14px">`+mine.map(([m,i])=>{const k=rows.filter(x=>x.m===i&&x.s<2).length;return `<div class="rg"><span><b>${esc(m[0])}</b>${k?`<span class="oc">${k} ${k>1?"aperte":"aperta"}</span>`:""}<small>${esc(m[1])}${m[4]?" · matricola "+esc(m[4]):""}</small></span><span class="bt"><button type="button" data-qr="${i}">Mostra QR</button><button type="button" data-t="${i}">Prova scansione</button></span></div>`}).join("")+`</div>`:`<p style="color:var(--mut);margin-top:14px">Nessuna macchina in questa zona. Aggiungi la prima con "Aggiungi macchina".</p>`;}
 function renderAct(){
   if(adding){$("act").innerHTML=`<div class="det" style="max-width:560px"><p style="font-weight:600;font-size:17px;margin-bottom:6px">Nuova macchina</p>
 <label class="lab" for="f_code">Numero macchina (diventa il codice del QR)</label><input id="f_code" placeholder="OSP-03" style="width:100%" autocomplete="off">
 <label class="lab" for="f_ser">Matricola o numero di serie</label><input id="f_ser" placeholder="SN-48213" style="width:100%" autocomplete="off">
 <label class="lab" for="f_luogo">Luogo (struttura)</label><input id="f_luogo" placeholder="Ospedale San Marco" style="width:100%" autocomplete="off">
 <label class="lab" for="f_punto">Punto preciso (piano, reparto, vicino a cosa)</label><input id="f_punto" placeholder="Piano terra, corridoio radiologia" style="width:100%" autocomplete="off">
-<label class="lab" for="f_zona">Zona</label><select id="f_zona" style="width:100%">${Z.map(z=>`<option>${z[0]}</option>`).join("")}</select>
+<label class="lab" for="f_zona">Zona</label><select id="f_zona" style="width:100%">${Z.map(z=>`<option${z[0]===$("op").value?" selected":""}>${z[0]}</option>`).join("")}</select>
 <p class="cap" style="margin:6px 0 0" id="f_op"></p>
 <label class="lab" for="f_gest">Gestore (titolare dei dati)</label><input id="f_gest" placeholder="Nome dell'azienda che gestisce le macchine" style="width:100%" autocomplete="off">
 <label class="lab" for="f_tipo">Tipo di macchina</label><select id="f_tipo" style="width:100%">${TIPI.map(t=>`<option>${t}</option>`).join("")}</select>
@@ -398,17 +507,18 @@ function renderAct(){
 <p class="cap" id="dlmsg" style="margin:8px 0 0" role="status"></p><div class="nav"><button type="button" data-add="1">Aggiungi un'altra macchina</button><button type="button" data-no="1">Chiudi</button></div></div>`;return;}
   $("act").innerHTML="";}
 function fop(){const z=Z.find(q=>q[0]===$("f_zona").value)||Z[0];$("f_op").textContent="Operatore di zona: "+z[1]+" (riceverà le segnalazioni di questa macchina)";}
-function openAdd(){adding=true;view=null;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}
+function scanTest(i){$("mac").value=String(i);resetCust();rc();if(typeof location!=="undefined")location.hash="cliente";if(typeof scrollTo==="function")scrollTo(0,0);}
+function openAdd(){showSec("mac");adding=true;view=null;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}
 $("addm").addEventListener("click",openAdd);
 $("reg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
-  if(d.t!==undefined){$("mac").value=d.t;rc();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"center"});}
+  if(d.t!==undefined)scanTest(d.t);
   else if(d.qr!==undefined){adding=false;view=+d.qr;renderAct();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 $("act").addEventListener("change",e=>{if(adding&&e.target.id==="f_zona")fop();});
 $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
   if(d.no){adding=false;view=null;renderAct();return;}
   if(d.add){openAdd();return;}
-  if(d.dl){const m=M[view];(async()=>{try{const dl=typeof claude!=="undefined"?await claude.use("downloads"):null;if(!dl){$("dlmsg").textContent="Il salvataggio non è disponibile qui: fai uno screenshot del QR.";return;}await dl.save({filename:"QR-"+m[0]+".svg",data:new Blob([sticker(m)],{type:"image/svg+xml"})});$("dlmsg").textContent="QR salvato.";}catch(e){$("dlmsg").textContent="Salvataggio annullato o non riuscito.";}})();return;}
-  if(d.t!==undefined){$("mac").value=d.t;rc();if($("cust").scrollIntoView)$("cust").scrollIntoView({behavior:"smooth",block:"center"});return;}
+  if(d.dl){const m=M[view],fn="QR-"+m[0]+".svg",blob=new Blob([sticker(m)],{type:"image/svg+xml"});(async()=>{try{if(typeof claude!=="undefined"&&claude.use){const dl=await claude.use("downloads");if(!dl){$("dlmsg").textContent="Il download non è disponibile qui: fai uno screenshot del QR.";return;}await dl.save({filename:fn,data:blob});$("dlmsg").textContent="QR salvato: "+fn;return;}const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("dlmsg").textContent="QR scaricato: "+fn;}catch(e){$("dlmsg").textContent="Download non riuscito. Riprova, oppure fai uno screenshot del QR.";}})();return;}
+  if(d.t!==undefined){scanTest(d.t);return;}
   if(d.gen){const v=id=>($(id).value||"").trim(),code=v("f_code").toUpperCase(),ser=v("f_ser"),lu=v("f_luogo"),pu=v("f_punto"),zn=$("f_zona").value,ge=v("f_gest"),z=Z.find(q=>q[0]===zn);let er="";
     if(!/^[A-Z0-9-]{3,20}$/.test(code))er="Il numero macchina deve avere da 3 a 20 tra lettere, numeri e trattino, senza spazi (es. OSP-03).";
     else if(M.some(m=>m[0]===code))er="Il numero "+code+" esiste già: scegline un altro.";
@@ -420,13 +530,13 @@ $("act").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
     if(er){$("f_err").textContent=er;return;}
     M.push([code,lu+", "+pu,zn,z[1],ser,ge,$("f_tipo").value,v("f_note")]);
     fillMac();$("mac").value=String(M.length-1);adding=false;view=M.length-1;
-    renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
+    $("op").value=zn;renderOp();renderReg();renderAct();rc();if($("act").scrollIntoView)$("act").scrollIntoView({behavior:"smooth",block:"center"});}});
 renderReg();
 renderClock();
 /* ACCESSO: simulazione solo frontend, nessun backend. Per un servizio vero basta sostituire Auth
    (signIn, signOut, current): le schermate leggono solo il ruolo da SESS. Le credenziali sono fittizie. */
-const ROLES={titolare:{nome:"Titolare",home:"centro",viste:["operatore","centro","campo"]},operatore:{nome:"Operatore di zona",home:"operatore",viste:["operatore","campo"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
-const VL={operatore:"Operatore di zona",centro:"Centro assistenza",campo:"Operatore sul campo",cliente:"Schermata cliente"};
+const ROLES={titolare:{nome:"Titolare",home:"centro",viste:["operatore","centro"]},operatore:{nome:"Operatore",home:"operatore",viste:["operatore"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
+const VL={operatore:"Operatore",centro:"Centro<span class=\"lx\">&nbsp;assistenza</span>",cliente:"Cliente"};
 const ICR={titolare:"building-2",operatore:"wrench",centro:"headset"};
 const ACCOUNTS=[
  {id:"titolare",user:"titolare",pass:"demo-titolare",ruolo:"titolare",nome:"Titolare"},
@@ -441,19 +551,19 @@ const Auth={
  signOut(){try{localStorage.removeItem(AUTH_KEY);}catch(e){}},
  current(){try{const s=JSON.parse(localStorage.getItem(AUTH_KEY)||"null");return (s&&ACCOUNTS.find(x=>x.id===s.id))||null;}catch(e){return null;}}
 };
-const canSee=(ruolo,v)=>!!ROLES[ruolo]&&ROLES[ruolo].viste.includes(v);
+const canSee=(ruolo,v)=>{if(v==="campo")v="operatore";return !!ROLES[ruolo]&&ROLES[ruolo].viste.includes(v);};
 const homeOf=a=>ROLES[a.ruolo].home;
 globalThis.__auth={Auth,canSee,ROLES,ACCOUNTS};
 let SESS=Auth.current(),pend=null,flash="";
-const VIEWS=["cliente","operatore","centro","campo","accedi"];
+const VIEWS=["cliente","operatore","centro","accedi"];
 function go(v){location.hash="#"+v;}
-function applyRole(){const op=$("op");if(SESS&&SESS.ruolo==="operatore"){op.value=SESS.zona;op.disabled=true;}else op.disabled=false;renderOp();}
+function applyRole(){const op=$("op"),lock=!!(SESS&&SESS.ruolo==="operatore");if(lock)op.value=SESS.zona;op.disabled=lock;$("who").hidden=lock;renderOp();renderReg();}
 function renderChrome(v){const nav=$("tabs");
   if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.concat("cliente").map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=false;}
   else{nav.innerHTML="";nav.hidden=true;}
   nav.querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   $("macbox").hidden=v!=="cliente";
-  $("sess").hidden=!SESS;if(SESS)$("sname").textContent=SESS.nome+" · "+ROLES[SESS.ruolo].nome;
+  $("sess").hidden=!SESS;if(SESS)$("sname").textContent=SESS.nome===ROLES[SESS.ruolo].nome?SESS.nome:SESS.nome+" · "+ROLES[SESS.ruolo].nome;
   $("gologin").hidden=!!SESS||v==="accedi";
   const f=$("flash");f.hidden=!flash;f.textContent=flash;flash="";}
 function route(){let h=location.hash.slice(1),v;
@@ -461,6 +571,7 @@ function route(){let h=location.hash.slice(1),v;
   else if(["operatore","centro","campo"].includes(h)){
     if(!SESS){pend=h;go("accedi");return;}
     if(!canSee(SESS.ruolo,h)){flash="Non hai accesso a quest'area: ti abbiamo riportato alla tua schermata.";go(homeOf(SESS));return;}
+    if(h==="campo"){showSec("mac");h="operatore";}
     v=h;}
   else v="cliente";
   VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v;});
