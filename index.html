@@ -7,7 +7,7 @@
 /* STILE: come un'app iOS. Sfondo raggruppato grigio chiaro (nero di notte), schede bianche arrotondate,
    blu di sistema come unico accento, testo con il font di sistema (SF su Apple, Inter altrove).
    LAYOUT: barra in alto traslucida con le schede; contenuto in colonna centrale; una colonna sotto 600px. */
-:root{color-scheme:light dark;
+:root{color-scheme:light;
  --bg:light-dark(#fff,#000);--card:light-dark(#f4f4f6,#1c1c1e);--card2:light-dark(#fff,#2c2c2e);
  --fill:light-dark(#ececf0,#2c2c2e);--glass:light-dark(rgba(255,255,255,.84),rgba(0,0,0,.78));
  --ink:light-dark(#0b0b0f,#fff);--onink:light-dark(#fff,#0b0b0f);--mut:light-dark(#6c6c74,#a1a1aa);--line:light-dark(#e6e6ea,#2f2f33);
@@ -18,7 +18,7 @@
  --nbg:var(--fill);
  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",Roboto,system-ui,sans-serif;
  --r:20px}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+:root,:root[data-theme=dark]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.47 var(--font);letter-spacing:-.01em;overflow-x:clip;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--glass)}
