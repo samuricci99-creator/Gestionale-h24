@@ -293,6 +293,10 @@ button:disabled{opacity:.4;cursor:default;transform:none}
     </section>
   </div>
 
+  <div class="pg wide" id="v-titolare" hidden>
+    <div class="pg-head"><p class="cap" style="margin:0">Titolare</p><h2>Andamento del servizio</h2></div>
+    <div id="tit"></div>
+  </div>
   <div class="pg wide" id="v-centro" hidden>
   <div class="ph"><h2>Segnalazioni</h2></div>
   <p class="hint">Tocca una segnalazione per leggere il rapporto del tecnico. I rimborsi da emettere sono evidenziati in giallo.</p>
@@ -566,7 +570,22 @@ function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
 function renderClock(soft){const op=isOpen(),st=$("status");
   st.textContent=op?"Assistenza aperta fino alle "+fmtT(closeMin(),"it"):"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
   if(!soft){rc();render();}}
-function render(){renderOp();renderList();if(C.done||(C.track&&C.tq&&C.tq.n!==null))rc();if(typeof renderReg==="function")renderReg();}
+/* KPI TITOLARE. "Chiamate" = segnalazioni ricevute. Riuscite = risolte. In attesa = nuove, nessuno le ha ancora prese.
+   Tempo di risposta = da l'arrivo (t) alla presa in carico (ts[1]), in minuti, media per operatore. */
+const hmin=s=>{const q=/(\d{1,2}):(\d{2})/.exec(String(s||""));return q?+q[1]*60+ +q[2]:null;};
+const respMin=x=>{const a=hmin(x.t),b=x.ts&&hmin(x.ts[1]);return a==null||b==null?null:(b-a+1440)%1440;};
+function kpiTit(list=rows){
+  const tot=list.length,ok=list.filter(x=>x.s===2).length,wait=list.filter(x=>x.s===0).length;
+  const ops=Z.map(z=>{const rs=list.filter(x=>M[x.m][3]===z[1]).map(respMin).filter(v=>v!=null);
+    return {nome:z[1],zona:z[0],n:rs.length,avg:rs.length?Math.round(rs.reduce((a,b)=>a+b,0)/rs.length):null};});
+  return {tot,ok,wait,pct:tot?Math.round(ok/tot*100):0,ops};}
+globalThis.__kpi=kpiTit;
+function renderTit(){if(!$("tit"))return;const k=kpiTit();
+  const cards=[[k.tot,"Chiamate totali"],[k.ok,"Riuscite"],[k.wait,"In attesa"],[k.pct+"%","Percentuale riuscite"]];
+  $("tit").innerHTML=`<div class="kp">${cards.map(c=>`<div class="k"><b>${c[0]}</b><span>${c[1]}</span></div>`).join("")}</div>`+
+    `<p class="cap" style="margin:18px 0 4px">Tempo di risposta per operatore (dall'arrivo alla presa in carico)</p>`+
+    k.ops.map(o=>`<div class="rg"><span><b>${esc(o.nome)}</b><small>${esc(o.zona)} · ${o.n} prese in carico</small></span><b>${o.avg==null?"—":o.avg+" min"}</b></div>`).join("");}
+function render(){renderOp();renderList();renderTit();if(C.done||(C.track&&C.tq&&C.tq.n!==null))rc();if(typeof renderReg==="function")renderReg();}
 setInterval(()=>{if(!live)return;const key=()=>isOpen()+nk()+closeMin()+nextAt().m,was=key();clk=realClk();renderClock(was===key());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
 $("mac").addEventListener("change",rc);
@@ -652,8 +671,8 @@ renderReg();
 renderClock();
 /* ACCESSO: simulazione solo frontend, nessun backend. Per un servizio vero basta sostituire Auth
    (signIn, signOut, current): le schermate leggono solo il ruolo da SESS. Le credenziali sono fittizie. */
-const ROLES={titolare:{nome:"Titolare",home:"centro",viste:["operatore","centro"]},operatore:{nome:"Operatore",home:"operatore",viste:["operatore"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
-const VL={operatore:"Operatore",centro:"Centro<span class=\"lx\">&nbsp;assistenza</span>",cliente:"Cliente"};
+const ROLES={titolare:{nome:"Titolare",home:"titolare",viste:["titolare","operatore","centro"]},operatore:{nome:"Operatore",home:"operatore",viste:["operatore"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
+const VL={titolare:"Titolare",operatore:"Operatore",centro:"Centro<span class=\"lx\">&nbsp;assistenza</span>",cliente:"Cliente"};
 const ICR={titolare:"building-2",operatore:"wrench",centro:"headset"};
 const ACCOUNTS=[
  {id:"titolare",user:"titolare",pass:"demo-titolare",ruolo:"titolare",nome:"Titolare"},
@@ -672,7 +691,7 @@ const canSee=(ruolo,v)=>{if(v==="campo")v="operatore";return !!ROLES[ruolo]&&ROL
 const homeOf=a=>ROLES[a.ruolo].home;
 globalThis.__auth={Auth,canSee,ROLES,ACCOUNTS};
 let SESS=Auth.current(),pend=null,flash="";
-const VIEWS=["cliente","operatore","centro","accedi"];
+const VIEWS=["cliente","titolare","operatore","centro","accedi"];
 function go(v){location.hash="#"+v;}
 function applyRole(){const op=$("op"),lock=!!(SESS&&SESS.ruolo==="operatore");if(lock)op.value=SESS.zona;op.disabled=lock;$("who").hidden=lock;renderOp();renderReg();}
 function renderChrome(v){const nav=$("tabs");
@@ -687,7 +706,7 @@ function route(){let h=location.hash.slice(1),v;
   const tl=/^t-(\d+)-([a-z0-9]+)$/.exec(h);
   if(tl){const x=rows.find(q=>q.n===+tl[1]&&q.k===tl[2]);resetCust();if(x){C.track=1;C.tq={num:"",ver:"",n:x.n,err:""};}else{C.track=1;C.tq={num:tl[1],ver:"",n:null,err:"tNo"};}rc();h="cliente";}
   if(h==="accedi"){if(SESS){go(homeOf(SESS));return;}v="accedi";}
-  else if(["operatore","centro","campo"].includes(h)){
+  else if(["titolare","operatore","centro","campo"].includes(h)){
     if(!SESS){pend=h;go("accedi");return;}
     if(!canSee(SESS.ruolo,h)){flash="Non hai accesso a quest'area: ti abbiamo riportato alla tua schermata.";go(homeOf(SESS));return;}
     if(h==="campo"){showSec("mac");h="operatore";}
