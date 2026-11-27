@@ -476,31 +476,35 @@ const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
 function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
 function said(x){return `<dl class="kv">${kv("Problema",`<b>${esc(x.p)}</b>${x.urgent?' <span class="tg u">Pericolo</span>':""}`)}${kv("Quando",esc(x.t)+(x.after?" (fuori orario)":""))}${kv("Pagamento",esc(x.pay||""))}${kv("Display",esc(x.err||""))}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Prodotto",esc(x.prod||""))}${kv("Descrizione",esc(x.txt||""))}${kv("Foto",esc(x.photo||""))}${kv("Lingua",x.lang&&x.lang!=="it"?esc(lgName(x.lang)):"")}</dl>`;}
 function custBox(x){return `<dl class="kv">${kv("Cliente",esc(x.nome||"non indicato"))}${kv("Rimborso chiesto",esc(x.r))}</dl>`;}
-function repView(r){return `<dl class="kv">${kv("Causa",`<b>${esc(r.causa)}</b>`)}${kv("Intervento",esc(r.fatto))}${kv("Esito",r.esito==="risolto"?'<span class="chp s2">Risolto</span>':'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Rimborso",esc(RV[r.rimb])+(r.imp&&r.rimb!=="no"&&r.rimb!=="nessuno"?" · "+eur(r.imp):""))}${kv("Motivo",esc(r.mot||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;}
-function repForm(x){const f=RFm[x.n]||(RFm[x.n]={causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""}),m=M[x.m];
+function repView(r){if(r.esito==="no")return `<dl class="kv">${kv("Esito",'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Perché",esc(r.nr||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;return `<dl class="kv">${kv("Causa",`<b>${esc(r.causa)}</b>`)}${kv("Intervento",esc(r.fatto))}${kv("Esito",r.esito==="risolto"?'<span class="chp s2">Risolto</span>':'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Rimborso",esc(RV[r.rimb])+(r.imp&&r.rimb!=="no"&&r.rimb!=="nessuno"?" · "+eur(r.imp):""))}${kv("Motivo",esc(r.mot||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;}
+function repMain(x,f,row,coins){return `<p class="gh"><label for="r_causa">Causa del problema</label></p><div class="grp"><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select></div>
+<p class="gh"><label for="r_fatto">Cosa hai fatto sul posto</label></p><div class="grp"><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea></div>
+${money(x)?`<p class="gh">Rimborso al cliente</p><div class="grp" role="group" aria-label="Rimborso al cliente">${row("rimb","dovuto","Dovuto","Errore della macchina: il centro rimborsa")}${coins?row("rimb","posto","Già dato sul posto","Hai restituito le monete al cliente"):""}${row("rimb","no","Non dovuto","Spiega il motivo al centro")}</div>
+${f.rimb==="dovuto"||f.rimb==="posto"?`<p class="gh"><label for="r_imp">Importo confermato (€)</label></p><div class="grp"><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}"></div>`:""}
+${f.rimb==="no"?`<p class="gh"><label for="r_mot">Perché non è dovuto</label></p><div class="grp"><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}"></div>`:""}`:""}`;}
+function repForm(x){const f=RFm[x.n]||(RFm[x.n]={nr:"",causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""}),m=M[x.m];
   const row=(k,v,l,sub)=>`<button type="button" class="ck" data-f="${k}" data-v="${v}" aria-pressed="${f[k]===v}"><span>${esc(l)}${sub?`<small>${esc(sub)}</small>`:""}</span>${ic("check")}</button>`;
   const coins=x.pay==="Monete o banconote"||x.r===RF[1][0];
   return `<div class="rs">
 <div class="rs-nav"><button type="button" class="bk" data-a="cancel" data-n="${x.n}">${ic("arrow-left")}Da fare</button></div>
 <h2 class="lt">Rapporto di intervento</h2><p class="cap">${esc(m[0])} · ${esc(m[1])}</p>
 <p class="gh">Segnalazione n. ${x.n}</p><dl class="grp kv">${kv("Problema",`<b>${esc(x.p)}</b>`)}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Pagamento",esc(x.pay||""))}${kv("Rimborso chiesto",esc(x.r))}</dl>
-<p class="gh"><label for="r_causa">Causa del problema</label></p><div class="grp"><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select></div>
-<p class="gh"><label for="r_fatto">Cosa hai fatto sul posto</label></p><div class="grp"><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea></div>
 <p class="gh">Esito</p><div class="grp" role="group" aria-label="Esito">${row("esito","risolto","Risolto","La macchina funziona di nuovo")}${row("esito","no","Non risolto","Serve un altro intervento")}</div>
-${money(x)?`<p class="gh">Rimborso al cliente</p><div class="grp" role="group" aria-label="Rimborso al cliente">${row("rimb","dovuto","Dovuto","Errore della macchina: il centro rimborsa")}${coins?row("rimb","posto","Già dato sul posto","Hai restituito le monete al cliente"):""}${row("rimb","no","Non dovuto","Spiega il motivo al centro")}</div>
-${f.rimb==="dovuto"||f.rimb==="posto"?`<p class="gh"><label for="r_imp">Importo confermato (€)</label></p><div class="grp"><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}"></div>`:""}
-${f.rimb==="no"?`<p class="gh"><label for="r_mot">Perché non è dovuto</label></p><div class="grp"><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}"></div>`:""}`:""}
+${f.esito==="no"?`<p class="gh"><label for="r_nr">Perché non è risolto</label></p><div class="grp"><textarea id="r_nr" data-f="nr" rows="3" placeholder="Es. serve un pezzo di ricambio, la macchina va aperta dal gestore">${esc(f.nr)}</textarea></div>`:repMain(x,f,row,coins)}
 <p class="gh"><label for="r_note">Note per il centro assistenza</label></p><div class="grp"><input id="r_note" data-f="note" placeholder="Facoltative" value="${esc(f.note)}"></div>
-<p class="gf">Il rapporto arriva al centro assistenza, che decide ed emette il rimborso.</p>
+<p class="gf">${f.esito==="no"?"Il centro assistenza vede che serve un altro intervento; il rimborso si decide dopo.":"Il rapporto arriva al centro assistenza, che decide ed emette il rimborso."}</p>
 <div class="rs-foot">${f.err?`<p class="err" role="alert">${esc(f.err)}</p>`:""}<button type="button" class="pri" data-a="send" data-n="${x.n}">Invia al centro assistenza</button></div></div>`;}
 function sendRep(x){const f=RFm[x.n],imp=parseFloat(String(f.imp||"").replace(",","."));let e="";
-  if(!f.causa)e="Scegli la causa del problema.";
+  if(!f.esito)e="Indica se il problema è risolto.";
+  else if(f.esito==="no"){if(f.nr.trim().length<5)e="Scrivi perché non è risolto: il centro deve saperlo.";}
+  else if(!f.causa)e="Scegli la causa del problema.";
   else if(f.fatto.trim().length<5)e="Scrivi cosa hai fatto sul posto.";
-  else if(!f.esito)e="Indica se il problema è risolto.";
-  else if(!f.rimb)e="Indica se il rimborso al cliente è dovuto.";
+  else if(f.esito!=="no"&&!f.rimb)e="Indica se il rimborso al cliente è dovuto.";
   else if((f.rimb==="dovuto"||f.rimb==="posto")&&!(imp>0))e="Scrivi l'importo confermato, ad esempio 1,50.";
   else if(f.rimb==="no"&&f.mot.trim().length<3)e="Spiega perché il rimborso non è dovuto: il centro lo comunica al cliente.";
   if(e){f.err=e;renderOp();return;}
+  if(f.esito==="no"){const by=M[x.m][3];x.rep={esito:"no",nr:f.nr.trim(),note:f.note.trim(),causa:"",fatto:"",rimb:"",imp:0,mot:"",at:now(),by};x.rf=null;
+    x.log.push(now()+" "+by+" ha inviato il rapporto: non risolto ("+x.rep.nr+")");delete RFm[x.n];opForm=null;flashOp="Rapporto n. "+x.n+" inviato: serve un altro intervento.";render();return;}
   const by=M[x.m][3];x.rep={causa:f.causa,fatto:f.fatto.trim(),esito:f.esito==="risolto"?"risolto":"no",rimb:f.rimb,imp:f.rimb==="dovuto"||f.rimb==="posto"?imp:0,mot:f.mot.trim(),note:f.note.trim(),at:now(),by};
   x.rf=f.rimb==="dovuto"?"da emettere":f.rimb==="posto"?"sul posto":f.rimb==="no"?"non dovuto":null;
   x.log.push(now()+" "+by+" ha inviato il rapporto: "+(x.rep.esito==="risolto"?"risolto":"non risolto")+", "+RV[f.rimb].toLowerCase()+(x.rep.imp?" "+eur(x.rep.imp):""));
@@ -541,7 +545,7 @@ function refundBox(d){const pref=`<p>Metodo scelto dal cliente: <b>${esc(d.r)}</
   if(d.rf==="emesso")return `<div class="rb ok"><span class="bi">${ic("check")}</span><p class="sh">Rimborso emesso: ${eur(d.rep.imp)}</p>${pref}</div>`;
   if(d.rf==="sul posto")return `<div class="rb ok"><span class="bi">${ic("check")}</span><p class="sh">Rimborsato sul posto dal tecnico: ${eur(d.rep.imp)}</p><p>Niente da emettere.</p></div>`;
   if(d.rf==="non dovuto"||d.rf==="rifiutato")return `<div class="rb"><span class="bi">${ic("message-circle")}</span><p class="sh">Nessun rimborso</p><p>Motivo: ${esc(d.rf==="rifiutato"?d.rfm:d.rep.mot)}</p>${pref}${d.avv?`<p class="cap">Cliente avvisato.</p>`:`<div class="acts"><button type="button" data-rf="avvisato" data-n="${d.n}">Ho avvisato il cliente</button></div>`}</div>`;
-  if(money(d))return `<div class="rb wait"><span class="bi">${ic("clock")}</span><p class="sh">Rimborso: in attesa del tecnico</p><p>Si decide quando arriva il rapporto di intervento. Non rimborsare prima.</p>${pref}</div>`;
+  if(money(d))return `<div class="rb wait"><span class="bi">${ic("clock")}</span><p class="sh">Rimborso: in attesa del tecnico</p><p>${d.rep&&d.rep.esito==="no"?"Il tecnico tornerà sul posto: il rimborso si decide con il prossimo rapporto.":"Si decide quando arriva il rapporto di intervento. Non rimborsare prima."}</p>${pref}</div>`;
   return "";}
 function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
   const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||(sf==="r"?x.rf==="da emettere":x.s===+sf))&&(ff===""||(ff==="n")===!!x.after));
@@ -565,7 +569,7 @@ $("op").addEventListener("change",()=>{renderOp();renderReg();if(adding)renderAc
 if($("t-seg").addEventListener){$("t-seg").addEventListener("click",()=>showSec("seg"));$("t-mac").addEventListener("click",()=>showSec("mac"));}
 $("zf").addEventListener("change",renderList);$("sf").addEventListener("change",renderList);$("ff").addEventListener("change",renderList);
 $("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
-  if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
+  if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=f[d.f]===d.v?"":d.v;f.err="";renderOp();return;}
   const x=rows.find(q=>q.n===+d.n);if(!x)return;
   if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
   if(d.a==="rep"){if(!x.onsite){x.onsite=1;x.ts=x.ts||{};x.ts[2]=now();x.log.push(now()+" "+M[x.m][3]+" è sul posto");}opForm=x.n;undoN=null;render();renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
