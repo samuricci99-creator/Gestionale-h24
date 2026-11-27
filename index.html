@@ -97,6 +97,8 @@ select:focus,input:focus,textarea:focus{outline:0;box-shadow:0 0 0 3px light-dar
 .kv{display:grid;grid-template-columns:minmax(100px,34%) minmax(0,1fr);gap:7px 12px;margin:2px 0 0;font-size:15px}.kv div{display:contents}.kv dt{color:var(--mut)}.kv dd{margin:0}
 .sh{font-weight:600;font-size:16px;margin:0}
 .prev{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--ambbg)}
+.undo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px;padding:8px 8px 8px 16px;border-radius:14px;background:light-dark(#1c1c1e,#3a3a3c);color:#fff;font-size:15px}.undo button{min-height:36px;padding:0 14px;background:transparent;color:light-dark(#5aa9ff,#5aa9ff)}
+.rel{display:block;width:100%;margin-top:6px;min-height:40px;background:transparent;color:var(--red);font-weight:500;font-size:15px}
 .okm{margin:0 0 12px;padding:12px 14px;border-radius:12px;background:var(--grnbg);color:var(--grn);font-weight:600;font-size:15px}
 .dn{background:var(--card)}.dn .dl{font-size:15px;margin:8px 0 0}
 
@@ -406,7 +408,8 @@ $("cust").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
   else if(d.act==="again")resetCust();
   rc();});
 
-function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":" ha riaperto"));}
+function setS(x,s){if(x.s===s)return;const was=x.s;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":was===1?" ha annullato la presa in carico":" ha riaperto"));}
+let undoN=null;
 let opForm=null;const RFm={};
 const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
 function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
@@ -454,6 +457,8 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   if(fx){$("notif").innerHTML=repForm(fx);return;}
   if(opForm!==null)opForm=null;
   if(flashOp){h+=`<p class="okm" role="status">✓ ${esc(flashOp)}</p>`;flashOp="";}
+  const ux=undoN!==null&&rows.find(x=>x.n===undoN&&x.s===1&&!x.rep);
+  if(ux)h+=`<div class="undo" role="status"><span>Hai preso in carico la n. ${ux.n} · ${esc(M[ux.m][0])}</span><button type="button" data-a="0" data-n="${ux.n}">Annulla</button></div>`;
   if(q.length)h+=`<div class="nt" style="color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
@@ -463,6 +468,7 @@ function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
     c+=`<details class="sc" open><summary>Dove si trova</summary>${where(m)}</details><details class="sc" open><summary>Cosa ha segnalato il cliente</summary>${said(x)}</details><details class="sc"><summary>Cliente e rimborso chiesto</summary>${custBox(x)}${x.c?`<button type="button" class="sm" data-a="c" data-n="${x.n}">Mostra recapito</button><p class="cc" id="cc${x.n}"></p>`:""}</details>`;
     if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente</p>${repView(x.rep)}</div>`;
     c+=`<div class="acts"><button type="button" class="pri" data-a="rep" data-n="${x.n}">${x.rep?"Nuovo rapporto di intervento":"Sono sul posto: compila il rapporto"}</button></div>`;
+    if(!x.rep)c+=`<button type="button" class="rel" data-a="0" data-n="${x.n}">Annulla presa in carico</button>`;
     return c+`</div>`;};
   h+=show.length?show.map(card).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
   const done=rows.filter(x=>M[x.m][2]===z&&x.s===2&&x.rep).reverse();
@@ -501,10 +507,11 @@ $("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
   if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
   const x=rows.find(q=>q.n===+d.n);if(!x)return;
   if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
-  if(d.a==="rep"){opForm=x.n;renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
+  if(d.a==="rep"){opForm=x.n;undoN=null;renderOp();if(typeof scrollTo==="function")scrollTo(0,0);return;}
   if(d.a==="cancel"){opForm=null;renderOp();return;}
   if(d.a==="send"){sendRep(x);return;}
-  setS(x,+d.a);render();});
+  const to=+d.a;undoN=to===1?x.n:null;if(to===0){opForm=null;flashOp="Presa in carico annullata: la n. "+x.n+" torna tra le nuove.";}
+  setS(x,to);render();});
 const opIn=e=>{const t=e.target,k=t.dataset&&t.dataset.f;if(!k||opForm===null||!RFm[opForm])return;RFm[opForm][k]=t.value;};
 $("notif").addEventListener("input",opIn);$("notif").addEventListener("change",opIn);
 $("list").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.rf){const x=rows.find(q=>q.n===+b.dataset.n),v=b.dataset.rf;
