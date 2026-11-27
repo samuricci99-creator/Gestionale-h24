@@ -131,6 +131,23 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 #tabs{overflow-x:auto}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 .pg.mid{max-width:640px}
+.kv{display:grid;grid-template-columns:minmax(96px,30%) minmax(0,1fr);gap:6px 12px;margin:8px 0 0;font-size:14px}.kv div{display:contents}.kv dt{color:var(--mut)}.kv dd{margin:0;color:var(--ink)}
+.sc{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.sc summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink);min-height:32px;display:flex;align-items:center}.sc summary::marker{color:var(--mut)}
+.sh{font-weight:600;font-size:15px;margin:0;color:var(--ink)}
+.rp .acts{flex-direction:column}.rp .acts button{flex:none;width:100%}
+.rp{margin-top:14px;padding:14px;border-radius:12px;background:var(--card)}.rp select,.rp textarea,.rp input{width:100%}.rp .chips{margin-top:2px}
+.chip[aria-pressed=true]{background:var(--acc);color:var(--onacc);border-color:var(--acc);font-weight:600}
+.prev{margin-top:12px;padding:12px;border-radius:12px;background:var(--ambbg)}
+.okm{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:var(--grnbg);color:var(--grn);font-weight:600;font-size:14px}
+.nt button.sm{min-height:40px;font-size:14px;margin-top:8px}
+.dn .dl{font-size:14px;margin:8px 0 0}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;padding:0;list-style:none;font-size:13px;color:var(--mut)}.steps li{background:var(--card);border-radius:999px;padding:4px 10px}.steps b{color:var(--acc)}
+.det .dh{font-weight:600;font-size:17px;margin:0 0 10px}
+.rb{border-radius:12px;padding:12px 14px;margin-bottom:12px;background:var(--bg);border:1px solid var(--line)}.rb p{margin:4px 0}.rb.warn{border:2px solid var(--amb);background:var(--ambbg)}.rb.ok{background:var(--grnbg);border-color:transparent}.rb.ok .sh{color:var(--grn)}.rb input{width:100%}.rb .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.rb .acts button{flex:1 1 160px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.sts{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.st{display:inline-flex;align-items:center;padding:0 10px}
+.chp.sn{background:var(--nbg);color:var(--mut)}
+.hint{font-size:14px;color:var(--mut);margin:-6px 0 14px}
 .who{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);flex:1 1 220px;max-width:280px}.who select{width:100%}
 .sw{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:var(--card);margin-bottom:16px}
 .sw button{border:0;background:transparent;min-height:44px;font-weight:500;color:var(--mut);border-radius:9px}
@@ -154,13 +171,13 @@ h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
 @media(max-width:600px){.phone{min-height:0}.lx{display:none}.tabs{justify-content:space-between}.tabs a{padding:0 6px}
  .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t s" "m s";row-gap:2px}.row .rt{grid-area:t;font-size:13px}.row .rm{grid-area:m}.row .st{grid-area:s}
  .tools{grid-template-columns:1fr 1fr}.tools select:last-child{grid-column:1/-1}.who{max-width:none}}
-@media(prefers-reduced-motion:no-preference){.nt{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" /> <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> <polyline points="16 17 21 12 16 7" /> <line x1="21" x2="9" y1="12" y2="12" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package-x" viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /> <path d="m17 13 5 5m-5 0 5-5" /></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol></svg>
 <header class="bar">
   <div class="brand"><svg viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="16" y="2" width="8" height="8" rx="1.5"/><rect x="2" y="16" width="8" height="8" rx="1.5"/></g><g fill="currentColor"><rect x="5" y="5" width="2" height="2"/><rect x="19" y="5" width="2" height="2"/><rect x="5" y="19" width="2" height="2"/><rect x="15" y="15" width="3" height="3"/><rect x="21" y="15" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="15" y="21" width="3" height="3"/><rect x="21" y="21" width="3" height="3"/></g></svg>
     <div><h1>Assistenza distributori</h1><small>Prototipo · dati di esempio</small></div></div>
-  <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Area riservata</button><span id="status" class="pill" role="status"></span></div>
+  <div class="acts"><span id="sess" class="sess" hidden><span id="sname"></span><button id="logout" type="button">Esci</button></span><button id="gologin" type="button" hidden>Accesso personale</button><span id="status" class="pill" role="status"></span></div>
 </header>
 <nav class="tabs" id="tabs" aria-label="Schermate" hidden></nav>
 <p id="flash" class="flash" role="status" hidden></p>
@@ -196,10 +213,10 @@ h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
     <div class="ph"><div><h2 id="opname"></h2><p class="cap" id="opzone" style="margin:2px 0 0"></p></div>
       <label class="who" id="who">Cambia operatore (prova)<select id="op"></select></label></div>
     <div class="sw" role="tablist" aria-label="Sezioni operatore">
-      <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Segnalazioni <span id="badge" class="cnt"></span></button>
+      <button type="button" role="tab" id="t-seg" data-sec="seg" aria-selected="true">Da fare <span id="badge" class="cnt"></span></button>
       <button type="button" role="tab" id="t-mac" data-sec="mac" aria-selected="false">Macchine <span id="mcount" class="cnt n"></span></button>
     </div>
-    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><div id="notif"></div></section>
+    <section id="sec-seg" role="tabpanel" aria-labelledby="t-seg"><ol class="steps" aria-label="Come funziona"><li><b>1</b> Prendi in carico</li><li><b>2</b> Vai alla macchina</li><li><b>3</b> Invia il rapporto al centro</li></ol><div id="notif"></div></section>
     <section id="sec-mac" role="tabpanel" aria-labelledby="t-mac" hidden>
       <div class="ph" style="margin-bottom:6px"><p class="cap" style="margin:0;flex:1 1 220px">Sul posto: aggiungi la macchina e genera il QR da incollare. Il QR contiene solo il codice della macchina.</p><button type="button" id="addm" class="pri">Aggiungi macchina</button></div>
       <div id="act"></div><div id="reg"></div>
@@ -208,16 +225,17 @@ h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
 
   <div class="pg wide" id="v-centro" hidden>
   <div class="ph"><h2>Segnalazioni</h2></div>
+  <p class="hint">Tocca una segnalazione per leggere il rapporto del tecnico. I rimborsi da emettere sono evidenziati in giallo.</p>
     <div class="tools">
       <select id="zf" aria-label="Zona"><option value="">Tutte le zone</option><option>Zona Nord</option><option>Zona Centro</option><option>Zona Sud</option></select>
-      <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="0">Nuova</option><option value="1">Presa in carico</option><option value="2">Risolta</option></select>
+      <select id="sf" aria-label="Stato"><option value="">Tutti gli stati</option><option value="r">Rimborsi da emettere</option><option value="0">Nuove</option><option value="1">In lavorazione</option><option value="2">Chiuse</option></select>
       <select id="ff" aria-label="Fascia"><option value="">Giorno e notte</option><option value="d">Solo orario di servizio</option><option value="n">Solo fuori orario</option></select>
     </div>
   <div class="kp">
     <div class="k"><b id="mt"></b><span>Segnalazioni</span></div>
-    <div class="k"><b id="mn"></b><span>Ancora nuove</span></div>
-    <div class="k"><b id="mf"></b><span>Arrivate fuori orario</span></div>
-    <div class="k"><b id="me"></b><span>Da rimborsare</span></div>
+    <div class="k"><b id="mn"></b><span>Nuove, nessuno le ha prese</span></div>
+    <div class="k"><b id="mf"></b><span>Rimborsi da emettere</span></div>
+    <div class="k"><b id="me"></b><span>Totale da rimborsare</span></div>
   </div>
   <div id="list"></div>
   <div id="det"></div>
@@ -231,10 +249,14 @@ h2{font-size:22px;line-height:1.2;letter-spacing:-0.015em}
 <script>
 {
 const OPEN=510,CLOSE=1110,CLOSE_S=CLOSE*60+59,DAYS=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
-const M=[["D-001","Ospedale, pronto soccorso","Zona Nord","Marco"],["D-002","Stazione, binario 1","Zona Nord","Marco"],["D-003","Università, atrio aula magna","Zona Centro","Giulia"],["D-004","Palestra, spogliatoi","Zona Centro","Giulia"],["D-005","Azienda logistica, area relax","Zona Sud","Luca"]];
+const M=[["D-001","Ospedale, pronto soccorso","Zona Nord","Marco","SN-10231","Vending Nord srl","Bevande calde","Piano terra, nella sala d'attesa del pronto soccorso, a destra dell'accettazione."],["D-002","Stazione, binario 1","Zona Nord","Marco","SN-10544","Vending Nord srl","Bevande fredde","Sotto la pensilina del binario 1, accanto alla biglietteria automatica."],["D-003","Università, atrio aula magna","Zona Centro","Giulia","SN-20817","Ristoro Centro snc","Misto","Atrio principale, di fronte all'ingresso dell'aula magna."],["D-004","Palestra, spogliatoi","Zona Centro","Giulia","SN-20990","Ristoro Centro snc","Snack","Corridoio degli spogliatoi, tra lo spogliatoio uomini e la reception."],["D-005","Azienda logistica, area relax","Zona Sud","Luca","SN-30112","Vending Sud srl","Misto","Capannone B, area relax al primo piano. Chiedere il badge in portineria."]];
 const Z=[["Zona Nord","Marco"],["Zona Centro","Giulia"],["Zona Sud","Luca"]];
 const MONEY=["Soldi trattenuti","Prodotto non erogato","Resto non dato","Pagamento con carta o app non riuscito"],G="Macchina guasta o pericolosa",PR=[...MONEY,G,"Altro"];
-const S=["Nuova","Presa in carico","Risolta"];
+const S=["Nuova","Presa in carico","Chiusa"];
+const CAUSE=["Gettoniera inceppata o piena","Resto esaurito","Lettore carte o chiavetta guasto","Prodotto incastrato nella spirale","Motore della spirale guasto","Errore del display o della scheda","Macchina senza corrente","Perdita d'acqua","Nessun guasto trovato","Altro"];
+const RV={dovuto:"Rimborso dovuto: errore della macchina",posto:"Già rimborsato sul posto in monete",no:"Rimborso non dovuto",nessuno:"Nessun importo da rimborsare"};
+const RFS={"da emettere":["Rimborso da emettere","s1"],emesso:["Rimborso emesso","s2"],"sul posto":["Rimborsato sul posto","s2"],"non dovuto":["Rimborso non dovuto","sn"],rifiutato:["Rimborso rifiutato","sn"]};
+const money=x=>x.a>0||x.r!==RF[2][0];
 const RF=[["Rimborso sull'app","Scarichi l'app: dopo la verifica del servizio assistenza il rimborso arriva lì.",1],["Monete dal distributore","Ti accordi con l'operatore di zona per ritirarle direttamente alla macchina.",0],["Solo segnalazione","Non chiedo il rimborso, avviso solo del problema.",0]];
 const seed=()=>[
 {n:1,t:"ieri 20:05",lang:"ro",after:1,seen:1,m:3,p:"Prodotto non erogato",a:1.5,prod:"Snack",nome:"Elena",c:"elena@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:0,log:[]},
@@ -242,7 +264,7 @@ const seed=()=>[
 {n:3,t:"07:42",m:0,p:"Soldi trattenuti",a:2,prod:"Acqua",nome:"Paolo",c:"347 555 1020",r:RF[1][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:0,log:[]},
 {n:4,t:"08:15",lang:"fr",m:2,p:"Prodotto non erogato",a:1.2,prod:"Caffè",nome:"Sara",c:"sara@mail.it",r:RF[0][0],pay:"App o chiavetta",err:"No, nessun messaggio",s:1,log:["08:31 Giulia ha preso in carico"]},
 {n:5,t:"09:03",m:4,p:"Macchina guasta o pericolosa",a:0,prod:"",nome:"",c:"",r:RF[2][0],pay:"",err:"",s:0,log:[]},
-{n:6,t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[1][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,log:["10:40 Giulia ha preso in carico","11:05 Giulia ha segnato risolta"]}];
+{n:6,t:"10:27",m:3,p:"Resto non dato",a:0.5,prod:"Snack",nome:"Davide",c:"340 111 2233",r:RF[0][0],pay:"Monete o banconote",err:"No, nessun messaggio",s:2,rf:"da emettere",rep:{causa:"Resto esaurito",fatto:"Ricaricato il tubo del resto da 0,50 € e fatte tre erogazioni di prova: resto corretto.",esito:"risolto",rimb:"dovuto",imp:0.5,mot:"",note:"",at:"11:05",by:"Giulia"},log:["10:40 Giulia ha preso in carico","11:05 Giulia ha inviato il rapporto: risolto, rimborso dovuto 0,50 €"]}];
 const realClk=()=>{try{const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date()),g=t=>p.find(x=>x.type===t).value;return{d:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday")),m:+g("hour")*60+ +g("minute"),s:+g("second")};}catch(e){const n=new Date();return{d:(n.getDay()+6)%7,m:n.getHours()*60+n.getMinutes(),s:n.getSeconds()};}};
 let rows=seed(),sel=null,live=true,clk=realClk();
 const C={step:0,a:{},err:"",done:null,solved:0};
@@ -350,24 +372,77 @@ $("cust").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
   else if(d.act==="again")resetCust();
   rc();});
 
-function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha segnato risolta":" ha riaperto"));}
+function setS(x,s){if(x.s===s)return;x.s=s;x.log.push(now()+" "+M[x.m][3]+(s===1?" ha preso in carico":s===2?" ha chiuso l'intervento":" ha riaperto"));}
+let opForm=null;const RFm={};
+const kv=(k,v)=>v?`<div><dt>${k}</dt><dd>${v}</dd></div>`:"";
+function where(m){return `<dl class="kv">${kv("Macchina",`<b>${esc(m[0])}</b>${m[6]?" · "+esc(m[6]):""}`)}${kv("Luogo",esc(m[1]))}${kv("Come trovarla",esc(m[7]||""))}${kv("Matricola",esc(m[4]||""))}${kv("Gestore",esc(m[5]||""))}</dl>`;}
+function said(x){return `<dl class="kv">${kv("Problema",`<b>${esc(x.p)}</b>${x.urgent?' <span class="tg u">Pericolo</span>':""}`)}${kv("Quando",esc(x.t)+(x.after?" (fuori orario)":""))}${kv("Pagamento",esc(x.pay||""))}${kv("Display",esc(x.err||""))}${kv("Importo perso",x.a?eur(x.a):"")}${kv("Prodotto",esc(x.prod||""))}${kv("Descrizione",esc(x.txt||""))}${kv("Foto",esc(x.photo||""))}${kv("Lingua",x.lang&&x.lang!=="it"?esc(lgName(x.lang)):"")}</dl>`;}
+function custBox(x){return `<dl class="kv">${kv("Cliente",esc(x.nome||"non indicato"))}${kv("Rimborso chiesto",esc(x.r))}</dl>`;}
+function repView(r){return `<dl class="kv">${kv("Causa",`<b>${esc(r.causa)}</b>`)}${kv("Intervento",esc(r.fatto))}${kv("Esito",r.esito==="risolto"?'<span class="chp s2">Risolto</span>':'<span class="chp s1">Non risolto: serve un altro intervento</span>')}${kv("Rimborso",esc(RV[r.rimb])+(r.imp&&r.rimb!=="no"&&r.rimb!=="nessuno"?" · "+eur(r.imp):""))}${kv("Motivo",esc(r.mot||""))}${kv("Note per il centro",esc(r.note||""))}${kv("Inviato",esc(r.at+" da "+r.by))}</dl>`;}
+function repForm(x){const f=RFm[x.n]||(RFm[x.n]={causa:"",fatto:"",esito:"",rimb:money(x)?"":"nessuno",imp:x.a?String(x.a).replace(".",","):"",mot:"",note:"",err:""});
+  const ch=(k,v,l)=>`<button type="button" class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k]===v}">${esc(l)}</button>`;
+  return `<div class="rp"><p class="sh">Rapporto di intervento</p><p class="cap">Arriva al centro assistenza, che decide ed emette il rimborso.</p>
+<label class="lab" for="r_causa">Causa del problema</label><select id="r_causa" data-f="causa"><option value="">Scegli la causa</option>${CAUSE.map(c=>`<option${f.causa===c?" selected":""}>${esc(c)}</option>`).join("")}</select>
+<label class="lab" for="r_fatto">Cosa hai fatto sul posto</label><textarea id="r_fatto" data-f="fatto" rows="3" placeholder="Es. sbloccata la spirale 14, provate due erogazioni">${esc(f.fatto)}</textarea>
+<p class="lab">Esito</p><div class="chips">${ch("esito","risolto","Risolto")}${ch("esito","no","Non risolto: serve un altro intervento")}</div>
+${money(x)?`<p class="lab">Rimborso al cliente</p><div class="chips">${ch("rimb","dovuto","Dovuto: errore della macchina")}${x.pay==="Monete o banconote"||x.r===RF[1][0]?ch("rimb","posto","Già dato sul posto in monete"):""}${ch("rimb","no","Non dovuto")}</div>
+${f.rimb==="dovuto"||f.rimb==="posto"?`<label class="lab" for="r_imp">Importo confermato (€)</label><input id="r_imp" data-f="imp" inputmode="decimal" value="${esc(f.imp)}" style="max-width:160px">`:""}
+${f.rimb==="no"?`<label class="lab" for="r_mot">Perché non è dovuto</label><input id="r_mot" data-f="mot" placeholder="Es. il prodotto era uscito, nessun addebito trovato" value="${esc(f.mot)}">`:""}`:""}
+<label class="lab" for="r_note">Note per il centro assistenza (facoltative)</label><input id="r_note" data-f="note" value="${esc(f.note)}">
+${f.err?`<p class="err" role="alert">${esc(f.err)}</p>`:""}
+<div class="acts"><button type="button" class="pri" data-a="send" data-n="${x.n}">Invia rapporto al centro</button><button type="button" data-a="cancel" data-n="${x.n}">Annulla</button></div></div>`;}
+function sendRep(x){const f=RFm[x.n],imp=parseFloat(String(f.imp||"").replace(",","."));let e="";
+  if(!f.causa)e="Scegli la causa del problema.";
+  else if(f.fatto.trim().length<5)e="Scrivi cosa hai fatto sul posto.";
+  else if(!f.esito)e="Indica se il problema è risolto.";
+  else if(!f.rimb)e="Indica se il rimborso al cliente è dovuto.";
+  else if((f.rimb==="dovuto"||f.rimb==="posto")&&!(imp>0))e="Scrivi l'importo confermato, ad esempio 1,50.";
+  else if(f.rimb==="no"&&f.mot.trim().length<3)e="Spiega perché il rimborso non è dovuto: il centro lo comunica al cliente.";
+  if(e){f.err=e;renderOp();return;}
+  const by=M[x.m][3];x.rep={causa:f.causa,fatto:f.fatto.trim(),esito:f.esito==="risolto"?"risolto":"no",rimb:f.rimb,imp:f.rimb==="dovuto"||f.rimb==="posto"?imp:0,mot:f.mot.trim(),note:f.note.trim(),at:now(),by};
+  x.rf=f.rimb==="dovuto"?"da emettere":f.rimb==="posto"?"sul posto":f.rimb==="no"?"non dovuto":null;
+  x.log.push(now()+" "+by+" ha inviato il rapporto: "+(x.rep.esito==="risolto"?"risolto":"non risolto")+", "+RV[f.rimb].toLowerCase()+(x.rep.imp?" "+eur(x.rep.imp):""));
+  if(x.rep.esito==="risolto")x.s=2;
+  delete RFm[x.n];opForm=null;flashOp="Rapporto n. "+x.n+" inviato al centro assistenza.";render();}
+let flashOp="";
 function renderOp(){const z=$("op").value,zi=Z.find(q=>q[0]===z),open=isOpen();
   const vis=x=>x.seen||!x.after||x.urgent||open;
   const mine=rows.filter(x=>M[x.m][2]===z&&x.s<2),q=mine.filter(x=>!vis(x)),show=mine.filter(vis).reverse();
   if(open)mine.forEach(x=>{if(x.after)x.seen=1;});
   {const k=show.filter(x=>x.s===0).length;$("badge").textContent=k?String(k):"";if($("badge").setAttribute)$("badge").setAttribute("aria-label",k+" nuove");}
   $("opname").textContent=zi[1];$("opzone").textContent=zi[0]+" · vede solo le macchine della sua zona";let h="";
+  if(flashOp){h+=`<p class="okm" role="status">✓ ${esc(flashOp)}</p>`;flashOp="";}
   if(q.length)h+=`<div class="nt" style="color:var(--mut)"><p style="font-size:14px"><b>${q.length} ${q.length>1?"segnalazioni arrivate":"segnalazione arrivata"} dopo la chiusura.</b> ${q.length>1?"Le riceverai":"La riceverai"} ${nextOpen()}, in un unico riepilogo.</p></div>`;
   const nn=show.filter(x=>x.after&&!x.urgent).length;
   if(open&&nn)h+=`<p class="cap"><b>Riepilogo della notte:</b> ${nn} arrivate fuori orario</p>`;
-  h+=show.length?show.map(x=>{const m=M[x.m],n=x.s===0;return `<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>${x.r!==RF[2][0]?`<p class="vf">Rimborso richiesto: ${esc(x.r.toLowerCase())}. Verifica prima di rimborsare.</p>`:""}<div class="acts">${n?`<button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button>`:`<button type="button" class="pri" data-a="2" data-n="${x.n}">Segna risolta</button>`}${x.c?`<button type="button" data-a="c" data-n="${x.n}">Contatta cliente</button>`:""}</div><p class="cc" id="cc${x.n}"></p></div>`}).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
+  const card=x=>{const m=M[x.m],n=x.s===0;
+    let c=`<div class="nt n${x.s}"><p class="h"><span class="chp s${x.s}">${n?"Nuova":"In carico"}</span>${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<span>${esc(x.t)} · n. ${x.n}</span></p><p class="pl">${m[0]} · ${esc(m[1])}</p><p class="ds">${esc(x.p)}${x.a?", "+eur(x.a):""}${x.prod?", "+esc(x.prod):""}</p>`;
+    if(n)return c+`<div class="acts"><button type="button" class="pri" data-a="1" data-n="${x.n}">Prendo in carico</button></div></div>`;
+    c+=`<details class="sc" open><summary>Dove si trova</summary>${where(m)}</details><details class="sc" open><summary>Cosa ha segnalato il cliente</summary>${said(x)}</details><details class="sc"><summary>Cliente e rimborso chiesto</summary>${custBox(x)}${x.c?`<button type="button" class="sm" data-a="c" data-n="${x.n}">Mostra recapito</button><p class="cc" id="cc${x.n}"></p>`:""}</details>`;
+    if(x.rep)c+=`<div class="prev"><p class="sh">Rapporto precedente</p>${repView(x.rep)}</div>`;
+    c+=opForm===x.n?repForm(x):`<div class="acts"><button type="button" class="pri" data-a="rep" data-n="${x.n}">${x.rep?"Nuovo rapporto di intervento":"Sono sul posto: compila il rapporto"}</button></div>`;
+    return c+`</div>`;};
+  h+=show.length?show.map(card).join(""):(q.length?"":`<p style="color:var(--mut)">Tutto in ordine nella tua zona.</p>`);
+  const done=rows.filter(x=>M[x.m][2]===z&&x.s===2&&x.rep).reverse();
+  if(done.length)h+=`<details class="sc dn"><summary>Rapporti inviati (${done.length})</summary>`+done.map(x=>`<p class="dl"><b>n. ${x.n} · ${M[x.m][0]}</b> ${esc(x.rep.causa)} · ${esc(RV[x.rep.rimb].toLowerCase())}${x.rf?` <span class="chp ${RFS[x.rf][1]}">${RFS[x.rf][0]}</span>`:""}</p>`).join("")+`</details>`;
   $("notif").innerHTML=h;}
+let rfMot="";
+function refundBox(d){const pref=`<p>Metodo scelto dal cliente: <b>${esc(d.r)}</b>${d.c?` · Contatto: <span class="sel">${esc((d.nome?d.nome+", ":"")+d.c)}</span>`:""}</p>`;
+  if(d.rf==="da emettere")return `<div class="rb warn"><p class="sh">Da fare: emettere il rimborso di ${eur(d.rep.imp)}</p><p>Il tecnico ${esc(d.rep.by)} conferma un errore della macchina (${esc(d.rep.causa.toLowerCase())}).</p>${pref}<div class="acts"><button type="button" class="pri" data-rf="emesso" data-n="${d.n}">Rimborso emesso</button><button type="button" data-rf="nega" data-n="${d.n}">Non rimborsare</button></div>${rfMot===String(d.n)?`<label class="lab" for="rf_mot">Motivo da comunicare al cliente</label><input id="rf_mot"><div class="acts"><button type="button" class="pri" data-rf="rifiutato" data-n="${d.n}">Conferma: non rimborsare</button></div><p class="err" id="rf_err" role="alert"></p>`:""}</div>`;
+  if(d.rf==="emesso")return `<div class="rb ok"><p class="sh">Rimborso emesso: ${eur(d.rep.imp)}</p>${pref}</div>`;
+  if(d.rf==="sul posto")return `<div class="rb ok"><p class="sh">Rimborsato sul posto dal tecnico: ${eur(d.rep.imp)}</p><p>Niente da emettere.</p></div>`;
+  if(d.rf==="non dovuto"||d.rf==="rifiutato")return `<div class="rb"><p class="sh">Nessun rimborso</p><p>Motivo: ${esc(d.rf==="rifiutato"?d.rfm:d.rep.mot)}</p>${pref}${d.avv?`<p class="cap">Cliente avvisato.</p>`:`<div class="acts"><button type="button" data-rf="avvisato" data-n="${d.n}">Ho avvisato il cliente</button></div>`}</div>`;
+  if(money(d))return `<div class="rb"><p class="sh">Rimborso: in attesa del tecnico</p><p>Si decide quando arriva il rapporto di intervento. Non rimborsare prima.</p>${pref}</div>`;
+  return "";}
 function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
-  const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||x.s===+sf)&&(ff===""||(ff==="n")===!!x.after));
-  $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=all.filter(x=>x.after).length;
-  $("me").textContent=eur(all.filter(x=>x.s<2&&x.r!==RF[2][0]).reduce((s,x)=>s+x.a,0));
-  const det=d=>`<div class="det"><p style="font-weight:600;font-size:17px">Segnalazione n. ${d.n} · ${M[d.m][0]}</p><p style="color:var(--mut)">${esc(d.p)}${d.a?", "+eur(d.a):""}${d.prod?", prodotto "+esc(d.prod):""}</p>${d.pay?`<p>Pagamento: ${esc(d.pay)}${d.err?" · Display: "+esc(d.err.toLowerCase()):""}</p>`:""}${d.txt?`<p>Descrizione: ${esc(d.txt)}</p>`:""}${d.photo?`<p>Foto allegata: ${esc(d.photo)}</p>`:""}<p>Cliente: ${d.nome?esc(d.nome):"non indicato"}${d.c?" · "+esc(d.c):""}</p>${d.lang?`<p>Lingua del cliente: ${esc(lgName(d.lang))}${d.lang!=="it"&&d.txt?" · testo scritto dal cliente, non tradotto":""}</p>`:""}<p>Rimborso preferito: ${esc(d.r)}</p><p>Prima di rimborsare: verifica con telecamere o altri sistemi.</p><p style="color:var(--mut);margin-top:10px">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></div>`;
-  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><button type="button" class="st s${x.s}" data-i="${x.n}" title="Tocca per cambiare stato">${S[x.s]}</button></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
+  const all=rows.filter(x=>!z||M[x.m][2]===z),r=all.filter(x=>(sf===""||(sf==="r"?x.rf==="da emettere":x.s===+sf))&&(ff===""||(ff==="n")===!!x.after));
+  const due=all.filter(x=>x.rf==="da emettere");
+  $("mt").textContent=all.length;$("mn").textContent=all.filter(x=>x.s===0).length;$("mf").textContent=due.length;
+  $("me").textContent=eur(due.reduce((s,x)=>s+x.rep.imp,0));
+  const stage=d=>d.s===0?`<p class="cap">Nessun operatore l'ha ancora presa in carico. ${esc(M[d.m][3])} è stato avvisato.</p>`:d.rep?repView(d.rep):`<p class="cap">${esc(M[d.m][3])} l'ha presa in carico e sta andando sul posto. Aspetta il suo rapporto.</p>`;
+  const det=d=>`<div class="det"><p class="dh">Segnalazione n. ${d.n} · ${M[d.m][0]} · ${esc(M[d.m][1])}</p>${refundBox(d)}<div class="cols"><section><p class="sh">Cosa ha segnalato il cliente</p>${said(d)}${custBox(d)}</section><section><p class="sh">Intervento del tecnico</p>${stage(d)}</section></div><details class="sc"><summary>Cronologia</summary><p class="cap" style="margin:6px 0 0">${[d.t+" Segnalazione ricevuta, avvisato "+M[d.m][3]].concat(d.log).map(esc).join("<br>")}</p></details></div>`;
+  const chip=x=>x.rf?`<span class="chp ${RFS[x.rf][1]}">${RFS[x.rf][0]}</span>`:"";
+  $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="sts"><span class="st s${x.s}">${S[x.s]}</span>${chip(x)}</span></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
   $("det").innerHTML="";}
 function renderClock(soft){const op=isOpen(),st=$("status");
   st.textContent=op?"Assistenza aperta fino alle 18:30":"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
@@ -380,8 +455,22 @@ $("lg").addEventListener("change",()=>{LG=$("lg").value;rc();});
 $("op").addEventListener("change",()=>{renderOp();renderReg();if(adding)renderAct();});
 if($("t-seg").addEventListener){$("t-seg").addEventListener("click",()=>showSec("seg"));$("t-mac").addEventListener("click",()=>showSec("mac"));}
 $("zf").addEventListener("change",renderList);$("sf").addEventListener("change",renderList);$("ff").addEventListener("change",renderList);
-$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const x=rows.find(q=>q.n===+b.dataset.n);if(b.dataset.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}setS(x,+b.dataset.a);render();});
-$("list").addEventListener("click",e=>{const b=e.target.closest(".st");if(b){const x=rows.find(q=>q.n===+b.dataset.i);setS(x,(x.s+1)%3);render();return;}const r=e.target.closest(".row");if(r){sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();}});
+$("notif").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+  if(d.f){const n=opForm,f=RFm[n];if(!f)return;f[d.f]=d.v;f.err="";renderOp();return;}
+  const x=rows.find(q=>q.n===+d.n);if(!x)return;
+  if(d.a==="c"){const c=$("cc"+x.n);c.textContent=c.textContent?"":(x.nome?x.nome+": ":"")+x.c;return;}
+  if(d.a==="rep"){opForm=x.n;renderOp();return;}
+  if(d.a==="cancel"){opForm=null;delete RFm[x.n];renderOp();return;}
+  if(d.a==="send"){sendRep(x);return;}
+  setS(x,+d.a);render();});
+const opIn=e=>{const t=e.target,k=t.dataset&&t.dataset.f;if(!k||opForm===null||!RFm[opForm])return;RFm[opForm][k]=t.value;};
+$("notif").addEventListener("input",opIn);$("notif").addEventListener("change",opIn);
+$("list").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.rf){const x=rows.find(q=>q.n===+b.dataset.n),v=b.dataset.rf;
+    if(v==="nega"){rfMot=rfMot===String(x.n)?"":String(x.n);renderList();return;}
+    if(v==="rifiutato"){const m=($("rf_mot").value||"").trim();if(m.length<3){$("rf_err").textContent="Scrivi il motivo: va comunicato al cliente.";return;}x.rf="rifiutato";x.rfm=m;rfMot="";x.log.push(now()+" Centro assistenza: rimborso non emesso ("+m+")");render();return;}
+    if(v==="emesso"){x.rf="emesso";x.log.push(now()+" Centro assistenza: rimborso emesso "+eur(x.rep.imp)+" ("+x.r.toLowerCase()+")");render();return;}
+    if(v==="avvisato"){x.avv=1;x.log.push(now()+" Centro assistenza: cliente avvisato");render();return;}}
+  if(b)return;const r=e.target.closest(".row");if(r){sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();}});
 if($("list").addEventListener)$("list").addEventListener("keydown",e=>{const r=e.target.closest&&e.target.closest(".row");if(r&&e.target===r&&(e.key==="Enter"||e.key===" ")){e.preventDefault();sel=sel===+r.dataset.r?null:+r.dataset.r;renderList();const f=document.querySelector&&document.querySelector('.row[data-r="'+r.dataset.r+'"]');if(f&&f.focus)f.focus();}});
 $("reset").addEventListener("click",()=>{M.length=N0;view=null;adding=false;$("act").innerHTML="";fillMac();renderReg();rows=seed();sel=null;resetCust();$("zf").value="";$("sf").value="";$("ff").value="";renderClock();});
 
@@ -471,7 +560,7 @@ function renderChrome(v){const nav=$("tabs");
   else{nav.innerHTML="";nav.hidden=true;}
   nav.querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   $("macbox").hidden=v!=="cliente";
-  $("sess").hidden=!SESS;if(SESS)$("sname").textContent=SESS.nome+" · "+ROLES[SESS.ruolo].nome;
+  $("sess").hidden=!SESS;if(SESS)$("sname").textContent=SESS.nome===ROLES[SESS.ruolo].nome?SESS.nome:SESS.nome+" · "+ROLES[SESS.ruolo].nome;
   $("gologin").hidden=!!SESS||v==="accedi";
   const f=$("flash");f.hidden=!flash;f.textContent=flash;flash="";}
 function route(){let h=location.hash.slice(1),v;
