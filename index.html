@@ -124,7 +124,7 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
 @media(hover:hover){.cx .tile:hover,.cx .opt:hover,.cx .chip:hover,.cx .li:hover{background-color:light-dark(#fafafb,#21252b)}.cx .pri:hover{opacity:.9}}
 .cx :focus-visible{outline:2px solid var(--cx-ink);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.cx button{transition:none}.cx button:active{transform:none}}
-.lg{min-height:0;border-radius:24px}.lg .li small{display:block;font-size:13px;color:var(--cx-mut);font-weight:400;margin-top:2px}.pg .lg+.lg{margin-top:16px}
+.cx a.li{text-decoration:none;color:var(--cx-ink)}.lg{min-height:0;border-radius:24px}.lg .li small{display:block;font-size:13px;color:var(--cx-mut);font-weight:400;margin-top:2px}.pg .lg+.lg{margin-top:16px}
 .sess{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500}.sess span{color:var(--mut)}
 #sess[hidden],#gologin[hidden],#tabs[hidden],.flash[hidden]{display:none}
 .flash{margin:12px max(4vw,16px) 0;border-radius:12px;padding:10px 12px;font-size:14px;background:var(--ambbg);color:var(--amb)}
@@ -161,6 +161,9 @@ button.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font
       <p class="cap">Account dimostrativi</p>
       <p class="cap">Credenziali fittizie, scritte nel codice per la prova. Non sono reali e non vengono salvate.</p>
       <div class="list" id="demo"></div>
+    </section>
+    <section class="cx lg">
+      <div class="list"><a class="li" href="#cliente"><span>Vedi la schermata cliente<small>Quella che si apre scansionando il QR, senza accesso</small></span><svg class="ic fl" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></div>
     </section>
   </div>
   <div class="pg" id="v-cliente">
@@ -423,7 +426,7 @@ renderClock();
 /* ACCESSO: simulazione solo frontend, nessun backend. Per un servizio vero basta sostituire Auth
    (signIn, signOut, current): le schermate leggono solo il ruolo da SESS. Le credenziali sono fittizie. */
 const ROLES={titolare:{nome:"Titolare",home:"centro",viste:["operatore","centro","campo"]},operatore:{nome:"Operatore di zona",home:"operatore",viste:["operatore","campo"]},centro:{nome:"Centro assistenza",home:"centro",viste:["centro"]}};
-const VL={operatore:"Operatore di zona",centro:"Centro assistenza",campo:"Operatore sul campo"};
+const VL={operatore:"Operatore di zona",centro:"Centro assistenza",campo:"Operatore sul campo",cliente:"Schermata cliente"};
 const ICR={titolare:"building-2",operatore:"wrench",centro:"headset"};
 const ACCOUNTS=[
  {id:"titolare",user:"titolare",pass:"demo-titolare",ruolo:"titolare",nome:"Titolare"},
@@ -446,7 +449,7 @@ const VIEWS=["cliente","operatore","centro","campo","accedi"];
 function go(v){location.hash="#"+v;}
 function applyRole(){const op=$("op");if(SESS&&SESS.ruolo==="operatore"){op.value=SESS.zona;op.disabled=true;}else op.disabled=false;renderOp();}
 function renderChrome(v){const nav=$("tabs");
-  if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=false;}
+  if(SESS&&v!=="accedi"){nav.innerHTML=ROLES[SESS.ruolo].viste.concat("cliente").map(x=>`<a href="#${x}" data-v="${x}">${VL[x]}</a>`).join("");nav.hidden=false;}
   else{nav.innerHTML="";nav.hidden=true;}
   nav.querySelectorAll("a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   $("macbox").hidden=v!=="cliente";
