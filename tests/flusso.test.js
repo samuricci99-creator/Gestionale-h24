@@ -19,7 +19,7 @@ click("cust",{k:"amt",v:"1.5"});need("Che prodotto volevi?","prod step");
 click("cust",{act:"next"});need("Vuoi aggiungere una foto?","photo");
 click("cust",{act:"next"});need("Consigliato","refund step with recommended");
 click("cust",{k:"refund",v:"Rimborso sull'app"});need("Come ti ricontattiamo?","contact");
-click("cust",{act:"send"});need("Serve un telefono","validation contact");
+click("cust",{act:"send"});need("Lascia un telefono","validation contact");
 (el("cust").handlers.input||[]).forEach(f=>f({target:{dataset:{k:"cn"},value:"333 123 4567",type:"text",selectionStart:12}}));
 click("cust",{act:"send"});need("Serve il consenso","validation consent");
 (el("cust").handlers.change||[]).forEach(f=>f({target:{dataset:{k:"priv"},checked:true,type:"checkbox"}}));
@@ -32,6 +32,7 @@ console.log("operator day shows night summary:",/Riepilogo della notte/.test(el(
 // danger flow
 click("cust",{act:"again"});click("cust",{k:"prob",v:"Macchina guasta o pericolosa"});click("cust",{k:"danger",v:"Sì"});need("Allontanati","safe step");
 click("cust",{act:"next"});need("Come ti ricontattiamo?","contact in danger flow");
+(el("cust").handlers.input||[]).forEach(f=>f({target:{dataset:{k:"cn"},value:"333 123 4567",type:"text",selectionStart:12}}));
 (el("cust").handlers.change||[]).forEach(f=>f({target:{dataset:{k:"priv"},checked:true,type:"checkbox"}}));
 click("cust",{act:"send"});need("registrata","urgent sent");
 console.log("kpi",el("mt").textContent,el("mf").textContent,el("me").textContent);
@@ -78,6 +79,7 @@ click("reg",{qr:"5"});if(!/OSP-03/.test(el("act").innerHTML)){console.log("FAIL 
 click("cust",{act:"again"});click("cust",{k:"prob",v:"Altro"});
 (el("cust").handlers.input||[]).forEach(f=>f({target:{dataset:{k:"other"},value:"qualcosa non va",type:"text"}}));
 click("cust",{act:"othergo"});click("cust",{act:"next"});
+(el("cust").handlers.input||[]).forEach(f=>f({target:{dataset:{k:"cn"},value:"333 123 4567",type:"text",selectionStart:12}}));
 (el("cust").handlers.change||[]).forEach(f=>f({target:{dataset:{k:"priv"},checked:true,type:"checkbox"}}));
 click("cust",{act:"send"});need("registered","sent from new machine");
 if(el("op").value!=="Zona Sud"){console.log("FAIL zone routing",el("op").value);process.exit(1)}
