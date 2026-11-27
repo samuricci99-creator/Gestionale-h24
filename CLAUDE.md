@@ -28,7 +28,7 @@ Test: `./tests/run.sh` (solo Node, nessuna dipendenza). Il simulatore dell'orari
 
 ## Convenzioni tecniche della pagina
 - Tutto in `index.html`; script inline dentro un blocco `{ ... }`; eventi per delega; nessun `alert/confirm`.
-- Stile misto Apple + Revolut: base bianca, schede grigio chiaro molto arrotondate, pulsanti a pillola blu di sistema, niente elementi neri pieni, banner chiari con icona in un cerchio, avviso bianco con ombra e "Annulla", font di sistema (SF su Apple, Inter altrove), barra in alto traslucida con le schede a controllo segmentato. Sfondo sempre bianco: tema chiaro forzato anche se il telefono è in modalità scura (le variabili `light-dark()` restano, pronte se un giorno si vuole la modalità scura); pulsanti >=44px.
+- Stile pulito tra Apple e Revolut, un solo foglio di stile coerente in testa a `index.html` (nessuna sovrascrittura a strati): pagina bianca, gruppi su grigio chiarissimo (#f5f5f7), pulsanti a pillola blu (#0071e3), avvisi e banner bianchi con contorno scuro sottile e icona in un cerchio colorato chiaro, font di sistema (SF su Apple, Inter altrove). Solo tema chiaro, scelto di proposito; niente `light-dark()`. Pulsanti >=44px.
 - Testi del cliente passano da `tr(chiave)` e `ot(valoreItaliano)`. Le risposte si salvano con i valori italiani canonici (es. "Soldi trattenuti"), solo la visualizzazione è tradotta. Operatore e pannello restano in italiano.
 - Download del QR: nell'artifact serviva la capability `downloads`; fuori da claude.ai è un normale download di file.
 
