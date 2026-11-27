@@ -287,7 +287,7 @@ button:disabled{opacity:.4;cursor:default;transform:none}
 <script src="qr.js"></script>
 <script>
 {
-const OPEN=510,CLOSE=1110,CLOSE_S=CLOSE*60+59,DAYS=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+const DAYS=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
 const M=[["D-001","Ospedale, pronto soccorso","Zona Nord","Marco","SN-10231","Vending Nord srl","Bevande calde","Piano terra, nella sala d'attesa del pronto soccorso, a destra dell'accettazione."],["D-002","Stazione, binario 1","Zona Nord","Marco","SN-10544","Vending Nord srl","Bevande fredde","Sotto la pensilina del binario 1, accanto alla biglietteria automatica."],["D-003","Università, atrio aula magna","Zona Centro","Giulia","SN-20817","Ristoro Centro snc","Misto","Atrio principale, di fronte all'ingresso dell'aula magna."],["D-004","Palestra, spogliatoi","Zona Centro","Giulia","SN-20990","Ristoro Centro snc","Snack","Corridoio degli spogliatoi, tra lo spogliatoio uomini e la reception."],["D-005","Azienda logistica, area relax","Zona Sud","Luca","SN-30112","Vending Sud srl","Misto","Capannone B, area relax al primo piano. Chiedere il badge in portineria."]];
 const Z=[["Zona Nord","Marco"],["Zona Centro","Giulia"],["Zona Sud","Luca"]];
 const MONEY=["Soldi trattenuti","Prodotto non erogato","Resto non dato","Pagamento con carta o app non riuscito"],G="Macchina guasta o pericolosa",PR=[...MONEY,G,"Altro"];
@@ -319,15 +319,23 @@ const telOk=(cp,d)=>cp==="39"?(d[0]==="3"?d.length===10:d[0]==="0"&&d.length>=6&
 const eur=n=>n.toLocaleString("it-IT",{style:"currency",currency:"EUR"});
 const hhmm=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
 const secs=()=>clk.m*60+(clk.s||0);
-const isOpen=()=>clk.d<5&&secs()>=OPEN*60&&secs()<=CLOSE_S;
-const nextOpen=()=>T.it[nk()];
+/* ORARIO ASSISTENZA (fuso Europe/Rome). Fasce per giorno, 0=lunedì: [inizio, fine] in minuti; la fine include i secondi :59.
+   Lun-ven 9:00:00-12:59:59 e 14:00:00-18:59:59; sabato 9:00:00-14:59:59; domenica chiuso. Festivi NON gestiti. */
+const SLOTS=d=>d<5?[[540,779],[840,1139]]:d===5?[[540,899]]:[];
+const slotNow=()=>SLOTS(clk.d).find(s=>secs()>=s[0]*60&&secs()<=s[1]*60+59);
+const isOpen=()=>!!slotNow();
+const closeMin=()=>{const s=slotNow();return s?s[1]+1:0;};
+const nextAt=()=>{for(let off=0;off<8;off++)for(const s of SLOTS((clk.d+off)%7))if(off>0||s[0]*60>secs())return{off,m:s[0]};};
+const fmtT=(m,lg)=>{const h=Math.floor(m/60),mm=String(m%60).padStart(2,"0");return lg==="en"?(h%12||12)+":"+mm+(h<12?" am":" pm"):lg==="fr"?h+" h "+mm:lg==="de"?h+":"+mm+" Uhr":h+":"+mm;};
+const nextOpen=()=>T.it[nk()].split("{t}").join(fmtT(nextAt().m,"it"));
 const now=()=>hhmm(clk.m);
 const LANGS=[["it","Italiano"],["en","English"],["es","Español"],["fr","Français"],["de","Deutsch"],["ro","Română"],["sq","Shqip"],["ar","العربية"],["uk","Українська"],["zh","中文"]];
 const lgName=c=>(LANGS.find(l=>l[0]===c)||[0,c])[1];
 let LG=(()=>{try{const c=(navigator.language||"it").slice(0,2).toLowerCase();return T[c]?c:"it";}catch(e){return"it";}})();
 const tr=(k,v)=>{let s=(T[LG][k]!==undefined?T[LG][k]:T.it[k]);if(typeof s!=="string")s="";if(v)for(const x in v)s=s.split("{"+x+"}").join(v[x]);return s;};
 const ot=v=>(T[LG].ops&&T[LG].ops[v])||v;
-const nk=()=>clk.d<5&&clk.m<OPEN?"w0":clk.d<4?"w1":"w2";
+const nk=()=>{const n=nextAt();return n.off===0?"w0":n.off===1?"w1":"w2";};
+const nw=()=>tr(nk(),{t:fmtT(nextAt().m,LG)});
 const lgTag=x=>x.lang&&x.lang!=="it"?`<span class="tg">${esc(lgName(x.lang))}</span>`:"";
 const lc=s=>LG==="de"?s:s.toLowerCase();
 $("lg").innerHTML=LANGS.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join("");$("lg").value=LG;
@@ -370,12 +378,12 @@ function result(r){const m=M[r.m],tips=[];
   if(r.urgent)tips.push(tr("tipD"));
   else if(MONEY.includes(r.p)){tips.push(tr("tipN"));tips.push(tr(r.pay&&r.pay!=="Monete o banconote"?"t4b":"t4a"));}
   tips.push(tr("tipC"));
-  const st=[r.urgent?tr("stU",{o:m[3]}):!r.after?tr("stD",{o:m[3]}):tr("stN",{o:m[3],w:tr(nk())}),tr("stV")];
+  const st=[r.urgent?tr("stU",{o:m[3]}):!r.after?tr("stD",{o:m[3]}):tr("stN",{o:m[3],w:nw()}),tr("stV")];
   if(r.r!==RF[2][0])st.push(tr("stR",{r:lc(ot(r.r))}));
   return `<div class="conf" role="status"><span class="cic">${ic("circle-check")}</span><h3>${esc(tr("rOk"))}</h3><p>${esc(tr("rOkS"))}</p><span class="cn">${esc(tr("rT",{n:r.n}))}</span></div><p class="cap" style="margin-top:16px">${esc(tr("rAt",{t:r.t,c:m[0]}))}</p><p class="sub">${esc(tr("rNow"))}</p><ul class="adv">${tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p class="sub">${esc(tr("rAfter"))}</p><ol class="adv">${st.map(t=>`<li>${esc(t)}</li>`).join("")}</ol><button type="button" class="pri" data-act="again">${esc(tr("again"))}</button>`;}
 function rc(){const m=M[$("mac").value],op=isOpen();
   document.documentElement.lang=LG;$("cust").dir=LG==="ar"?"rtl":"ltr";
-  let h=`<div class="hd"><p class="cap">${esc(tr("mach"))} <b>${m[0]}</b></p><p class="pl">${esc(m[1])}</p></div><div class="ban">${ic("clock",op?"ok":"wn")}<span>${esc(op?tr("open"):tr("closed",{w:tr(nk())}))}</span></div>`;
+  let h=`<div class="hd"><p class="cap">${esc(tr("mach"))} <b>${m[0]}</b></p><p class="pl">${esc(m[1])}</p></div><div class="ban">${ic("clock",op?"ok":"wn")}<span>${esc(op?tr("open",{t:fmtT(closeMin(),LG)}):tr("closed",{w:nw()}))}</span></div>`;
   if(C.solved)h+=`<div class="done">${ic("circle-check")}<h3>${esc(tr("okT"))}</h3></div><p>${esc(tr("okB"))}</p><button type="button" class="pri" data-act="again" style="margin-top:16px">${esc(tr("close"))}</button>`;
   else if(C.done)h+=result(C.done);
   else{const f=flow();if(C.step>=f.length)C.step=f.length-1;h+=(f.length>1?`<div class="prg"><i style="width:${Math.round((C.step+1)/f.length*100)}%"></i></div>`:"")+ST[f[C.step]]()+(C.err?`<div class="err" role="alert">${esc(tr(C.err))}</div>`:"");}
@@ -496,10 +504,10 @@ function renderList(){const z=$("zf").value,sf=$("sf").value,ff=$("ff").value;
   $("list").innerHTML=r.length?r.slice().reverse().map(x=>{const m=M[x.m];return `<div class="row${sel===x.n?" sel":""}" data-r="${x.n}" role="button" tabindex="0" aria-expanded="${sel===x.n}"><span class="rt">${esc(x.t)}</span><span class="rm"><b style="font-weight:600">${esc(x.p)}</b>${x.a?" · "+eur(x.a):""}${x.urgent?'<span class="tg u">Urgente</span>':""}${x.after?'<span class="tg">Notte</span>':""}${lgTag(x)}<small>${m[0]} ${esc(m[1])} · ${m[2]}, ${m[3]}</small></span><span class="sts"><span class="st s${x.s}">${S[x.s]}</span>${chip(x)}</span></div>`+(sel===x.n?det(x):"")}).join(""):`<p style="color:var(--mut)">Nessuna segnalazione con questi filtri.</p>`;
   $("det").innerHTML="";}
 function renderClock(soft){const op=isOpen(),st=$("status");
-  st.textContent=op?"Assistenza aperta fino alle 18:30":"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
+  st.textContent=op?"Assistenza aperta fino alle "+fmtT(closeMin(),"it"):"Assistenza chiusa, riapre "+nextOpen();st.style.background=op?"var(--grnbg)":"var(--ambbg)";st.style.color=op?"var(--grn)":"var(--amb)";
   if(!soft){rc();render();}}
 function render(){renderOp();renderList();if(typeof renderReg==="function")renderReg();}
-setInterval(()=>{if(!live)return;const was=isOpen()+nk();clk=realClk();renderClock(was===isOpen()+nk());},1000);
+setInterval(()=>{if(!live)return;const key=()=>isOpen()+nk()+closeMin()+nextAt().m,was=key();clk=realClk();renderClock(was===key());},1000);
 globalThis.__clock=(d,m,sec)=>{live=false;clk={d,m,s:sec||0};renderClock();};
 $("mac").addEventListener("change",rc);
 $("lg").addEventListener("change",()=>{LG=$("lg").value;rc();});

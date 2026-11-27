@@ -14,7 +14,7 @@ Test: `./tests/run.sh` (solo Node, nessuna dipendenza). Il simulatore dell'orari
 
 ## Regole di prodotto già decise
 - Gestore = titolare dei dati; Samuele = fornitore. Dati raccolti: solo contatto per il rimborso, niente IBAN.
-- Assistenza aperta lun-ven 8:30:00-18:30:59 (fuso Europe/Rome, orario reale, controllo ogni secondo). Weekend = come la notte. Festivi NON gestiti.
+- Assistenza aperta (fuso Europe/Rome, orario reale, controllo ogni secondo): lun-ven 9:00:00-12:59:59 e 14:00:00-18:59:59; sabato 9:00:00-14:59:59; domenica chiusa tutto il giorno. La pausa 13-14 conta come chiusura. Festivi NON gestiti. Fasce definite in `SLOTS` (`index.html`); gli orari nei testi sono parametri `{t}` in `i18n.js`.
 - Di notte il servizio aiuta comunque il cliente con domande standard e consigli (flusso guidato). Le segnalazioni notturne arrivano all'operatore come riepilogo al mattino, tranne quelle urgenti (pericolo: fumo, scintille, acqua).
 - Flusso cliente guidato: problema -> (pagamento, errore display, consigli "prova prima questi passaggi" con uscita "ha funzionato" per evitare falsi allarmi) -> importo -> prodotto -> foto -> rimborso -> contatto.
 - Rimborso: tre scelte. "Rimborso sull'app" è proposto e segnato "Consigliato" (previa verifica di una persona con telecamere o altri sistemi), "Monete dal distributore" (accordo con l'operatore di zona), "Solo segnalazione".
